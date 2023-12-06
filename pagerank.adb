@@ -3,9 +3,10 @@ with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
 with Ada.Long_Float_Text_IO;	use Ada.Long_Float_Text_IO;
 with Lire_Graphe;
 with Matrices_Creuses;
+with Matrices_Pleines;
 
 package body PageRank is
-    procedure Algorithme_PageRank(Alpha : in Long_Float;
+       procedure Algorithme_PageRank(Alpha : in Long_Float;
                                     K : in Integer;
                                     Epsilon : in Long_Float;
                                     Pleine : in Boolean;
@@ -20,13 +21,30 @@ package body PageRank is
             package Matrices_Creuses_Float is new Matrices_Creuses(Taille);
             use Matrices_Creuses_Float;
 
-            package Lire_Graphe_Inst is new Lire_Graphe(Matrices_Creuses_Float); use Lire_Graphe_Inst;
+            package Matrices_Pleines_Float is new Matrices_Pleines(Taille);
+            use Matrices_Pleines_Float;
 
-            H : T_Matrice;
+            package Lire_Graphe_Inst is new Lire_Graphe(Matrices_Creuses_Float,Matrices_Pleines_Float); use Lire_Graphe_Inst;
+
         begin
-            Initialiser(H);
-            Completer_Graphe(File, H);
-            Afficher(H);
+
+            if Pleine then
+                declare
+                    H : Matrices_Pleines_Float.T_Matrice;
+                begin
+                    Matrices_Pleines_Float.Initialiser(H);
+                    Completer_Graphe_Pleine(File,H);
+                    Matrices_Pleines_Float.Afficher(H);
+                end;
+            else
+                declare
+                    H : Matrices_Creuses_Float.T_Matrice;
+                begin
+                    Matrices_Creuses_Float.Initialiser(H);
+                    Completer_Graphe_Creuse(File,H);
+                    Matrices_Creuses_Float.Afficher(H);
+                end;
+            end if;
         end;
     end Algorithme_PageRank;
 end PageRank;
