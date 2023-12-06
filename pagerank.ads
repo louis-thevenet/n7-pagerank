@@ -1,12 +1,4 @@
---with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-
-
-
 package PageRank is
-
-
-
-
     procedure Algorithme_PageRank(Alpha : in Long_Float;
                                     K : in Integer;
                                     Epsilon : in Long_Float;
@@ -22,7 +14,5 @@ package PageRank is
 --          Poids : T_Tab_Poids;
 --          Indices : T_Tab_Indices;
 --      end record;
-
-
 
 end PageRank;

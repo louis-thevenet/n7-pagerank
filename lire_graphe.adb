@@ -1,7 +1,7 @@
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
 
 package body Lire_Graphe is
-    procedure Completer_Graphe (File : in out Ada.Text_IO.File_Type; G : in out T_Matrice) is
+    procedure Completer_Graphe (File : in out Ada.Text_IO.File_Type; H : in out Matrices.T_Matrice) is
         Entier_1, Entier_2 : Integer;
         Total : Long_Float;
         begin
@@ -10,27 +10,25 @@ package body Lire_Graphe is
 			Get (File, Entier_1);
             Get (File, Entier_2);
 
-            Modifier_Element(G, Entier_1+1, Entier_2+1, Element(G, Entier_1+1, Entier_2+1)+1.0);
+            Matrices.Modifier(H, Entier_1+1, Entier_2+1, Matrices.Element(H, Entier_1+1, Entier_2+1)+1.0);
 
 		end loop;
 	exception
 		when End_Error =>
 			null;
-			Put_Line ("[fin du fichier détectée sur exception]");
 	end;
 
 	Close (File);
 
-
-    for I in 1.. Taille(G) loop
+    for I in 1.. Matrices.Taille_Matrice(H) loop
         Total :=0.0;
-        for J in 1..Taille(G) loop
-            Total := Total + Element(G,I,J);
+        for J in 1.. Matrices.Taille_Matrice(H)  loop
+            Total := Total + Matrices.Element(H,I,J);
         end loop;
 
-        if Total >= 0.0001 then
-            for J in 1..Taille(G) loop
-                Modifier_Element(G,I,J,Element(G,I,J)/total);
+        if Total >= 0.00001 then
+            for J in 1.. Matrices.Taille_Matrice(H) loop
+                Matrices.Modifier(H,I,J,Matrices.Element(H,I,J)/total);
             end loop;
         else
             null;
