@@ -1,0 +1,3 @@
+commands.adb:14:37: error: missing "then"
+commands.adb:19:18: error: "end loop;" expected for "loop" at line 17
+commands.adb:22:08: error: missing "end if;" for "if" at line 12

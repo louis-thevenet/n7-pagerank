@@ -1,0 +1,4 @@
+Ecrire Aide
+Instancier et implémenter fonction segment pour valeur de argument
+Modifier en une suele fonction qui lit et traite les arguments avec case
+
