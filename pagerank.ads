@@ -1,16 +1,13 @@
 with Matrice_Pleine;
-with Lire_Graphe;
+with Lire_Graphe; use Lire_Graphe;
 
 generic
     Capacite : Integer;
 
 package PageRank is
 
-package Matrices_Pleines is new Matrice_Pleine(Long_Float, Capacite); use Matrices_Pleines;
+--package Matrices_Pleines is new Matrice_Pleine(Long_Float, Capacite); use Matrices_Pleines;
 --package Matrices_Creuses is new Matrice_Creuse(Long_Float, Capacite); use Matrices_Creuses;
-
-package Lire_Graphe_Pleine is new Lire_Graphe(Matrices_Pleines);
-use Lire_Graphe_Pleine;
 
     procedure Algorithme_PageRank(alpha : in Long_Float;
                                     k : in Integer;

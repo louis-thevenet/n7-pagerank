@@ -1,11 +1,13 @@
-with PageRank;
+with PageRank; use PageRank;
+with Lire_Graphe; use Lire_Graphe;
+
 
 procedure Programme_Principal is
-    --Capacite : Integer;
+n : Integer;
+Pleine : Boolean;
+begin
+n := 5;
+Pleine := true;
 
-    package PageRank_Ins is new PageRank (5);
-    use PageRank_Ins;
-    begin
-
-    null;
+Creer_Graphe("test", Pleine);
 end Programme_Principal;
