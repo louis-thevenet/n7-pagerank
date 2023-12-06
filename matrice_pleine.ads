@@ -1,5 +1,6 @@
 generic
-type T_Element is private;
+    type T_Element is private;
+    Capacite : Integer;
 
 package Matrice_Pleine is
 

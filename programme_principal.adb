@@ -1,7 +1,7 @@
 with PageRank;
 
 procedure Programme_Principal is
-    Capacite : Integer;
+    --Capacite : Integer;
 
     package PageRank_Ins is new PageRank (5);
     use PageRank_Ins;
