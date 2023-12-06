@@ -1,29 +1,27 @@
-with Matrice_Pleine;
-with Lire_Graphe; use Lire_Graphe;
+--with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
-generic
-    Capacite : Integer;
+
 
 package PageRank is
 
---package Matrices_Pleines is new Matrice_Pleine(Long_Float, Capacite); use Matrices_Pleines;
---package Matrices_Creuses is new Matrice_Creuse(Long_Float, Capacite); use Matrices_Creuses;
 
-    procedure Algorithme_PageRank(alpha : in Long_Float;
-                                    k : in Integer;
-                                    epsilon : in Long_Float;
-                                    creuse : in Boolean;
+
+
+    procedure Algorithme_PageRank(Alpha : in Long_Float;
+                                    K : in Integer;
+                                    Epsilon : in Long_Float;
+                                    Pleine : in Boolean;
                                     Prefixe : in String;
-                                    Fichier : in String);
+                                    Fichier_Nom : in String);
 
-private
-    type T_Tab_Poids is array (1..Capacite) of Long_Float;
-    type T_Tab_Indices is array (1..Capacite) of Integer;
+--  private
+--      type T_Tab_Poids is array (1..Capacite) of Long_Float;
+--      type T_Tab_Indices is array (1..Capacite) of Integer;
 
-    type T_Resultat is record
-        Poids : T_Tab_Poids;
-        Indices : T_Tab_Indices;
-    end record;
+--      type T_Resultat is record
+--          Poids : T_Tab_Poids;
+--          Indices : T_Tab_Indices;
+--      end record;
 
 
 

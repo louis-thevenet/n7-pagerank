@@ -1,13 +1,10 @@
 with PageRank; use PageRank;
-with Lire_Graphe; use Lire_Graphe;
 
 
 procedure Programme_Principal is
-n : Integer;
-Pleine : Boolean;
-begin
-n := 5;
-Pleine := true;
 
-Creer_Graphe("test", Pleine);
+begin
+-- traiter commande
+Algorithme_PageRank(0.85, 150, 0.0, true, "testoutput", "exemple-fichier.txt");
+
 end Programme_Principal;
