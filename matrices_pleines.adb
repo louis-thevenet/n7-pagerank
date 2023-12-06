@@ -28,7 +28,7 @@ package body Matrices_Pleines is
     begin
         for I in 1..M.Taille loop
             for J in 1..M.Taille loop
-                Put(M.Mat(I,J));
+                Put(M.Mat(I,J), 1, 2, 0);
                 Put(" ");
             end loop;
                 New_Line;
@@ -39,7 +39,5 @@ package body Matrices_Pleines is
     begin
         return M.Taille;
     end Taille_Matrice;
-
-
 
 end Matrices_Pleines;

@@ -4,7 +4,7 @@ with Ada.Long_Float_Text_IO;	use Ada.Long_Float_Text_IO;
 with Lire_Graphe;
 with Matrices_Creuses;
 with Matrices_Pleines;
-
+with PageRank_Pleine;
 package body PageRank is
        procedure Algorithme_PageRank(Alpha : in Long_Float;
                                     K : in Integer;
@@ -31,9 +31,22 @@ package body PageRank is
             if Pleine then
                 declare
                     H : Matrices_Pleines_Float.T_Matrice;
+                    package PageRank_Pleine_Inst is new PageRank_Pleine(Matrices_Pleines_Float);
                 begin
                     Matrices_Pleines_Float.Initialiser(H);
                     Completer_Graphe_Pleine(File,H);
+
+                    Matrices_Pleines_Float.Afficher(H);
+
+                    PageRank_Pleine_Inst.Calculer_S(H);
+
+                    New_Line;
+                    Matrices_Pleines_Float.Afficher(H);
+
+
+
+                    PageRank_Pleine_Inst.Calculer_G(H, alpha);
+                    New_Line;
                     Matrices_Pleines_Float.Afficher(H);
                 end;
             else
