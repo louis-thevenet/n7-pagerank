@@ -57,10 +57,11 @@ package body PageRank is
                     PageRank_Pleine_Inst.Calculer_Pi_Transpose(Poids);
 
                     PageRank_Pleine_Inst.Iterer(Poids, G, K);
+                    Vecteurs_Pleins_Float.Afficher(Poids);
                 end;
             else
                 declare
-                    H : Matrices_Creuses_Float.T_Matrice;
+                    G : Matrices_Creuses_Float.T_Matrice;
                 begin
                     Matrices_Creuses_Float.Initialiser(G);
                     Completer_Graphe_Creuse(File,G);
