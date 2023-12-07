@@ -45,37 +45,26 @@ package body PageRank is
                     --use PageRank_Pleine_Inst;
 
 
-                    H : Matrices_Pleines_Float.T_Matrice;
+                    G : Matrices_Pleines_Float.T_Matrice;
                     Poids : Vecteurs_Pleins_Float.T_Matrice;
                 begin
-                    Matrices_Pleines_Float.Initialiser(H);
-                    Completer_Graphe_Pleine(File,H);
-                    PageRank_Pleine_Inst.Calculer_S(H);
-                    PageRank_Pleine_Inst.Calculer_G(H, alpha);
-
-
-                    Put("G");
-                    New_Line;
-                    Matrices_Pleines_Float.Afficher(H);
-                    New_Line;
+                    Matrices_Pleines_Float.Initialiser(G);
+                    Completer_Graphe_Pleine(File,G);
+                    PageRank_Pleine_Inst.Calculer_S(G);
+                    PageRank_Pleine_Inst.Calculer_G(G, alpha);
 
                     Vecteurs_Pleins_Float.Initialiser(Poids);
                     PageRank_Pleine_Inst.Calculer_Pi_Transpose(Poids);
-                    Vecteurs_Pleins_Float.Afficher(Poids);
 
-                    PageRank_Pleine_Inst.Iterer(Poids, H, K);
-                    Put("Après");
-                    New_Line;
-
-                    Vecteurs_Pleins_Float.Afficher(Poids);
+                    PageRank_Pleine_Inst.Iterer(Poids, G, K);
                 end;
             else
                 declare
                     H : Matrices_Creuses_Float.T_Matrice;
                 begin
-                    Matrices_Creuses_Float.Initialiser(H);
-                    Completer_Graphe_Creuse(File,H);
-                    Matrices_Creuses_Float.Afficher(H);
+                    Matrices_Creuses_Float.Initialiser(G);
+                    Completer_Graphe_Creuse(File,G);
+                    Matrices_Creuses_Float.Afficher(G);
                 end;
             end if;
         end;
