@@ -1,14 +1,16 @@
 with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Long_Float_Text_IO;           use Ada.Long_Float_Text_IO;
+with Ada.Integer_Text_IO;           use Ada.Integer_Text_IO;
 
 
 package body Matrices_Pleines is
 
     procedure Initialiser(M : out T_Matrice) is
     begin
-    M.Taille := Taille;
-        for I in 1..M.Taille loop
-            for J in 1..M.Taille loop
+    M.Lignes := N;
+    M.Colonnes := P;
+        for I in 1..M.Lignes loop
+            for J in 1..M.Colonnes loop
                 M.Mat(I,J):=0.0;
             end loop;
         end loop;
@@ -26,18 +28,24 @@ package body Matrices_Pleines is
 
     procedure Afficher(M : T_Matrice) is
     begin
-        for I in 1..M.Taille loop
-            for J in 1..M.Taille loop
-                Put(M.Mat(I,J), 1, 2, 0);
+        for I in 1..M.Lignes loop
+            for J in 1..M.Colonnes loop
+                Put(M.Mat(I,J), 1, 5, 0);
                 Put(" ");
             end loop;
                 New_Line;
         end loop;
     end Afficher;
 
-    function Taille_Matrice(M : T_Matrice) return Integer is
+    function Lignes_Matrice(M : T_Matrice) return Integer is
     begin
-        return M.Taille;
-    end Taille_Matrice;
+        return M.Lignes;
+    end Lignes_Matrice;
+
+
+    function Colonnes_Matrice(M : T_Matrice) return Integer is
+    begin
+        return M.Colonnes;
+    end Colonnes_Matrice;
 
 end Matrices_Pleines;

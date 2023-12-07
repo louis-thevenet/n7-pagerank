@@ -4,8 +4,8 @@ package body Matrices_Creuses is
 
 procedure Initialiser(M : out T_Matrice) is
 begin
-    M.Taille := Taille;
-    for I in 1..Taille loop
+    M.Lignes :=N;
+    for I in 1..N loop
         Vecteurs_Creux.Initialiser(M.Mat(I));
     end loop;
 end Initialiser;
@@ -22,15 +22,20 @@ end Element;
 
 procedure Afficher(M : T_Matrice) is
 begin
-    for I in 1..M.Taille loop
+    for I in 1..M.Lignes loop
         Vecteurs_Creux.Afficher(M.Mat(I));
         New_Line;
     end loop;
 end Afficher;
 
-function Taille_Matrice(M : T_Matrice) return Integer is
+function Lignes_Matrice(M : T_Matrice) return Integer is
 begin
-    return M.Taille;
-end Taille_Matrice;
+    return M.Lignes;
+end Lignes_Matrice;
+
+function Colonnes_Matrice(M:T_Matrice) return Integer is
+begin
+return M.Colonnes;
+end Colonnes_Matrice;
 
 end Matrices_Creuses;

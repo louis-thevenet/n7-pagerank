@@ -20,14 +20,14 @@ package body Lire_Graphe is
 
 	Close (File);
 
-    for I in 1.. Matrices_Creuses_Inst.Taille_Matrice(H) loop
+    for I in 1.. Matrices_Creuses_Inst.Lignes_Matrice(H) loop
         Total :=0.0;
-        for J in 1.. Matrices_Creuses_Inst.Taille_Matrice(H)  loop
+        for J in 1.. Matrices_Creuses_Inst.Colonnes_Matrice(H)  loop
             Total := Total + Matrices_Creuses_Inst.Element(H,I,J);
         end loop;
 
         if Total >= 0.00001 then
-            for J in 1.. Matrices_Creuses_Inst.Taille_Matrice(H) loop
+            for J in 1.. Matrices_Creuses_Inst.Colonnes_Matrice(H) loop
                 Matrices_Creuses_Inst.Modifier(H,I,J,Matrices_Creuses_Inst.Element(H,I,J)/total);
             end loop;
         else
@@ -55,14 +55,14 @@ package body Lire_Graphe is
 
 	Close (File);
 
-    for I in 1.. Matrices_Pleines_Inst.Taille_Matrice(H) loop
+    for I in 1.. Matrices_Pleines_Inst.Lignes_Matrice(H) loop
         Total :=0.0;
-        for J in 1.. Matrices_Pleines_Inst.Taille_Matrice(H)  loop
+        for J in 1.. Matrices_Pleines_Inst.Colonnes_Matrice(H)  loop
             Total := Total + Matrices_Pleines_Inst.Element(H,I,J);
         end loop;
 
         if Total >= 0.00001 then
-            for J in 1.. Matrices_Pleines_Inst.Taille_Matrice(H) loop
+            for J in 1.. Matrices_Pleines_Inst.Colonnes_Matrice(H) loop
                 Matrices_Pleines_Inst.Modifier(H,I,J,Matrices_Pleines_Inst.Element(H,I,J)/total);
             end loop;
         else
