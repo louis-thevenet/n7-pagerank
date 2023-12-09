@@ -1,6 +1,5 @@
 with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
-with Ada.Long_Float_Text_IO;	use Ada.Long_Float_Text_IO;
 with Lire_Graphe;
 with Matrices_Creuses;
 with Matrices_Pleines;
@@ -28,8 +27,6 @@ package body PageRank is
 
 
             package Vecteurs_Pleins_Float is new Matrices_Pleines(Taille, 1);
-            use Vecteurs_Pleins_Float;
-
 
 
             package Lire_Graphe_Inst is new Lire_Graphe(Matrices_Creuses_Float,Matrices_Pleines_Float); use Lire_Graphe_Inst;
@@ -42,7 +39,7 @@ package body PageRank is
             if Pleine then
                 declare
                     package PageRank_Pleine_Inst is new PageRank_Pleine(Matrices_Pleines_Float, Vecteurs_Pleins_Float);
-                    --use PageRank_Pleine_Inst;
+
 
 
                     G : Matrices_Pleines_Float.T_Matrice;
@@ -56,7 +53,7 @@ package body PageRank is
                     Vecteurs_Pleins_Float.Initialiser(Poids);
                     PageRank_Pleine_Inst.Calculer_Pi_Transpose(Poids);
 
-                    PageRank_Pleine_Inst.Iterer(Poids, G, K);
+                    PageRank_Pleine_Inst.Iterer(Poids, G, K, Epsilon);
                     Vecteurs_Pleins_Float.Afficher(Poids);
                 end;
             else
@@ -66,6 +63,7 @@ package body PageRank is
                     Matrices_Creuses_Float.Initialiser(G);
                     Completer_Graphe_Creuse(File,G);
                     Matrices_Creuses_Float.Afficher(G);
+                    -- Partie Creuse non terminée
                 end;
             end if;
         end;
