@@ -1,0 +1,16 @@
+        for i in 1..Argument_Count loop
+
+            Case Argument (i) is
+            when "-A" => alpha := Long_Float'Value(Argument(i));
+            when "-K" => k := Argument(i);
+            when "-E" => epsilon  := Argument(i);
+            when "-P" => creuse := true;
+            when "-C" => pleine := false;
+            when "-R" => prefixe := Argument(i);
+            when others => if fichier_graphe = "" then
+                    fichier_graphe := Argument(i);
+                else
+                    Put("Cet argument n’existe pas");
+                end if;
+            end Case;
+        end loop;

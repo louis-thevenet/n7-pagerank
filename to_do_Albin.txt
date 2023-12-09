@@ -1,4 +1,4 @@
-Ecrire Aide
-Instancier et implémenter fonction segment pour valeur de argument
-Modifier en une suele fonction qui lit et traite les arguments avec case
+Erreur de type dans valdiité
+Gestion des arguments
+Tests
 
