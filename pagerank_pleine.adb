@@ -25,35 +25,34 @@ package body PageRank_Pleine is
         end loop;
     end Calculer_G;
 
-procedure Calculer_Pi_Transpose(Poids : in out Vecteurs_Pleins_Inst.T_Matrice) is
-begin
-    for J in 1..Vecteurs_Pleins_Inst.Lignes_Matrice(Poids) loop
-        Vecteurs_Pleins_Inst.Modifier(Poids, J, 1, 1.0 / Long_Float(Vecteurs_Pleins_Inst.Lignes_Matrice(Poids)));
+procedure Calculer_Pi_Transpose(Resultat : in out PageRank_Result_Inst.T_Resultat) is
 
+begin
+    for J in 1..Resultat.Taille loop
+        Resultat.Poids(J) := 1.0 / Long_Float(Resultat.Taille);
     end loop;
 end Calculer_Pi_Transpose;
 
-function Prochaine_Iteration (Poids : in Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice) return Vecteurs_Pleins_Inst.T_Matrice is
+function Prochaine_Iteration (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice) return PageRank_Result_Inst.T_Tab_Poids is
     Tmp : Long_Float;
-    Resultat : Vecteurs_Pleins_Inst.T_Matrice;
+    Resultat : PageRank_Result_Inst.T_Tab_Poids;
 begin
-    Vecteurs_Pleins_Inst.Initialiser(Resultat);
     for J in 1..Matrices_Pleines_Inst.Lignes_Matrice(G) loop
         Tmp :=0.0;
         for I in 1..Matrices_Pleines_Inst.Lignes_Matrice(G) loop
-            Tmp := Tmp + Vecteurs_Pleins_Inst.Element(Poids,i,1) * Matrices_Pleines_Inst.Element(G,I,J);
+            Tmp := Tmp + Poids(I) * Matrices_Pleines_Inst.Element(G,I,J);
         end loop;
-        Vecteurs_Pleins_Inst.Modifier(Resultat,J,1, Tmp);
+        Resultat(J):=Tmp;
     end loop;
     return Resultat;
 end Prochaine_Iteration;
 
-procedure Iterer (Poids : in out Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer; Epsilon : Long_Float) is
+procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer; Epsilon : Long_Float) is
     I : Integer;
-    old : Vecteurs_Pleins_Inst.T_Matrice;
+    old : PageRank_Result_Inst.T_Tab_Poids;
 begin
     I := 0;
-    while I<=K+1 and then Vecteurs_Pleins_Inst.Norme_Au_Carre(Vecteurs_Pleins_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old)) >=Epsilon*Epsilon loop
+    while I<=K+1 and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old)) >=Epsilon*Epsilon loop
         old := Poids;
         Poids := Prochaine_Iteration(Poids, G);
         I:=I+1;
