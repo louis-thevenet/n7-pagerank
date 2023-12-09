@@ -6,7 +6,7 @@ with Matrices_Creuses;
 with Matrices_Pleines;
 with PageRank_Pleine;
 with PageRank_Result;
---with Trier_Vecteur_Plein;
+
 package body PageRank is
        procedure Algorithme_PageRank(Alpha : in Long_Float;
                                     K : in Integer;
