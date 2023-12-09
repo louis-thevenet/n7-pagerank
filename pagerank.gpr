@@ -1,5 +1,5 @@
 project Pagerank is
     for Source_Dirs use ("src");
     for Object_Dir use "obj";
-    for Main use ("pagerank.adb");
+    for Main use ("programme_principal.adb");
 end Pagerank;
