@@ -26,7 +26,7 @@ package body Lire_Graphe is
             Total := Total + Matrices_Creuses_Inst.Element(H,I,J);
         end loop;
 
-        if Total >= 0.00001 then
+        if Total >= 0.000001 then
             for J in 1.. Matrices_Creuses_Inst.Colonnes_Matrice(H) loop
                 Matrices_Creuses_Inst.Modifier(H,I,J,Matrices_Creuses_Inst.Element(H,I,J)/total);
             end loop;
@@ -61,7 +61,7 @@ package body Lire_Graphe is
             Total := Total + Matrices_Pleines_Inst.Element(H,I,J);
         end loop;
 
-        if Total >= 0.00001 then
+        if Total >= 0.000001 then
             for J in 1.. Matrices_Pleines_Inst.Colonnes_Matrice(H) loop
                 Matrices_Pleines_Inst.Modifier(H,I,J,Matrices_Pleines_Inst.Element(H,I,J)/total);
             end loop;
