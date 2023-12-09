@@ -16,11 +16,11 @@ package PageRank_Pleine is
     -- Calcule le vecteur Pi transpose à partir des poids des pages.
     procedure Calculer_Pi_Transpose (Poids : in out Vecteurs_Pleins_Inst.T_Matrice);
 
-    -- Effectue une itération pour mettre à jour les poids des pages.
-    procedure Prochaine_Iteration (Poids : in out Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice);
+    -- Renvoie le prochain vecteur des poids
+    function Prochaine_Iteration (Poids : in Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice) return Vecteurs_Pleins_Inst.T_Matrice;
 
     -- Effectue K itérations pour mettre à jour les poids.
-    procedure Iterer (Poids : in out Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer)
+    procedure Iterer (Poids : in out Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer; Epsilon : Long_Float)
         with
             Pre  => K >= 0;
 

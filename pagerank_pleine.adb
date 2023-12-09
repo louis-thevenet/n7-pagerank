@@ -33,22 +33,30 @@ begin
     end loop;
 end Calculer_Pi_Transpose;
 
-procedure Prochaine_Iteration (Poids : in out Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice) is
+function Prochaine_Iteration (Poids : in Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice) return Vecteurs_Pleins_Inst.T_Matrice is
     Tmp : Long_Float;
+    Resultat : Vecteurs_Pleins_Inst.T_Matrice;
 begin
+    Vecteurs_Pleins_Inst.Initialiser(Resultat);
     for J in 1..Matrices_Pleines_Inst.Lignes_Matrice(G) loop
         Tmp :=0.0;
         for I in 1..Matrices_Pleines_Inst.Lignes_Matrice(G) loop
             Tmp := Tmp + Vecteurs_Pleins_Inst.Element(Poids,i,1) * Matrices_Pleines_Inst.Element(G,I,J);
         end loop;
-        Vecteurs_Pleins_Inst.Modifier(Poids,J,1, Tmp);
+        Vecteurs_Pleins_Inst.Modifier(Resultat,J,1, Tmp);
     end loop;
+    return Resultat;
 end Prochaine_Iteration;
 
-procedure Iterer (Poids : in out Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer) is
+procedure Iterer (Poids : in out Vecteurs_Pleins_Inst.T_Matrice; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer; Epsilon : Long_Float) is
+    I : Integer;
+    old : Vecteurs_Pleins_Inst.T_Matrice;
 begin
-    for I in 1..K+1  loop
-        Prochaine_Iteration(Poids, G);
+    I := 0;
+    while I<=K+1 and then Vecteurs_Pleins_Inst.Norme_Au_Carre(Vecteurs_Pleins_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old)) >=Epsilon*Epsilon loop
+        old := Poids;
+        Poids := Prochaine_Iteration(Poids, G);
+        I:=I+1;
     end loop;
 end Iterer;
 
