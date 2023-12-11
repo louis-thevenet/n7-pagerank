@@ -1,7 +1,7 @@
 with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
 with Ada.Long_Float_Text_IO;	use Ada.Long_Float_Text_IO;
-
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 package body PageRank_Result is
     procedure Initialiser(Resultat : in out  T_Resultat) is
@@ -57,5 +57,40 @@ procedure Trier (Resultat : in out T_Resultat) is
             Resultat.Indices(J) := I;
         end loop;
     end Trier;
+
+    procedure Enregistrer(Resultat : T_Resultat; Prefixe : String; Alpha : Long_Float; K : Integer) is
+        Nom_Fichier_Rang,Nom_Fichier_Poids : Unbounded_String;
+
+
+        File_Rang, File_Poids : File_Type;
+    begin
+        Nom_Fichier_Rang := To_Unbounded_String (Prefixe);
+        Append (Nom_Fichier_Rang, ".pr");
+
+        Nom_Fichier_Poids := To_Unbounded_String (Prefixe);
+        Append (Nom_Fichier_Poids, ".prw");
+
+        Create (File_Rang, Out_File, To_String (Nom_Fichier_Rang));
+        Create (File_Poids, Out_File, To_String (Nom_Fichier_Poids));
+
+        Put(File_Poids, Resultat.Taille,1);
+        Put(File_Poids, ' ');
+        Put(File_Poids, alpha,1,14,0);
+        Put(File_Poids, ' ');
+        Put(File_Poids, K,1);
+        New_Line (File_Poids);
+
+        for J in 1..Resultat.Taille loop
+            Put(File_Rang, Resultat.Indices(J)-1,1);
+            New_Line (File_Rang);
+
+            Put(File_Poids, Resultat.Poids(J),1,14,0);
+            New_Line (File_Poids);
+        end loop;
+
+        Close (File_Rang);
+        Close (File_Poids);
+    end Enregistrer;
+
 
 end PageRank_Result;

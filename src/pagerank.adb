@@ -58,15 +58,8 @@ package body PageRank is
                     PageRank_Pleine_Inst.Calculer_Pi_Transpose(Resultat);
 
                     PageRank_Pleine_Inst.Iterer(Resultat.Poids, G, K, Epsilon);
-
-                    PageRank_Result_Inst.Afficher(Resultat);
-                    New_Line;
                     PageRank_Result_Inst.Trier(Resultat);
-                    New_Line;
-                    PageRank_Result_Inst.Afficher(Resultat);
-
-                    New_Line;
-
+                    PageRank_Result_Inst.Enregistrer(Resultat, Prefixe, Alpha, K);
                 end;
             else
                 declare
