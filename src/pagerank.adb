@@ -1,6 +1,6 @@
 with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
-
+with Ada.IO_Exceptions; use Ada.IO_Exceptions;
 with Lire_Graphe;
 with Matrices_Creuses;
 with Matrices_Pleines;
@@ -73,5 +73,9 @@ package body PageRank is
                 end;
             end if;
         end;
+        exception
+            when ADA.IO_EXCEPTIONS.NAME_ERROR=>
+                Put_Line("Le fichier " & Fichier_Nom & " n'existe pas");
+
     end Algorithme_PageRank;
 end PageRank;
