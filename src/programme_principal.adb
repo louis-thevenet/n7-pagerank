@@ -84,7 +84,7 @@ procedure Programme_Principal is
         begin
         -- Vérifier que le nom du fichier est fourni et le récupérer
 	    if Argument_Count < 1 then
-		    raise No_Argument_Error;
+            raise No_Argument_Error;
          else
                 fichier_graphe := To_Unbounded_String(Argument(Argument_Count));
          end if;
@@ -101,13 +101,15 @@ procedure Programme_Principal is
                             alpha:= Long_Float'Value(Argument(i+1));
                         else
                             Put_Line("Vous devez respecter les conditions sur alpha");
+                            New_Line;
                             raise Argument_Error;
                         end if;
                     when 'E' =>
                         if Float'Value(Argument(i+1)) >=0.0 then
                             epsilon := Long_Float'Value(Argument(i+1));
                         else
-                             Put_Line("Vous devez respecter les conditions sur epsilon");
+                            Put_Line("Vous devez respecter les conditions sur epsilon");
+                            New_Line;
                             raise Argument_Error;
                         end if;
                     when 'K' =>
@@ -115,12 +117,14 @@ procedure Programme_Principal is
                             k := Integer'Value(Argument(i+1));
                         else
                             Put_Line("Vous devez respecter les conditions sur k");
+                            New_Line;
                             raise Argument_Error;
                         end if;
                     when 'C' =>
                         creuse := True;
                         if pleine = True then
-                            Put_Line ("Attention, vous ne pouvez pas activer à al fois le mode creuse et à la fois le mode pleine");
+                            Put_Line ("Attention, vous ne pouvez pas activer à la fois le mode creuse et à la fois le mode pleine");
+                            New_Line;
                             raise Argument_Error;
                         end if;
                     when 'P' =>
@@ -135,7 +139,8 @@ procedure Programme_Principal is
             Algorithme_PageRank(alpha, k, epsilon, pleine, To_String(prefixe), To_String(fichier_graphe));
 
         exception
-            when Argument_Error =>
+        when Argument_Error
+            | No_Argument_Error =>
                 Help;
             when Mauvais_Argument_Error =>
                 Put_Line(" Vous devez renseigner uniqument les arguments pris en charge par le programme ");
