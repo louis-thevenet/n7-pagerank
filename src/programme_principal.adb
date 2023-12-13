@@ -8,14 +8,12 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 procedure Programme_Principal is
 
-begin
-
     -- Initilisation des exceptions
     Argument_Error : exception;
     No_Argument_Error : exception;
     Mauvais_Argument_Error : exception;
 
-    procedure Help is
+     procedure Help is
     begin
         Put_Line("Fonctionnement du programme PageRank.");
         New_Line;
@@ -57,13 +55,22 @@ begin
         Put_Line(" En fin de ligne de commande indiquez le fichier graphe que vous voulez fournir au programme ");
     end Help;
 
+    -- Initialiser les variables
+        alpha : Long_Float;
+        k : Integer;
+        epsilon : Long_Float;
+        creuse : Boolean;
+        pleine : Boolean;
+        prefixe : Unbounded_String;
+        fichier_graphe : Unbounded_String;
 
-
-    procedure Traiter_argument(commande: in Unbounded_String; alpha: in out Long_Float ; k: in out Integer ; epsilon: in out Long_Float ; creuse: in out Boolean ; pleine: in out Boolean ; prefixe: in out Unbounded_String; fichier_graphe: in out Unbounded_String ) is
-        i : Integer; -- indice de notre boucle while
+            i : Integer; -- indice de notre boucle while
         cas_option : String (1..2);
         cas_option_car: Character;
     begin
+
+
+
         -- Initialisation des variables avec les valeurs par défaut imposées par l'énoncé --
         alpha := 0.85;
         k := 150;
@@ -83,8 +90,10 @@ begin
          end if;
 
         for i in 1..Argument_Count-1 loop
-            cas_option := Argument(i);
-            if  cas_option'Length=2 and cas_option(1) = '-' then
+            if  Argument(i)'Length=2 and Argument(i)(1) = '-' then
+                cas_option := Argument(i);
+
+
                 cas_option_car := cas_option(2);
                 case cas_option_car is
                     when 'A' =>
@@ -123,6 +132,7 @@ begin
                 end case;
             end if;
         end loop;
+            Algorithme_PageRank(alpha, k, epsilon, pleine, To_String(prefixe), To_String(fichier_graphe));
 
         exception
             when Argument_Error =>
@@ -132,9 +142,6 @@ begin
                 Help;
         end;
 
-
-     end Traiter_argument;
-    Algorithme_PageRank(0.85, 150, 0.0, true, "testoutput", "exemple-fichier.txt");
 
 end Programme_Principal;
 
