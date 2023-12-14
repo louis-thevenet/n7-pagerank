@@ -51,7 +51,9 @@ package body commands is
         Put_Line ("Attention, vous ne pouvez pas activer à al fois le mode creuse et à la fois le mode pleine");
         Put_Line ("Cet algorithme est celui executé par défaut.");
         New_Line;
-        Put_Line(" En fin de ligne de commande indiquez le fichier graphe que vous voulez fournir au programme ");
+        Put_Line("En fin de ligne de commande indiquez le fichier graphe que vous voulez fournir au programme");
+        New_Line;
+        Put_Line("Exemple de commande : ./PageRank -A 0.85 -K 150 -E 0.0001 -C -R output graphe.txt");
     end Help;
 
 

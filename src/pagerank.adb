@@ -66,10 +66,6 @@ package body PageRank is
                     G : Matrices_Creuses_Float.T_Matrice;
                 begin
                     Put_Line("Partie Creuse non terminée");
-                    --  Matrices_Creuses_Float.Initialiser(G);
-                    --  Completer_Graphe_Creuse(File,G);
-                    --  Matrices_Creuses_Float.Afficher(G);
-                    -- Partie Creuse non terminée
                 end;
             end if;
         end;
