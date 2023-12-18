@@ -17,7 +17,7 @@ package PageRank_Pleine is
     procedure Calculer_Pi_Transpose (Resultat : in out PageRank_Result_Inst.T_Resultat);
 
     -- Renvoie le prochain vecteur des poids
-function Prochaine_Iteration (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice) return PageRank_Result_Inst.T_Tab_Poids;
+function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice) return PageRank_Result_Inst.T_Tab_Poids;
     -- Effectue K itérations pour mettre à jour les poids.
 
 procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer; Epsilon : Long_Float)        with

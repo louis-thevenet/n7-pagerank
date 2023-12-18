@@ -33,7 +33,7 @@ begin
     end loop;
 end Calculer_Pi_Transpose;
 
-function Prochaine_Iteration (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice) return PageRank_Result_Inst.T_Tab_Poids is
+function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice) return PageRank_Result_Inst.T_Tab_Poids is
     Tmp : Long_Float;
     Resultat : PageRank_Result_Inst.T_Tab_Poids;
 begin
@@ -52,6 +52,7 @@ procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matric
     old : PageRank_Result_Inst.T_Tab_Poids;
 begin
     I := 0;
+    old := Poids;
     while I<=K+1 and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old)) >=Epsilon*Epsilon loop
         old := Poids;
         Poids := Prochaine_Iteration(Poids, G);
