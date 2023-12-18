@@ -20,19 +20,16 @@
     it
   }
 }
-= to do
-- vérifier si combi linéaire matrices est utile
-- raffinages matrices
-- refaire pagerank
 
 = Introduction
 
 = Liste des modules
 - @module_main
+- @module_pagerank
+    - @module_pleine
+    - @module_creuse
 - @module_read
 - @modul_result
-- @module_pagerank
-  - @module_pleine
 
 = Raffinages
 == Programme_Principal <module_main>
@@ -77,8 +74,6 @@ R1 : Comment "Répondre à l’appel au programme" ?
             pleine : in,
             prefixe : in,
             fichier_graphe : in
-            indices : out, -- comment les indices ont été changés après le tri
-            resultat : out
 
 R2 : Comment "Traiter les arguments" ?
 	Initialiser les variables
@@ -160,8 +155,189 @@ Fin Si
 ```
 ]
 
+
+
+== Module PageRank <module_pagerank>
+=== Description
+Le module PageRank est le module principal du programme, il appelle les différents modules en fonction des arguments passés au programme.
+- Si le mode matrice pleine est activé, il appelle le module PageRank_Matrice_Pleine.
+- Si le mode matrice creuse est activé, il appelle le module PageRank_Matrice_Creuse.
+- Si aucun des deux modes n'est activé, il appelle le module PageRank_Matrice_Creuse.
+
+=== Raffinage
+
+#sourcecode[
+```ada
+R0 : Répondre à l'appel du programme principal
+
+R1 : Comment "Répondre à l'appel du programme principal" ?
+        Paramètres du module :
+            alpha : in,
+            k : in,
+            epsilon : in,
+            creuse : in,
+            pleine : in,
+            prefixe : in,
+
+    Lire fichier_graphe (via module Fichier Graphe)
+            fichier_graphe : in,
+            H : out,
+            taille_graphe : out
+
+    Si pleine Alors
+        Calculer la matrice de Google G via Matrices_Pleines
+                alpha : in,
+                H : in,
+                taille_graphe : in,
+
+        Initialiser Pi_transpose
+                taille_graphe : in,
+                Pi_transpose : out
+
+        Appliquer la relation de récurrence
+                Pi_transpose : in out,
+                G : in,
+                taille_graphe : in
+    Sinon
+        Rien
+
+    Trier le résultat
+            resultat : in out,
+    Enregistrer le resultat (via module Engresitrer Résultat)
+        taille_graphe : in,
+        k : in,
+        alpha : in,
+        indices : in,
+        resultat : in,
+        prefixe : in
+
+
+R2 : Comment "Calculer la matrice de Google G" ?
+  Si pleine Alors
+    Appeler le module PageRank_Matrice_Pleine
+        alpha : in,
+        H : in,
+        taille_graphe : in,
+  Sinon
+    Appeler le module PageRank_Matrice_Creuse -- A faire plus tard
+  Fin Si
+
+
+R2 : Comment "Initialiser Pi_transpose" ?
+  Si pleine Alors
+    Appeler le module PageRank_Matrice_Pleine
+        alpha : in,
+        H : in,
+        taille_graphe : in,
+        Pi_transpose : out,
+  Sinon
+    Appeler le module PageRank_Matrice_Creuse -- A faire plus tard
+  Fin Si
+
+  R2 : Comment "Appliquer la relation de récurrence" ?
+  Si pleine Alors
+    Appeler le module PageRank_Matrice_Pleine
+        Pi_transpose : in out,
+        G : in,
+        taille_graphe : in,
+  Sinon
+    Appeler le module PageRank_Matrice_Creuse -- A faire plus tard
+  Fin Si
+```
+
+]
+
+
+== Module PageRank_Pleine <module_pleine>
+=== Description
+
+Ce module permet de calculer le PageRank d'un graphe en utilisant des matrices pleines.
+
+=== Raffinage
+#sourcecode[
+  ```adb
+R0 : Calculer la matrice de Google G
+
+R1 : Comment "Calculer la matrice de Google G" ?
+  Calculer la matrice S
+          alpha : in,
+          taille_graphe : in,
+          H : in,
+          S : out
+
+
+  Calculer la matrice G
+          alpha : in,
+          taille_graphe : in,
+          S : in,
+          G : out
+
+
+R2 : Comment "Calculer la matrice S" ?
+  S := H
+  Pour i de 1 à taille_graphe Faire
+    est_nul := true
+    Tant que est_nul Faire
+      est_nul := est_nul ET (S(i,j)=0)
+    Fin Tant que
+
+    Si est_nul Alors
+      Pour j de 1 à taille_graphe Faire
+        S(i,j) := 1/taille_graphe
+      Fin Pour
+    Fin Si
+
+  Fin Pour
+
+R2 : Comment "Calculer la matrice G" ?
+  G = alpha * S
+  Pour i de 1 à taille_graphe Faire
+    Pour j de 1 à taille_graphe Faire
+      G(i,j) := G(i,j) + (1-alpha)/taille_graphe
+    Fin Pour
+  Fin Pour
+  ```
+]
+
+#sourcecode[
+  ```ada
+R0 : "Initialiser Pi_transpose" ?
+
+R1 : Comment "Initialiser Pi_transpose" ?
+  Pi_transpose = new tableau (1..taille_graphe) DE Double
+  Pour i allant de 1..taille_graphe Faire
+    Pi_transpose(i) := 1/taille_graphe
+  Fin Pour
+```
+]
+
+#sourcecode[
+  ```ada
+R0 : "Appliquer la relation de récurrence" ?
+
+R1 : Comment "Appliquer la relation de récurrence" ?
+  Pour i allant de 1..k Faire
+    Calculer Pi_transpose
+          Pi_transpose : in out
+          G : in
+  Fin Pour
+
+R2 : Comment "Calculer Pi_transpose" ?
+  Pour j allant de 1..taille_graphe Faire
+    tmp :=0
+    Pour i allant de 1..taille_graphe Faire
+      tmp := tmp + Pi_transpose(i) * G(i, j)
+    Fin Pour
+    Pi_transpose(j) := tmp
+  Fin Pour
+  ```
+]
+
 == Module Lire Fichier Graphe <module_read>
 === Description
+
+Ce module permet de lire un fichier contenant un graphe et de le stocker dans une matrice pleine ou creuse.
+
 === Raffinages
 #sourcecode[
   ```adb
@@ -201,7 +377,7 @@ R2 : Comment "Pondérer la matrice H" ?
 ]
 == Module Résultat <modul_result>
 === Description
-Ce module permet d'interagir avec le résultat. Notamment le tri des pages selon leur poids.
+Ce module permet d'interagir avec le résultat. Notamment l'action de trier des pages selon leur poids.
 
 #sourcecode[
   ```adb
@@ -222,6 +398,15 @@ Il fournit ces opérations :
 - Enregistrer
 
 === Raffinages
+
+#sourcecode[
+```ada
+type T_Resultat EST ENGREGISTREMENT
+    Taille : Integer;
+    Poids est tableau (1..taille_graphe) DE Flottants
+    Indices est tableau (1..taille_graphe) DE Entier
+Fin ENREGISTREMENT
+```]
 #sourcecode[
 ```adb
 R0 : Initialiser le résultat
@@ -321,155 +506,6 @@ R1 : Comment "Obtenir un Élément de la Matrice" ?
 ]
 
 
-== Module PageRank <module_pagerank>
-=== Description
-Implémente l'algorithme `PageRank` en utilisant le @module_pleine ou Matrice Creuse (non raffiné pour le moment). Ce module renvoie un vecteur de Poids des différentes pages web appelé PI obtenu par récurrence du produit par la matrice de Google G.
-
-=== Raffinage
-#sourcecode[
-```ada
-type T_Resultat EST ENGREGISTREMENT
-  Poids est tableau (1..taille_graphe) DE Double
-  Indices est tableau (1..taille_graphe) DE Entier
-Fin ENREGISTREMENT
-```]
-#sourcecode[
-```ada
-R0 : Répondre à l'appel du programme principal
-
-R1 : Comment "Répondre à l'appel du programme principal" ?
-  Paramètres du module :
-    alpha : in,
-    k : in,
-    epsilon : in,
-    creuse : in,
-    pleine : in,
-    prefixe : in,
-
-    Lire fichier_graphe (via module Fichier Graphe)
-            fichier_graphe : in,
-            H : out,
-            taille_graphe : out
-
-
-  Calculer la matrice de Google G (ICI DANS LE CAS MATRICE PLEINE)
-          creuse : in,
-          pleine : in,
-          alpha : in,
-          H : in,
-          taille_graphe : in,
-
-
-  Initialiser Pi_transpose
-        taille_graphe : in,
-        Pi_transpose : out
-
-  Appliquer la relation de récurrence
-        Pi_transpose : in,
-        G : in,
-        taille_graphe : in
-
-  trier Pi_transpose
-      Pi_transpose : in,
-      resultat : out
-
-  Enregistrer le resultat (via module Engresitrer Résultat)
-    taille_graphe : in,
-    k : in,
-    alpha : in,
-    indices : in,
-    resultat : in,
-    prefixe : in
-
-
-
-R2 : Comment "Calculer la matrice de Google G" ?
-  Si pleine Alors
-    Appeler le module PageRank_Matrice_Pleine
-        alpha : in,
-        H : in,
-        taille_graphe : in,
-  Sinon
-    Appeler le module PageRank_Matrice_Creuse -- A faire plus tard
-  Fin Si
-
-
-R2 : Comment "Initialiser Pi_transpose" ?
-  Pi_transpose = new tableau (1..taille_graphe) DE Double
-  Pour i allant de 1..taille_graphe Faire
-    Pi_transpose(i) := 1/taille_graphe
-  Fin Pour
-
-R2 : Comment "Appliquer la relation de récurrence" ?
-  Pour i allant de 1..k Faire
-    Calculer Pi_transpose
-          Pi_transpose : in out
-          G : in
-  Fin Pour
-
-R3 : Comment "Calculer Pi_transpose" ?
-  Pour j allant de 1..taille_graphe Faire
-    tmp :=0
-    Pour i allant de 1..taille_graphe Faire
-      tmp := tmp + Pi_transpose(i) * G(i, j)
-    Fin Pour
-    Pi_transpose(j) := tmp
-  Fin Pour
-
-R2 : Comment "Trier Pi_transpose"
-  resultat := new T_Resultat (Pi_transpose trié par ordre décroissant, Permutation des indices du tri)
-```
-
-]
-
-== Module PageRank_Pleine <module_pleine>
-=== Description
-Ce module est appelé par le module `PageRank` et renvoie la Matrice de Google G obtenue à partir de la matrice d'adjacence pondérée S des différents référencements des pages web entre elles. On ne se préoccupe pas du fait que la machine soit creuse.
-=== Raffinage
-#sourcecode[
-  ```adb
-R0 : Calculer la matrice de Google G
-
-R1 : Comment "Calculer la matrice de Google G" ?
-  Calculer la matrice S
-          alpha : in,
-          taille_graphe : in,
-          H : in,
-          S : out
-
-
-  Calculer la matrice G
-          alpha : in,
-          taille_graphe : in,
-          S : in,
-          G : out
-
-
-R2 : Comment "Calculer la matrice S" ?
-  S := H
-  Pour i de 1 à taille_graphe Faire
-    est_nul := true
-    Tant que est_nul Faire
-      est_nul := est_nul ET (S(i,j)=0)
-    Fin Tant que
-
-    Si est_nul Alors
-      Pour j de 1 à taille_graphe Faire
-        S(i,j) := 1/taille_graphe
-      Fin Pour
-    Fin Si
-
-  Fin Pour
-
-R2 : Comment "Calculer la matrice G" ?
-  G = alpha * S
-  Pour i de 1 à taille_graphe Faire
-    Pour j de 1 à taille_graphe Faire
-      G(i,j) := G(i,j) + (1-alpha)/taille_graphe
-    Fin Pour
-  Fin Pour
-  ```
-]
 
 = Grille d'évaluation des raffinages
 #table(
@@ -508,6 +544,14 @@ Rj : ...
 [], [Qualité des actions complexes], [TB],[],[],
 )
 
+= Module Matrices Pleines <module_matrices_pleines>
+== Description
+Ce module permet de manipuler des matrices pleines. Il fournit ces opérations :
+- Initialiser
+- Modifier
+- Obtenir l'élément d'indice $(i,j)$
+
+== Raffinages
 
 
 = Tests
@@ -544,3 +588,5 @@ On utilise le fichier `exemple-fichier.txt`.
 
 
 Le programme affiche bien des erreurs dans tous ces cas.
+
+== Test du @module_matrices_pleines
