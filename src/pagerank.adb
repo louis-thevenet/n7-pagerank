@@ -1,6 +1,6 @@
 with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
-with Ada.IO_Exceptions; use Ada.IO_Exceptions;
+with Ada.IO_Exceptions;
 with Lire_Graphe;
 with Matrices_Creuses;
 with Matrices_Pleines;
@@ -20,18 +20,14 @@ package body PageRank is
         open (File, In_File, Fichier_Nom);
         Get (File, Taille);
         declare
-            -- changer pour prendre des matrices n*p au lieu de n*n
-            package Matrices_Creuses_Float is new Matrices_Creuses(Taille);
-            use Matrices_Creuses_Float;
 
             package Matrices_Pleines_Float is new Matrices_Pleines(Taille, Taille);
             use Matrices_Pleines_Float;
 
 
-
-            --  package Vecteurs_Pleins_Float is new Matrices_Pleines(Taille, 1);
-            --  package Vecteurs_Pleins_Integer is new Matrices_Pleines(Taille, 1);
-
+            -- changer pour prendre des matrices n*p au lieu de n*n
+            package Matrices_Creuses_Float is new Matrices_Creuses(Taille);
+            --use Matrices_Creuses_Float;
 
             package Lire_Graphe_Inst is new Lire_Graphe(Matrices_Creuses_Float,Matrices_Pleines_Float); use Lire_Graphe_Inst;
 
@@ -43,7 +39,6 @@ package body PageRank is
             if Pleine then
                 declare
                     package PageRank_Pleine_Inst is new PageRank_Pleine(Matrices_Pleines_Float, PageRank_Result_Inst);
-                    --package Trier_Vecteur_Plein_Inst is new Trier_Vecteur_Plein(Vecteurs_Pleins_Float);
 
                     G : Matrices_Pleines_Float.T_Matrice;
                     Resultat : T_Resultat;
@@ -63,7 +58,7 @@ package body PageRank is
                 end;
             else
                 declare
-                    G : Matrices_Creuses_Float.T_Matrice;
+                    --G : Matrices_Creuses_Float.T_Matrice;
                 begin
                     Put_Line("Partie Creuse non terminée");
                 end;
