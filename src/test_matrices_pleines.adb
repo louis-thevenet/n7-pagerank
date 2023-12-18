@@ -40,7 +40,7 @@ procedure Test_Matrices_Pleines is
     begin
         Modifier(M,2,3,4.56);
         pragma Assert(Element(M,2,3)=4.56);
-        Put_Line(" Test Modifier OK");
+        Put_Line("Test Modifier OK");
 
     end Tester_Modifier;
 
@@ -49,20 +49,20 @@ procedure Test_Matrices_Pleines is
         pragma Assert(Element(M,3,1)=0.0);
         Modifier(M,3,1,2.4);
         pragma Assert(Element(M,3,1)=2.4);
-        Put_Line(" Test Element OK");
+        Put_Line("Test Element OK");
     end Tester_Element;
 
 
     procedure Tester_Lignes_Matrice(M : T_Matrice) is
     begin
         pragma Assert(Lignes_Matrice(M)=3);
-        Put_Line(" Test Lignes_Matrice OK");
+        Put_Line("Test Lignes_Matrice OK");
     end Tester_Lignes_Matrice;
 
     procedure Tester_Colonnes_Matrice(M : T_Matrice) is
     begin
         pragma Assert(Colonnes_Matrice(M)=3);
-        Put_Line(" Test Colonnes_Matrice OK");
+        Put_Line("Test Colonnes_Matrice OK");
     end Tester_Colonnes_Matrice;
 
     procedure Tester_Norme_Au_Carre(M : in out T_Matrice) is
@@ -77,8 +77,8 @@ procedure Test_Matrices_Pleines is
         Modifier(M,3,1,0.0);
         Modifier(M,3,2,2.0);
         Modifier(M,3,3,3.3);
-        pragma Assert(Norme_Au_Carre(M)-1.0012000000000E+02<= 1.0E-06);
-        Put_Line(" Test Norme Carree OK");
+        pragma Assert(Norme_Au_Carre(M)-100.12<= 1.0E-06);
+        Put_Line("Test Norme Carree OK");
 
     end Tester_Norme_Au_Carre;
 
