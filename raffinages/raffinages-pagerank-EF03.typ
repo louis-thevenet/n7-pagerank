@@ -539,7 +539,7 @@ On utilise le fichier `exemple-fichier.txt`.
 
 
 - Mauvais fichier d'entrée
-  `./programme_principal -P -C ./exemple-fichier-qui-existe-pas.txt`
+  `./programme_principal -P ./exemple-fichier-qui-existe-pas.txt`
 
 
 
