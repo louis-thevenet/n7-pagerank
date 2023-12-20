@@ -33,10 +33,10 @@ package Matrices_Pleines is
     function Colonnes_Matrice(M : T_Matrice) return Integer;
 
     -- Obtenir la norme au carré de la matrice M.
-    function Norme_Au_Carre(M : T_Matrice) return Long_Float;
+    --function Norme_Au_Carre(M : T_Matrice) return Long_Float;
 
     -- Obtenir la combinaison linéaire de deux matrices.
-    function Combi_Lineaire(Lambda : Long_Float; M : T_Matrice; Mu : Long_Float; N : T_Matrice) return T_Matrice;
+    --function Combi_Lineaire(Lambda : Long_Float; M : T_Matrice; Mu : Long_Float; N : T_Matrice) return T_Matrice;
 
 private
     -- Définir le type privé T_Matrice sous forme d'un tableau à deux dimensions.

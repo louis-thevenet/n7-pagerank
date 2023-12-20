@@ -2,9 +2,10 @@ with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
 with Ada.IO_Exceptions;
 with Lire_Graphe;
-with Matrices_Creuses;
 with Matrices_Pleines;
+with Matrices_Creuses; use Matrices_Creuses;
 with PageRank_Pleine;
+with PageRank_Creuse;
 with PageRank_Result;
 
 package body PageRank is
@@ -25,11 +26,7 @@ package body PageRank is
             use Matrices_Pleines_Float;
 
 
-            -- changer pour prendre des matrices n*p au lieu de n*n
-            package Matrices_Creuses_Float is new Matrices_Creuses(Taille);
-            --use Matrices_Creuses_Float;
-
-            package Lire_Graphe_Inst is new Lire_Graphe(Matrices_Creuses_Float,Matrices_Pleines_Float); use Lire_Graphe_Inst;
+            package Lire_Graphe_Inst is new Lire_Graphe(Matrices_Pleines_Float); use Lire_Graphe_Inst;
 
 
             package PageRank_Result_Inst is new PageRank_Result(Taille);
@@ -58,9 +55,23 @@ package body PageRank is
                 end;
             else
                 declare
-                    --G : Matrices_Creuses_Float.T_Matrice;
+                    package PageRank_Creuse_Inst is new PageRank_Creuse(PageRank_Result_Inst);
+
+                    G : Matrices_Creuses.T_Matrice;
+                    Resultat : T_Resultat;
+
                 begin
-                    Put_Line("Partie Creuse non terminée");
+                    Matrices_Creuses.Initialiser(G);
+                    Completer_Graphe_Creuse(File,G, Taille);
+                    PageRank_Creuse_Inst.Calculer_S(G, Taille);
+                    PageRank_Creuse_Inst.Calculer_G(G, alpha, Taille);
+
+                    PageRank_Result_Inst.Initialiser(Resultat);
+                    PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
+
+                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, G, K, Epsilon, Taille);
+                    PageRank_Result_Inst.Trier(Resultat);
+                    PageRank_Result_Inst.Enregistrer(Resultat, Prefixe, Alpha, K);
                 end;
             end if;
         end;

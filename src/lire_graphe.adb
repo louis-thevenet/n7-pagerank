@@ -1,7 +1,7 @@
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
 
 package body Lire_Graphe is
-    procedure Completer_Graphe_Creuse (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Creuses_Inst.T_Matrice) is
+    procedure Completer_Graphe_Creuse (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Creuses.T_Matrice; Taille:Integer) is
         Entier_1, Entier_2 : Integer;
         Total : Long_Float;
         begin
@@ -10,7 +10,7 @@ package body Lire_Graphe is
 			Get (File, Entier_1);
             Get (File, Entier_2);
 
-            Matrices_Creuses_Inst.Modifier(H, Entier_1+1, Entier_2+1, Matrices_Creuses_Inst.Element(H, Entier_1+1, Entier_2+1)+1.0);
+            Matrices_Creuses.Modifier(H, Entier_1+1, Entier_2+1, Matrices_Creuses.Element(H, Entier_1+1, Entier_2+1)+1.0);
 
 		end loop;
 	exception
@@ -20,15 +20,15 @@ package body Lire_Graphe is
 
 	Close (File);
 
-    for I in 1.. Matrices_Creuses_Inst.Lignes_Matrice(H) loop
+    for I in 1.. Taille loop
         Total :=0.0;
-        for J in 1.. Matrices_Creuses_Inst.Colonnes_Matrice(H)  loop
-            Total := Total + Matrices_Creuses_Inst.Element(H,I,J);
+        for J in 1.. Taille  loop
+            Total := Total + Matrices_Creuses.Element(H,I,J);
         end loop;
 
         if Total >= 0.000001 then
-            for J in 1.. Matrices_Creuses_Inst.Colonnes_Matrice(H) loop
-                Matrices_Creuses_Inst.Modifier(H,I,J,Matrices_Creuses_Inst.Element(H,I,J)/total);
+            for J in 1.. Taille loop
+                Matrices_Creuses.Modifier(H,I,J,Matrices_Creuses.Element(H,I,J)/total);
             end loop;
         else
             null;

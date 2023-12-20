@@ -4,7 +4,7 @@
 -- les valeurs non nulles.
 package Vecteurs_Creux is
 
-	type T_Vecteur_Creux is limited private;
+	type T_Vecteur_Creux is private;
 
 
 	-- Initialiser un vecteur creux.  Il est nul.

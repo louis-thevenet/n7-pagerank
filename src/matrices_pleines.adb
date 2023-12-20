@@ -47,29 +47,29 @@ package body Matrices_Pleines is
         return M.Colonnes;
     end Colonnes_Matrice;
 
-    function Norme_Au_Carre(M : T_Matrice) return Long_Float is
-    Res : Long_Float;
-    begin
-    Res := 0.0;
-    for I in 1..M.Lignes loop
-        for J in 1..M.Colonnes loop
-            Res := Res + M.Mat(I,J)*M.Mat(I,J);
+    --  function Norme_Au_Carre(M : T_Matrice) return Long_Float is
+    --  Res : Long_Float;
+    --  begin
+    --  Res := 0.0;
+    --  for I in 1..M.Lignes loop
+    --      for J in 1..M.Colonnes loop
+    --          Res := Res + M.Mat(I,J)*M.Mat(I,J);
 
-        end loop;
-    end loop;
-    return Res;
-    end Norme_Au_Carre;
+    --      end loop;
+    --  end loop;
+    --  return Res;
+    --  end Norme_Au_Carre;
 
-    function Combi_Lineaire(Lambda : Long_Float; M : T_Matrice; Mu : Long_Float; N : T_Matrice) return T_Matrice is
-    Res : T_Matrice;
-    begin
-        Initialiser(Res);
-        for I in 1..M.Lignes loop
-            for J in 1..M.Colonnes loop
-                Res.Mat(I,J) := Lambda*M.Mat(I,J) + Mu*N.Mat(I,J);
-            end loop;
-        end loop;
-        return Res;
-    end Combi_Lineaire;
+    --  function Combi_Lineaire(Lambda : Long_Float; M : T_Matrice; Mu : Long_Float; N : T_Matrice) return T_Matrice is
+    --  Res : T_Matrice;
+    --  begin
+    --      Initialiser(Res);
+    --      for I in 1..M.Lignes loop
+    --          for J in 1..M.Colonnes loop
+    --              Res.Mat(I,J) := Lambda*M.Mat(I,J) + Mu*N.Mat(I,J);
+    --          end loop;
+    --      end loop;
+    --      return Res;
+    --  end Combi_Lineaire;
 
 end Matrices_Pleines;
