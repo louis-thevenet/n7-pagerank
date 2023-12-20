@@ -18,12 +18,15 @@ package body PageRank_Creuse is
     end Calculer_S;
 
     procedure Calculer_G(S : in out T_Matrice; alpha : Long_Float; Taille : Integer) is
+        --  function Traitement(V : Long_Float) return Long_Float is
+        --  begin
+        --      return alpha * V + (1.0 - alpha) / Long_Float(Taille);
+        --  end Traitement;
+
+        --  procedure Pour_Chaque_Element is new Pour_Chaque(Taitement);
     begin
-        for I in 1..Taille loop
-            for J in 1..Taille loop
-                Modifier(S, I, J, alpha * Element(S, I, J) + (1.0 - alpha) / Long_Float(Taille));
-            end loop;
-        end loop;
+    null;
+        --Pour_Chaque_Element(S);
     end Calculer_G;
 
     procedure Calculer_Pi_Transpose (Resultat : in out PageRank_Result_Inst.T_Resultat; Taille : Integer) is

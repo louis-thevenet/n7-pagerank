@@ -64,14 +64,14 @@ package body PageRank is
                     Matrices_Creuses.Initialiser(G);
                     Completer_Graphe_Creuse(File,G, Taille);
                     PageRank_Creuse_Inst.Calculer_S(G, Taille);
-                    PageRank_Creuse_Inst.Calculer_G(G, alpha, Taille);
+                     PageRank_Creuse_Inst.Calculer_G(G, alpha, Taille);
 
-                    PageRank_Result_Inst.Initialiser(Resultat);
-                    PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
+                    --  PageRank_Result_Inst.Initialiser(Resultat);
+                    --  PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
 
-                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, G, K, Epsilon, Taille);
-                    PageRank_Result_Inst.Trier(Resultat);
-                    PageRank_Result_Inst.Enregistrer(Resultat, Prefixe, Alpha, K);
+                    --  PageRank_Creuse_Inst.Iterer(Resultat.Poids, G, K, Epsilon, Taille);
+                    --  PageRank_Result_Inst.Trier(Resultat);
+                    --  PageRank_Result_Inst.Enregistrer(Resultat, Prefixe, Alpha, K);
                 end;
             end if;
         end;

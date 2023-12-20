@@ -4,7 +4,7 @@
 -- les valeurs non nulles.
 package Vecteurs_Creux is
 
-	type T_Vecteur_Creux is private;
+	type T_Vecteur_Creux;
 
 
 	-- Initialiser un vecteur creux.  Il est nul.
@@ -72,7 +72,6 @@ package Vecteurs_Creux is
 		Post => Nombre_Composantes_Non_Nulles'Result >= 0;
 
 
-private
 
 	type T_Cellule;
 

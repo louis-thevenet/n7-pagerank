@@ -66,15 +66,19 @@ begin
     end if;
 end Afficher;
 
---  function Lignes_Matrice(M : T_Matrice) return Integer is
---  begin
---  return 0;
-
---  end Lignes_Matrice;
-
---  function Colonnes_Matrice(M:T_Matrice) return Integer is
---  begin
---  return 0;
---  end Colonnes_Matrice;
+procedure Pour_Chaque(M : in out T_Matrice) is
+Tmp : T_Matrice;
+Tmp2 : T_Vecteur;
+begin
+    Tmp := M;
+    while tmp /= Null loop
+        Tmp2 := H.Valeur;
+        while Tmp2 /= Null loop
+            Tmp2.Valeur := Traitement(Tmp2.Valeur);
+            Tmp2 := Tmp2.Suivant;
+        end loop;
+        Tmp := Tmp.Suivant;
+    end loop;
+end Pour_Chaque;
 
 end Matrices_Creuses;

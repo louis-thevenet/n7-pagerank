@@ -1,9 +1,13 @@
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
+with Vecteurs_Creux;			use Vecteurs_Creux;
 
 package body Lire_Graphe is
     procedure Completer_Graphe_Creuse (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Creuses.T_Matrice; Taille:Integer) is
         Entier_1, Entier_2 : Integer;
         Total : Long_Float;
+
+        Tmp : Matrices_Creuses.T_Matrice;
+        Tmp2 : T_Vecteur_Creux;
         begin
     	begin
 		while not End_Of_file (File) loop
@@ -20,19 +24,25 @@ package body Lire_Graphe is
 
 	Close (File);
 
-    for I in 1.. Taille loop
+    Tmp := H;
+    while tmp /= Null loop
         Total :=0.0;
-        for J in 1.. Taille  loop
-            Total := Total + Matrices_Creuses.Element(H,I,J);
+        Tmp2 := H.Valeur;
+        while Tmp2 /= Null loop
+            Total := Total + Tmp2.Valeur;
+            Tmp2 := Tmp2.Suivant;
         end loop;
 
         if Total >= 0.000001 then
-            for J in 1.. Taille loop
-                Matrices_Creuses.Modifier(H,I,J,Matrices_Creuses.Element(H,I,J)/total);
+            Tmp2 := H.Valeur;
+            while Tmp2 /= Null loop
+                Tmp2.Valeur := Tmp2.Valeur/total;
+                Tmp2:=Tmp2.Suivant;
             end loop;
         else
             null;
         end if;
+        Tmp := Tmp.Suivant;
     end loop;
     end Completer_Graphe_Creuse;
 
