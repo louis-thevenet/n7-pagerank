@@ -14,10 +14,10 @@ package PageRank_Creuse is
     procedure Calculer_Pi_Transpose (Resultat : in out PageRank_Result_Inst.T_Resultat; Taille : Integer);
 
     -- Renvoie le prochain vecteur des poids
-function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids; G : in T_Matrice; Taille : Integer) return PageRank_Result_Inst.T_Tab_Poids;
+function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids; G : in T_Matrice; Alpha : Long_Float; Taille : Integer) return PageRank_Result_Inst.T_Tab_Poids;
     -- Effectue K itérations pour mettre à jour les poids.
 
-procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in T_Matrice; K : Integer; Epsilon : Long_Float; Taille : Integer)        with
+procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in T_Matrice; K : Integer; Epsilon : Long_Float; Alpha : Long_Float; Taille : Integer)        with
             Pre  => K >= 0;
 
 end PageRank_Creuse;

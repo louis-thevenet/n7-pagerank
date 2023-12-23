@@ -44,7 +44,7 @@ end Modifier;
 
 function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float is
 begin
-    if M = Null then
+    if M = Null or else M.Indice > I then
         return 0.0;
     elsif M.Indice = I then
         return Vecteurs_Creux.Composante_Iteratif(M.Valeur, J);
@@ -66,19 +66,19 @@ begin
     end if;
 end Afficher;
 
-procedure Pour_Chaque(M : in out T_Matrice) is
-Tmp : T_Matrice;
-Tmp2 : T_Vecteur;
-begin
-    Tmp := M;
-    while tmp /= Null loop
-        Tmp2 := H.Valeur;
-        while Tmp2 /= Null loop
-            Tmp2.Valeur := Traitement(Tmp2.Valeur);
-            Tmp2 := Tmp2.Suivant;
-        end loop;
-        Tmp := Tmp.Suivant;
-    end loop;
-end Pour_Chaque;
+--  procedure Pour_Chaque(M : in out T_Matrice) is
+--  Tmp : T_Matrice;
+--  Tmp2 : T_Vecteur_Creux;
+--  begin
+--      Tmp := M;
+--      while tmp /= Null loop
+--          Tmp2 := M.Valeur;
+--          while Tmp2 /= Null loop
+--              --Tmp2.Valeur := Traitement(Tmp2.Valeur);
+--              Tmp2 := Tmp2.Suivant;
+--          end loop;
+--          Tmp := Tmp.Suivant;
+--      end loop;
+--  end Pour_Chaque;
 
 end Matrices_Creuses;

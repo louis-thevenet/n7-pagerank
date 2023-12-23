@@ -57,21 +57,20 @@ package body PageRank is
                 declare
                     package PageRank_Creuse_Inst is new PageRank_Creuse(PageRank_Result_Inst);
 
-                    G : Matrices_Creuses.T_Matrice;
+                    S : Matrices_Creuses.T_Matrice;
                     Resultat : T_Resultat;
 
                 begin
-                    Matrices_Creuses.Initialiser(G);
-                    Completer_Graphe_Creuse(File,G, Taille);
-                    PageRank_Creuse_Inst.Calculer_S(G, Taille);
-                     PageRank_Creuse_Inst.Calculer_G(G, alpha, Taille);
+                    Matrices_Creuses.Initialiser(S);
+                    Completer_Graphe_Creuse(File,S, Taille);
+                    PageRank_Creuse_Inst.Calculer_S(S, Taille);
 
-                    --  PageRank_Result_Inst.Initialiser(Resultat);
-                    --  PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
+                    PageRank_Result_Inst.Initialiser(Resultat);
+                    PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
 
-                    --  PageRank_Creuse_Inst.Iterer(Resultat.Poids, G, K, Epsilon, Taille);
-                    --  PageRank_Result_Inst.Trier(Resultat);
-                    --  PageRank_Result_Inst.Enregistrer(Resultat, Prefixe, Alpha, K);
+                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, K, Epsilon, Alpha, Taille);
+                    PageRank_Result_Inst.Trier(Resultat);
+                    PageRank_Result_Inst.Enregistrer(Resultat, Prefixe, Alpha, K);
                 end;
             end if;
         end;

@@ -8,9 +8,15 @@ package body Lire_Graphe is
 
         Tmp : Matrices_Creuses.T_Matrice;
         Tmp2 : T_Vecteur_Creux;
+
+
         begin
     	begin
+        Put("Lecture du fichier");
 		while not End_Of_file (File) loop
+            cnt:=cnt+1;
+            Put(cnt);
+            New_Line;
 			Get (File, Entier_1);
             Get (File, Entier_2);
 
@@ -25,16 +31,18 @@ package body Lire_Graphe is
 	Close (File);
 
     Tmp := H;
-    while tmp /= Null loop
+
+    while Tmp /= Null loop
+
         Total :=0.0;
-        Tmp2 := H.Valeur;
+        Tmp2 := Tmp.Valeur;
         while Tmp2 /= Null loop
             Total := Total + Tmp2.Valeur;
             Tmp2 := Tmp2.Suivant;
         end loop;
 
         if Total >= 0.000001 then
-            Tmp2 := H.Valeur;
+            Tmp2 := Tmp.Valeur;
             while Tmp2 /= Null loop
                 Tmp2.Valeur := Tmp2.Valeur/total;
                 Tmp2:=Tmp2.Suivant;

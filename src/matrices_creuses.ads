@@ -8,9 +8,11 @@ package Matrices_Creuses is
     procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float);
     function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float;
     procedure Afficher(M : T_Matrice);
-    generic
-        with function Traitement(V : Long_Float) return Long_Float;
-    procedure Pour_Chaque(M : in out T_Matrice);
+
+    -- Le code suivant provoque un crash de GNAT
+    --  generic
+    --      with function Traitement(V : Long_Float) return Long_Float;
+    --  procedure Pour_Chaque(M : in out T_Matrice);
 
 
 
