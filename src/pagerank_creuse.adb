@@ -3,7 +3,7 @@ with PageRank_Result;
 with Vecteurs_Creux; use Vecteurs_Creux;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Long_Float_Text_IO; use Ada.Long_Float_Text_IO;
-
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 -- with PageRank_Result;
 --  package body PageRank_Creuse is
 --      procedure Calculer_S(H : in out T_Matrice; Taille : Integer) is
@@ -70,15 +70,46 @@ function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids; G : in T
 Tmp : Long_Float;
 Resultat : PageRank_Result_Inst.T_Tab_Poids;
 Taille_Float : Long_Float := Long_Float(Taille);
-begin
 
+Tete : T_Vecteur_Creux;
+Cellule_Tmp : T_Vecteur_Creux;
+Val : Long_Float;
+begin
+Tete := G.Valeur;
+Cellule_Tmp := Tete;
 for J in 1..Taille loop
     Tmp := 0.0;
-    for I in 1..Taille loop
-        Tmp := Tmp + Element(G, I, J) * Poids(I) * Alpha + Poids(I)*(1.0-Alpha)/Taille_Float;
+
+
+    while Tete /= Null and then Tete.Indice < J loop
+        Tete := Tete.Suivant;
     end loop;
+
+    if Tete = Null or else Tete.Indice > J then
+        Cellule_Tmp := Null;
+    else
+        Cellule_Tmp := Tete;
+    end if;
+
+    for I in 1..Taille loop
+        while Cellule_Tmp /= Null and then Cellule_Tmp.Indice < I loop
+            Cellule_Tmp := Cellule_Tmp.Dessous;
+        end loop;
+
+        if Cellule_Tmp = Null or else Cellule_Tmp.Indice > I then
+            Val := 0.0;
+        else
+            Val := Cellule_Tmp.Valeur;
+        end if;
+
+        Tmp := Tmp + Val * Poids(J) * Alpha + Poids(J)*(1.0-Alpha)/Taille_Float;
+
+    end loop;
+
     Resultat(J) := Tmp;
+
 end loop;
+
 return Resultat;
 
 

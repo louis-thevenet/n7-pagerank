@@ -65,17 +65,20 @@ package body Vecteurs_Creux is
 
 	procedure Modifier (V : in out T_Vecteur_Creux ;
 				       Indice : in Integer ;
-					   Valeur : in Long_Float ) is
+					   Valeur : in Long_Float ;
+                       Dessous : T_Vecteur_Creux := Empty) is
 tmp : T_Vecteur_Creux;
 	begin
         if Est_Nul(V) then
             V := new T_Cellule;
             V.All.Indice := Indice;
             V.All.Valeur :=Valeur;
+            V.All.Dessous := Dessous;
             V.All.Suivant:=Null;
 
         elsif (Indice = V.All.Indice) then
             V.All.Valeur := Valeur;
+            V.All.Dessous := Dessous;
 
         elsif (Indice < V.All.Indice ) then
             tmp := new T_Cellule;
@@ -83,12 +86,14 @@ tmp : T_Vecteur_Creux;
 
             V.All.Indice := Indice;
             V.All.Valeur := Valeur;
+            V.All.Dessous := Dessous;
             V.All.Suivant := tmp;
         elsif Est_Nul(V.All.Suivant) then
 
             V.All.Suivant := new T_Cellule;
             V.All.Suivant.All.Indice := Indice;
             V.All.Suivant.All.Valeur :=Valeur;
+            V.All.Suivant.All.Dessous := Dessous;
             V.All.Suivant.All.Suivant:=Null;
         else
             Modifier(V.All.Suivant, Indice, Valeur);
@@ -229,6 +234,24 @@ tmp : T_Vecteur_Creux;
 			return 1 + Nombre_Composantes_Non_Nulles (V.all.Suivant);
 		end if;
 	end Nombre_Composantes_Non_Nulles;
+
+
+function Maillon(V : in T_Vecteur_Creux ; Indice : Integer) return T_Vecteur_Creux is
+    tmp : T_Vecteur_Creux;
+	begin
+        tmp := V;
+        While (True) loop
+            if (Est_Nul(tmp)) then
+                return Null;
+            elsif (tmp.All.Indice = Indice) then
+                return tmp;
+            elsif tmp.All.Indice > Indice then
+                return Null;
+            end if;
+            tmp:=tmp.All.Suivant;
+        end loop;
+        return Null;
+	end Maillon;
 
 
 end Vecteurs_Creux;

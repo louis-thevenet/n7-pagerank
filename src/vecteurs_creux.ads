@@ -5,7 +5,10 @@
 package Vecteurs_Creux is
 
 	type T_Vecteur_Creux;
+	type T_Cellule;
 
+	type T_Vecteur_Creux is access T_Cellule;
+    Empty : T_Vecteur_Creux := Null;
 
 	-- Initialiser un vecteur creux.  Il est nul.
 	procedure Initialiser (V : out T_Vecteur_Creux) with
@@ -33,7 +36,8 @@ package Vecteurs_Creux is
 	-- Modifier une composante (Indice, Valeur) d'un vecteur creux.
 	procedure Modifier (V : in out T_Vecteur_Creux ;
 				       Indice : in Integer ;
-					   Valeur : in Long_Float ) with
+					   Valeur : in Long_Float;
+                       Dessous : T_Vecteur_Creux := Empty ) with
 		pre => Indice >= 1,
 		post => Composante_Recursif (V, Indice) = Valeur;
 
@@ -72,20 +76,20 @@ package Vecteurs_Creux is
 		Post => Nombre_Composantes_Non_Nulles'Result >= 0;
 
 
+function Maillon(V : in T_Vecteur_Creux; Indice : in Integer) return T_Vecteur_Creux;
 
-	type T_Cellule;
-
-	type T_Vecteur_Creux is access T_Cellule;
 
 	type T_Cellule is
 		record
 			Indice : Integer;
 			Valeur : Long_Float;
 			Suivant : T_Vecteur_Creux;
+            Dessous : T_Vecteur_Creux := Null; -- utile quand utilisé avec le module Matrices Creuses
 			-- Invariant :
 			--   Indice >= 1;
 			--   Suivant = Null or else Suivant.all.Indice > Indice;
 			--   	-- cellules sont stockées dans l'ordre croissant des indices
+
 		end record;
 
 end Vecteurs_Creux;

@@ -1,5 +1,6 @@
 with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
+with Ada.Long_Float_Text_IO;		use Ada.Long_Float_Text_IO;
 with Ada.Unchecked_Deallocation;
 package body Matrices_Creuses is
 
@@ -18,10 +19,14 @@ begin
         M.Indice := I;
         M.Suivant := Null;
         Vecteurs_Creux.Initialiser(M.Valeur);
-        Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau);
+        Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau, Null);
     elsif
         M.Indice = I then
+        if M.Suivant = Null then
             Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau);
+        else
+            Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau, Maillon(M.Suivant.Valeur, J));
+        end if;
     elsif I < M.Indice then
         tmp := new T_Cellule_Matrice;
         tmp.All := M.All;
@@ -29,8 +34,9 @@ begin
         M.Indice := I;
 
         Vecteurs_Creux.Initialiser(M.Valeur);
-        Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau);
+        Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau, Maillon(tmp.Valeur, J));
         M.Suivant := tmp;
+
     elsif M.Suivant = Null then
         M.Suivant := new T_Cellule_Matrice;
         M.Suivant.Indice := I;
@@ -41,6 +47,8 @@ begin
         Modifier(M.Suivant, I, J, Nouveau);
     end if;
 end Modifier;
+
+
 
 function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float is
 begin

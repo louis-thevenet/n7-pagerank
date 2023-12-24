@@ -7,6 +7,8 @@ package Matrices_Creuses is
     procedure Initialiser(M : out T_Matrice);
     procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float);
     function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float;
+    --function Maillon(M: T_Matrice; I : Integer; J : Integer) return T_Vecteur_Creux;
+
     procedure Afficher(M : T_Matrice);
 
     -- Le code suivant provoque un crash de GNAT
