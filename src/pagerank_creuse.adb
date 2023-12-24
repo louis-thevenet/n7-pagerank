@@ -4,6 +4,7 @@ with Vecteurs_Creux; use Vecteurs_Creux;
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Long_Float_Text_IO; use Ada.Long_Float_Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+
 -- with PageRank_Result;
 --  package body PageRank_Creuse is
 --      procedure Calculer_S(H : in out T_Matrice; Taille : Integer) is
@@ -72,42 +73,46 @@ Resultat : PageRank_Result_Inst.T_Tab_Poids;
 Taille_Float : Long_Float := Long_Float(Taille);
 
 Tete : T_Vecteur_Creux;
-Cellule_Tmp : T_Vecteur_Creux;
-Val : Long_Float;
+Ligne  : T_Matrice;
+beta : Long_Float;
 begin
-Tete := G.Valeur;
-Cellule_Tmp := Tete;
-for J in 1..Taille loop
-    Tmp := 0.0;
+Ligne := G;
+beta := (1.0 - Alpha) / Taille_Float;
 
 
-    while Tete /= Null and then Tete.Indice < J loop
-        Tete := Tete.Suivant;
-    end loop;
+while Ligne /= Null and then Ligne.Indice <= Taille loop
+    Resultat(Ligne.Indice) := 0.0;
 
-    if Tete = Null or else Tete.Indice > J then
-        Cellule_Tmp := Null;
+    Put("Ligne : ");
+    Put(Ligne.Indice, 1);
+    Put_Line("");
+
+    if Ligne = Null then
+        return Resultat;
     else
-        Cellule_Tmp := Tete;
+        Tete := Matrices_Creuses.Plus_Haut_Maillon(Ligne, 0, Ligne.Indice);
+
+    end if;
+
+    if Tete = Null then
+        put("Tete = Null");
+        Put_Line("");
     end if;
 
     for I in 1..Taille loop
-        while Cellule_Tmp /= Null and then Cellule_Tmp.Indice < I loop
-            Cellule_Tmp := Cellule_Tmp.Dessous;
-        end loop;
-
-        if Cellule_Tmp = Null or else Cellule_Tmp.Indice > I then
-            Val := 0.0;
+        if Tete= Null then
+            Resultat(Ligne.Indice) := Resultat(Ligne.Indice) + beta * Poids(I);
+        elsif Tete.Indice = I then
+            Resultat(Ligne.Indice) := Resultat(Ligne.Indice) + (Alpha * Tete.Valeur + beta) * Poids(I);
+            Tete := Tete.Dessous;
         else
-            Val := Cellule_Tmp.Valeur;
+            Resultat(Ligne.Indice) := Resultat(Ligne.Indice) + beta * Poids(I);
+
+            Tete := Tete.Dessous;
         end if;
-
-        Tmp := Tmp + Val * Poids(J) * Alpha + Poids(J)*(1.0-Alpha)/Taille_Float;
-
     end loop;
 
-    Resultat(J) := Tmp;
-
+    Ligne := Ligne.Suivant;
 end loop;
 
 return Resultat;
@@ -121,7 +126,7 @@ I : Integer := 0;
 old : PageRank_Result_Inst.T_Tab_Poids := Poids;
 begin
     while I < K and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old))>=Epsilon*Epsilon loop
-        Poids := Prochaine_Iteration(Poids, G, Alpha, Poids'Length);
+        Poids := Prochaine_Iteration(Poids, G, Alpha, Taille);
         I := I + 1;
     end loop;
 end Iterer;

@@ -44,17 +44,7 @@ procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau
             Tmp.Indice := I;
 
             Vecteurs_Creux.Initialiser(Tmp.Valeur);
---
-            Tmp_Vec := Plus_Haut_Maillon(Totale, I, J);
-            if Tmp_Vec = Null then
-                put(I);
-                new_line;
-                put(J);
-                new_line;
-                new_line;
-                end if;
 
---
             Tmp.Suivant := Tmp_Cell;
             Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Plus_Haut_Maillon(Totale, I, J));
 
@@ -122,22 +112,21 @@ Tmp : T_Matrice;
 Tmp_Colonne : T_Vecteur_Creux;
 begin
 Tmp := M;
-    if M = Null then
-        return Null;
-    elsif
-        M.Indice > I then
-            Tmp_Colonne := M.Valeur;
-            while Tmp_Colonne /= Null and then Tmp_Colonne.Indice < J loop
-            Tmp_Colonne := Tmp_Colonne.Suivant;
-            end loop;
-            if Tmp_Colonne = Null or else Tmp_Colonne.Indice > J then
-                return Plus_Haut_Maillon(M.Suivant, I, J);
-            else
-                return Tmp_Colonne;
-            end if;
-    else
-        return Plus_Haut_Maillon(M.Suivant, I, J);
-    end if;
+if M = Null then
+    return Null;
+elsif M.Indice > I then
+        Tmp_Colonne := M.Valeur;
+        while Tmp_Colonne /= Null and then Tmp_Colonne.Indice < J loop
+        Tmp_Colonne := Tmp_Colonne.Suivant;
+        end loop;
+        if Tmp_Colonne = Null or else Tmp_Colonne.Indice > J then
+            return Plus_Haut_Maillon(M.Suivant, I, J);
+        else
+            return Tmp_Colonne;
+        end if;
+else
+    return Plus_Haut_Maillon(M.Suivant, I, J);
+end if;
 end Plus_Haut_Maillon;
 
 
