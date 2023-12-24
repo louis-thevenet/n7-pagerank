@@ -8,6 +8,8 @@ with PageRank_Pleine;
 with PageRank_Creuse;
 with PageRank_Result;
 
+with Vecteurs_Creux; use Vecteurs_Creux;
+
 package body PageRank is
        procedure Algorithme_PageRank(Alpha : in Long_Float;
                                     K : in Integer;
@@ -61,43 +63,26 @@ package body PageRank is
                     Resultat : T_Resultat;
                 begin
                     Matrices_Creuses.Initialiser(S);
-                    Completer_Graphe_Creuse(File,S, Taille);
-                    PageRank_Creuse_Inst.Calculer_S(S, Taille);
+                    --Completer_Graphe_Creuse(File,S, Taille);
+                    --PageRank_Creuse_Inst.Calculer_S(S, Taille);
 
-                    --  Matrices_Creuses.Modifier(S, 2, 3, 1.0);
-                    --  new_line;new_line;new_line;new_line;
-                    --  Matrices_Creuses.Afficher(S);new_line;
-                    --  Matrices_Creuses.Test_Dessous(S.Valeur, S.Valeur);
-                    --  Matrices_Creuses.Modifier(S, 1, 3, 2.0);
-                    --  new_line;new_line;new_line;new_line;
-                    --  Matrices_Creuses.Afficher(S);new_line;
-                    --  new_line;
-                    --  Matrices_Creuses.Test_Dessous(S.Valeur, S.Valeur);
-                    --  Matrices_Creuses.Modifier(S, 1, 2, 3.0);
-                    --  new_line;new_line;new_line;new_line;
-                    --  Matrices_Creuses.Afficher(S);new_line;
-                    --  Matrices_Creuses.Test_Dessous(S.Valeur, S.Valeur);
-                    --  Matrices_Creuses.Modifier(S, 3, 1, 4.0);
-                    --  new_line;new_line;new_line;new_line;
-                    --  Matrices_Creuses.Afficher(S);new_line;
-                    --  Matrices_Creuses.Test_Dessous(S.Valeur, S.Valeur);
-                    --  Matrices_Creuses.Modifier(S, 6, 2, 5.0);
-                    --  new_line;new_line;new_line;new_line;
-                    --  Matrices_Creuses.Afficher(S);new_line;
-                    --  Matrices_Creuses.Test_Dessous(S.Valeur, S.Valeur);
-                    --  Matrices_Creuses.Modifier(S, 3, 2, 6.0);
-                    --  new_line;new_line;new_line;new_line;
-                    --  Matrices_Creuses.Afficher(S);new_line;
-                    --  Matrices_Creuses.Test_Dessous(S.Valeur, S.Valeur);
-                    --  Matrices_Creuses.Modifier(S, 2, 1, 7.0);
+                    Matrices_Creuses.Modifier(S, 2, 3, 1.0);
+                     Matrices_Creuses.Modifier(S, 1, 3, 2.0);
+                      Matrices_Creuses.Modifier(S, 1, 2, 3.0);
+                      Matrices_Creuses.Modifier(S, 3, 1, 4.0);
+                      Matrices_Creuses.Modifier(S, 6, 2, 5.0);
+                      Matrices_Creuses.Modifier(S, 3, 2, 6.0);
 
-                    --  new_line;new_line;new_line;new_line;
-                    --  Matrices_Creuses.Afficher(S);
-                    --  Matrices_Creuses.Test_Dessous(S.Valeur, S.Valeur);
+                Matrices_Creuses.Afficher(S);
 
+                     Matrices_Creuses.Modifier(S, 2, 1, 7.0);
 
-                    PageRank_Result_Inst.Initialiser(Resultat);
-                    PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
+                Matrices_Creuses.Afficher(S);
+                new_line;new_line;new_line;
+                Vecteurs_Creux.Afficher(Plus_Haut_Maillon(S, 2, 9));
+                new_line;new_line;new_line;
+                    --  PageRank_Result_Inst.Initialiser(Resultat);
+                    --  PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
 
 
                     PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, K, Epsilon, Alpha, Taille);

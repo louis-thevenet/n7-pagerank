@@ -12,42 +12,135 @@ begin
 end Initialiser;
 
 procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float) is
-tmp : T_Matrice;
-begin
-    if M=Null then
-        M := new T_Cellule_Matrice;
-        M.Indice := I;
-        M.Suivant := Null;
-        Vecteurs_Creux.Initialiser(M.Valeur);
-        Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau, Null);
-    elsif
-        M.Indice = I then
-        if M.Suivant = Null then
-            Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau);
+    procedure Interne(Tmp : in out T_Matrice; I : Integer; J : Integer;  Nouveau : Long_Float; Totale : T_Matrice) is
+    Tmp_Cell : T_Matrice;
+    Tmp_Vec : T_Vecteur_Creux;
+    begin
+        if Tmp=Null then
+            Tmp := new T_Cellule_Matrice;
+            Tmp.Indice := I;
+            Tmp.Suivant := Null;
+            Vecteurs_Creux.Initialiser(Tmp.Valeur);
+            Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Null);
+        elsif
+            Tmp.Indice = I then
+                Tmp_Vec := Plus_Bas_Maillon(Totale,  I, J);
+                new_line;
+                new_line;
+                new_line;
+                Put(I);
+                new_line;
+                Put(J);
+                new_line;
+
+                if Tmp_Vec = Null then
+                    Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Plus_Haut_Maillon(Tmp, I, J));
+                else
+                    Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Tmp_Vec.Dessous);
+                   Tmp_Vec.Dessous := Maillon(Tmp.Valeur, J);
+                end if;
+        elsif I < Tmp.Indice then
+
+            Tmp_Cell := new T_Cellule_Matrice;
+            Tmp_Cell.All := Tmp.All;
+            Tmp.Indice := I;
+
+            Vecteurs_Creux.Initialiser(Tmp.Valeur);
+--
+            Tmp_Vec := Plus_Haut_Maillon(Totale, I, J);
+            if Tmp_Vec = Null then
+                put(I);
+                new_line;
+                put(J);
+                new_line;
+                new_line;
+                end if;
+
+--
+            Tmp.Suivant := Tmp_Cell;
+            Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Plus_Haut_Maillon(Totale, I, J));
+
+            Tmp_Vec := Plus_Bas_Maillon(Totale, I, J);
+            if Tmp_Vec=Null then
+                null;
+            else
+                Tmp_Vec.Dessous := Tmp_Cell.Valeur;
+            end if;
+
+        elsif Tmp.Suivant = Null then
+            Tmp.Suivant := new T_Cellule_Matrice;
+            Tmp.Suivant.Indice := I;
+            Tmp.Suivant.Suivant := Null;
+            Vecteurs_Creux.Initialiser(Tmp.Suivant.Valeur);
+            Vecteurs_Creux.Modifier(Tmp.Suivant.Valeur, J, Nouveau);
+
+            Tmp_Vec := Plus_Bas_Maillon(Totale, I, J);
+            if Tmp_Vec=Null then
+                null;
+            else
+                Tmp_Vec.Dessous := Tmp.Suivant.Valeur;
+            end if;
         else
-            Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau, Maillon(M.Suivant.Valeur, J));
+            Interne(Tmp.Suivant, I, J, Nouveau, Totale);
         end if;
-    elsif I < M.Indice then
-        tmp := new T_Cellule_Matrice;
-        tmp.All := M.All;
+    end Interne;
 
-        M.Indice := I;
-
-        Vecteurs_Creux.Initialiser(M.Valeur);
-        Vecteurs_Creux.Modifier(M.Valeur, J, Nouveau, Maillon(tmp.Valeur, J));
-        M.Suivant := tmp;
-
-    elsif M.Suivant = Null then
-        M.Suivant := new T_Cellule_Matrice;
-        M.Suivant.Indice := I;
-        M.Suivant.Suivant := Null;
-        Vecteurs_Creux.Initialiser(M.Suivant.Valeur);
-        Vecteurs_Creux.Modifier(M.Suivant.Valeur, J, Nouveau);
-    else
-        Modifier(M.Suivant, I, J, Nouveau);
-    end if;
+begin
+    Interne(M, I, J, Nouveau, M);
 end Modifier;
 
+function Plus_Bas_Maillon(M : T_Matrice; I : Integer; J : Integer) return T_Vecteur_Creux is
+Tmp : T_Matrice;
+Tmp_Colonne : T_Vecteur_Creux;
+begin
+Tmp := M;
+    if M = Null then
+        return Null;
+
+    elsif M.Indice < I then
+        Tmp_Colonne := Plus_Bas_Maillon(M.Suivant, I, J);
+        if Tmp_Colonne = Null then
+            Tmp_Colonne := Tmp.Valeur;
+            while Tmp_Colonne /= Null and then Tmp_Colonne.Indice < J loop
+                Tmp_Colonne := Tmp_Colonne.Suivant;
+            end loop;
+            if Tmp_Colonne = Null then
+                return Null;
+            elsif Tmp_Colonne.Indice > J then
+                return null;
+            else
+                return Tmp_Colonne;
+            end if;
+        else
+            return Tmp_Colonne;
+        end if;
+    else
+        return Null;
+    end if;
+end Plus_Bas_Maillon;
+
+function Plus_Haut_Maillon(M : T_Matrice; I : Integer; J : Integer) return T_Vecteur_Creux is
+Tmp : T_Matrice;
+Tmp_Colonne : T_Vecteur_Creux;
+begin
+Tmp := M;
+    if M = Null then
+        return Null;
+    elsif
+        M.Indice > I then
+            Tmp_Colonne := M.Valeur;
+            while Tmp_Colonne /= Null and then Tmp_Colonne.Indice < J loop
+            Tmp_Colonne := Tmp_Colonne.Suivant;
+            end loop;
+            if Tmp_Colonne = Null or else Tmp_Colonne.Indice > J then
+                return Plus_Haut_Maillon(M.Suivant, I, J);
+            else
+                return Tmp_Colonne;
+            end if;
+    else
+        return Plus_Haut_Maillon(M.Suivant, I, J);
+    end if;
+end Plus_Haut_Maillon;
 
 
 function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float is

@@ -218,6 +218,13 @@ tmp : T_Vecteur_Creux;
 			Put (V.all.Indice, 0);
 			Put (" | ");
 			Put (V.all.Valeur, Fore => 0, Aft => 1, Exp => 0);
+
+                Put(" | ");
+            if V.Dessous =Null then
+                Put("   ");
+            else
+                Put(V.Dessous.Valeur, 0,1, 0);
+            end if;
 			Put (" ]");
 
 			-- Afficher les autres composantes
