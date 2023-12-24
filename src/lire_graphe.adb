@@ -12,11 +12,7 @@ package body Lire_Graphe is
 
         begin
     	begin
-        Put("Lecture du fichier");
 		while not End_Of_file (File) loop
-            cnt:=cnt+1;
-            Put(cnt);
-            New_Line;
 			Get (File, Entier_1);
             Get (File, Entier_2);
 
