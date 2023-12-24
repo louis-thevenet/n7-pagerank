@@ -12,6 +12,11 @@ begin
 end Initialiser;
 
 procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float) is
+    procedure Update_Dessus(M : in out T_Matrice; I : Integer; J : Integer; Ancien : T_Vecteur_Creux; Nouveau : T_Vecteur_Creux) is
+    begin
+        null;
+    end Update_Dessus;
+
     procedure Interne(Tmp : in out T_Matrice; I : Integer; J : Integer;  Nouveau : Long_Float; Totale : T_Matrice) is
     Tmp_Cell : T_Matrice;
     Tmp_Vec : T_Vecteur_Creux;
@@ -25,13 +30,6 @@ procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau
         elsif
             Tmp.Indice = I then
                 Tmp_Vec := Plus_Bas_Maillon(Totale,  I, J);
-                new_line;
-                new_line;
-                new_line;
-                Put(I);
-                new_line;
-                Put(J);
-                new_line;
 
                 if Tmp_Vec = Null then
                     Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Plus_Haut_Maillon(Tmp, I, J));

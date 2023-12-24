@@ -67,6 +67,9 @@ package body Vecteurs_Creux is
 				       Indice : in Integer ;
 					   Valeur : in Long_Float ;
                        Dessous : T_Vecteur_Creux := Empty) is
+
+procedure Interne(V : in out T_Vecteur_Creux; Indice : in Integer; Valeur : in Long_Float; Dessous : T_Vecteur_Creux; Old : T_Vecteur_Creux) is
+-- utiliser Old pour plus changer le pointeur
 tmp : T_Vecteur_Creux;
 	begin
         if Est_Nul(V) then
@@ -81,13 +84,21 @@ tmp : T_Vecteur_Creux;
             V.All.Dessous := Dessous;
 
         elsif (Indice < V.All.Indice ) then
-            tmp := new T_Cellule;
-            tmp.All := V.All;
 
-            V.All.Indice := Indice;
-            V.All.Valeur := Valeur;
-            V.All.Dessous := Dessous;
-            V.All.Suivant := tmp;
+
+            tmp := new T_Cellule;
+            --tmp.All := V.All;
+
+            tmp.All.Indice := Indice;
+            tmp.All.Valeur := Valeur;
+            tmp.All.Dessous := Dessous;
+            tmp.All.Suivant := V;
+
+            if Old = Null then
+                V:=tmp;
+            else
+                Old.All.Suivant := tmp;
+            end if;
         elsif Est_Nul(V.All.Suivant) then
 
             V.All.Suivant := new T_Cellule;
@@ -96,8 +107,11 @@ tmp : T_Vecteur_Creux;
             V.All.Suivant.All.Dessous := Dessous;
             V.All.Suivant.All.Suivant:=Null;
         else
-            Modifier(V.All.Suivant, Indice, Valeur);
+            Interne(V.All.Suivant, Indice, Valeur, Dessous,V);
         end if;
+    end Interne;
+    begin
+        Interne(V, Indice, Valeur, Dessous, Null);
 	end Modifier;
 
 

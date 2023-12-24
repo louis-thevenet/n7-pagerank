@@ -66,16 +66,21 @@ package body PageRank is
                     --Completer_Graphe_Creuse(File,S, Taille);
                     --PageRank_Creuse_Inst.Calculer_S(S, Taille);
 
-                    Matrices_Creuses.Modifier(S, 2, 3, 1.0);
+                     Matrices_Creuses.Modifier(S, 2, 3, 1.0);
                      Matrices_Creuses.Modifier(S, 1, 3, 2.0);
                       Matrices_Creuses.Modifier(S, 1, 2, 3.0);
                       Matrices_Creuses.Modifier(S, 3, 1, 4.0);
                       Matrices_Creuses.Modifier(S, 6, 2, 5.0);
                       Matrices_Creuses.Modifier(S, 3, 2, 6.0);
+                    new_line;
+                    Matrices_Creuses.Afficher(S);
+                      Matrices_Creuses.Modifier(S, 6, 1, 8.0);
+                    new_line;
 
-                Matrices_Creuses.Afficher(S);
+                    Matrices_Creuses.Afficher(S);
 
                      Matrices_Creuses.Modifier(S, 2, 1, 7.0);
+                    new_line;
 
                 Matrices_Creuses.Afficher(S);
                 new_line;new_line;new_line;
