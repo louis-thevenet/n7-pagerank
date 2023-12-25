@@ -38,11 +38,10 @@ function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids; G : in M
     Resultat : PageRank_Result_Inst.T_Tab_Poids;
 begin
     for J in 1..Matrices_Pleines_Inst.Lignes_Matrice(G) loop
-        Tmp :=0.0;
+        Resultat(J) :=0.0;
         for I in 1..Matrices_Pleines_Inst.Lignes_Matrice(G) loop
-            Tmp := Tmp + Poids(I) * Matrices_Pleines_Inst.Element(G,I,J);
+            Resultat(J) := Resultat(J) + Poids(I) * Matrices_Pleines_Inst.Element(G,I,J);
         end loop;
-        Resultat(J):=Tmp;
     end loop;
     return Resultat;
 end Prochaine_Iteration;
@@ -51,9 +50,9 @@ procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matric
     I : Integer;
     old : PageRank_Result_Inst.T_Tab_Poids;
 begin
-    I := 0;
+    I := 1;
     old := Poids;
-    while I<=K+1 and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old)) >=Epsilon*Epsilon loop
+    while I<=K and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old)) >=Epsilon*Epsilon loop
         old := Poids;
         Poids := Prochaine_Iteration(Poids, G);
         I:=I+1;

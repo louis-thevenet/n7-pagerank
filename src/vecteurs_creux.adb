@@ -66,9 +66,10 @@ package body Vecteurs_Creux is
 	procedure Modifier (V : in out T_Vecteur_Creux ;
 				       Indice : in Integer ;
 					   Valeur : in Long_Float ;
-                       Dessous : T_Vecteur_Creux := Empty) is
+                       Dessous : T_Vecteur_Creux := Empty;
+                       Ligne : Integer) is
 
-procedure Interne(V : in out T_Vecteur_Creux; Indice : in Integer; Valeur : in Long_Float; Dessous : T_Vecteur_Creux; Old : T_Vecteur_Creux) is
+procedure Interne(V : in out T_Vecteur_Creux; Indice : in Integer; Valeur : in Long_Float; Dessous : T_Vecteur_Creux; Old : T_Vecteur_Creux; Ligne : Integer) is
 -- utiliser Old pour plus changer le pointeur
 tmp : T_Vecteur_Creux;
 	begin
@@ -78,6 +79,7 @@ tmp : T_Vecteur_Creux;
             V.All.Valeur :=Valeur;
             V.All.Dessous := Dessous;
             V.All.Suivant:=Null;
+            V.All.Numero_Ligne := Ligne;
 
         elsif (Indice = V.All.Indice) then
             V.All.Valeur := Valeur;
@@ -87,11 +89,10 @@ tmp : T_Vecteur_Creux;
 
 
             tmp := new T_Cellule;
-            --tmp.All := V.All;
-
             tmp.All.Indice := Indice;
             tmp.All.Valeur := Valeur;
             tmp.All.Dessous := Dessous;
+            tmp.All.Numero_Ligne := Ligne;
             tmp.All.Suivant := V;
 
             if Old = Null then
@@ -105,13 +106,14 @@ tmp : T_Vecteur_Creux;
             V.All.Suivant.All.Indice := Indice;
             V.All.Suivant.All.Valeur :=Valeur;
             V.All.Suivant.All.Dessous := Dessous;
+            V.All.Suivant.All.Numero_Ligne := Ligne;
             V.All.Suivant.All.Suivant:=Null;
         else
-            Interne(V.All.Suivant, Indice, Valeur, Dessous,V);
+            Interne(V.All.Suivant, Indice, Valeur, Dessous,V, Ligne);
         end if;
     end Interne;
     begin
-        Interne(V, Indice, Valeur, Dessous, Null);
+        Interne(V, Indice, Valeur, Dessous, Null, Ligne);
 	end Modifier;
 
 
@@ -165,13 +167,13 @@ tmp : T_Vecteur_Creux;
                 return;
             end if;
             if Est_Nul(tmp) or else tmp.All.Indice > tmp2.All.indice then
-                Modifier(V1, tmp2.All.Indice, tmp2.All.Valeur);
+                Modifier(V1, tmp2.All.Indice, tmp2.All.Valeur, Null, 0);
                 tmp2:=tmp2.All.Suivant;
             elsif Est_Nul(tmp2) or else tmp.All.Indice < tmp2.All.indice then
-                Modifier(V1, tmp.All.Indice, tmp.All.Valeur);
+                Modifier(V1, tmp.All.Indice, tmp.All.Valeur, Null, 0);
                 tmp:=tmp.All.Suivant;
             else
-                Modifier(V1, tmp2.Indice, tmp.All.Valeur + tmp2.All.Valeur);
+                Modifier(V1, tmp2.Indice, tmp.All.Valeur + tmp2.All.Valeur, Null, 0);
                 tmp2:=tmp2.All.Suivant;
                 tmp:=tmp.All.Suivant;
             end if;
@@ -234,11 +236,10 @@ tmp : T_Vecteur_Creux;
 			Put (V.all.Valeur, Fore => 0, Aft => 1, Exp => 0);
 
                 Put(" | ");
-            if V.Dessous =Null then
-                Put("   ");
-            else
+                if V.Dessous /= Null then
                 Put(V.Dessous.Valeur, 0,1, 0);
-            end if;
+                end if;
+                --Put(V.Numero_Ligne, 1);
 			Put (" ]");
 
 			-- Afficher les autres composantes

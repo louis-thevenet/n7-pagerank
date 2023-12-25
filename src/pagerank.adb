@@ -1,5 +1,6 @@
 with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
+with Ada.Long_Float_Text_IO; use Ada.Long_Float_Text_IO;
 with Ada.IO_Exceptions;
 with Lire_Graphe;
 with Matrices_Pleines;
@@ -63,8 +64,12 @@ package body PageRank is
                     Resultat : T_Resultat;
                 begin
                     Matrices_Creuses.Initialiser(S);
+
+
+
                     Completer_Graphe_Creuse(File,S, Taille);
                     PageRank_Creuse_Inst.Calculer_S(S, Taille);
+
 
 
                     PageRank_Result_Inst.Initialiser(Resultat);

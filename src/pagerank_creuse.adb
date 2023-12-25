@@ -83,35 +83,36 @@ beta := (1.0 - Alpha) / Taille_Float;
 while Ligne /= Null and then Ligne.Indice <= Taille loop
     Resultat(Ligne.Indice) := 0.0;
 
-    Put("Ligne : ");
-    Put(Ligne.Indice, 1);
-    Put_Line("");
-
     if Ligne = Null then
         return Resultat;
     else
-        Tete := Matrices_Creuses.Plus_Haut_Maillon(Ligne, 0, Ligne.Indice);
-
+        Tete := Matrices_Creuses.Plus_Haut_Maillon(G, 0, Ligne.Indice);
     end if;
-
-    if Tete = Null then
-        put("Tete = Null");
-        Put_Line("");
-    end if;
-
+    --if Tete = Null then put("Tete nulle"); new_line; else put(Tete.Numero_Ligne, 1); new_line; end if;
     for I in 1..Taille loop
-        if Tete= Null then
-            Resultat(Ligne.Indice) := Resultat(Ligne.Indice) + beta * Poids(I);
-        elsif Tete.Indice = I then
-            Resultat(Ligne.Indice) := Resultat(Ligne.Indice) + (Alpha * Tete.Valeur + beta) * Poids(I);
+        --  Put("G(");
+        --  Put(I, 1);
+        --  Put(",");
+        --  Put(Ligne.Indice, 1);
+        --  Put(") = ");
+        if Tete = Null then
+            Tmp := 0.0;
+        elsif Tete.Numero_Ligne = I then
+            Tmp := Tete.Valeur;
             Tete := Tete.Dessous;
         else
-            Resultat(Ligne.Indice) := Resultat(Ligne.Indice) + beta * Poids(I);
-
-            Tete := Tete.Dessous;
+            while Tete /= Null and then Tete.Numero_Ligne < I loop
+                Tete := Tete.Dessous;
+            end loop;
+            Tmp := 0.0;
         end if;
-    end loop;
 
+        --Put(Tmp, 1, 0, 0);
+        --Put_Line("");
+        Resultat(Ligne.Indice) := Resultat(Ligne.Indice) + (Alpha * Tmp+ beta) * Poids(I);
+
+    end loop;
+    --new_line;
     Ligne := Ligne.Suivant;
 end loop;
 
@@ -122,10 +123,10 @@ end Prochaine_Iteration;
 
 
 procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in T_Matrice; K : Integer; Epsilon : Long_Float;Alpha : Long_Float; Taille : Integer) is
-I : Integer := 0;
+I : Integer := 1;
 old : PageRank_Result_Inst.T_Tab_Poids := Poids;
 begin
-    while I < K and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old))>=Epsilon*Epsilon loop
+    while I <= K and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old))>=Epsilon*Epsilon loop
         Poids := Prochaine_Iteration(Poids, G, Alpha, Taille);
         I := I + 1;
     end loop;

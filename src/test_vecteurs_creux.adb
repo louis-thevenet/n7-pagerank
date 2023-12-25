@@ -12,13 +12,13 @@ procedure Test_Vecteurs_Creux is
 
 		-- VC1 est un vecteur à deux composante
 		Initialiser (VC1);
-		Modifier (VC1, 10,  4.0);
-		Modifier (VC1,  3, -3.0);
+		Modifier (VC1, 10,  4.0, Null, 0);
+		Modifier (VC1,  3, -3.0, Null, 0);
 
 		Initialiser (VC2);
-		Modifier (VC2,  100, 2.0);
-		Modifier (VC2,    3, 3.0);
-		Modifier (VC2,    1, 2.0);
+		Modifier (VC2,  100, 2.0, Null, 0);
+		Modifier (VC2,    3, 3.0, Null, 0);
+		Modifier (VC2,    1, 2.0, Null, 0);
 
 		-- Afficher les vecteurs
 		-- Put ("VC0 = "); Afficher (VC0); New_Line;
@@ -61,7 +61,7 @@ procedure Test_Vecteurs_Creux is
 
 
 	type T_Fonction_Composante is
-		access Function (VC : in T_Vecteur_Creux ; Indice : in Integer) return Float;
+		access Function (VC : in T_Vecteur_Creux ; Indice : in Integer) return Long_Float;
 		--! Un pointeur sur un sous-programme permet de manipuler un
 		--! sous-programme comme une donnée.
 
@@ -101,59 +101,59 @@ procedure Test_Vecteurs_Creux is
 
 		-- Changer des composantes non nulles
 		-- * en première position
-		Modifier (VC1, 3, 3.0);
+		Modifier (VC1, 3, 3.0, Null, 0);
 		pragma Assert (3.0 = Composante (VC1, 3));
 		pragma Assert (2 = Nombre_Composantes_Non_Nulles (VC1));
 
 		-- * après la première
-		Modifier (VC1, 10, 15.0);
+		Modifier (VC1, 10, 15.0, Null, 0);
 		pragma Assert (15.0 = Composante (VC1, 10));
 		pragma Assert (2 = Nombre_Composantes_Non_Nulles (VC1));
 
 		-- Ajouter au début
-		Modifier (VC1, 1, 1.5);
+		Modifier (VC1, 1, 1.5, Null, 0);
 		pragma Assert (1.5 = Composante (VC1, 1));
 		pragma Assert (3 = Nombre_Composantes_Non_Nulles (VC1));
 
 		-- Ajouter au milieu
-		Modifier (VC1, 7, 7.5);
+		Modifier (VC1, 7, 7.5, Null, 0);
 		pragma Assert (7.5 = Composante (VC1, 7));
 		pragma Assert (4 = Nombre_Composantes_Non_Nulles (VC1));
 
 		-- Ajouter à la fin.
-		Modifier (VC1, 111, 0.5);
+		Modifier (VC1, 111, 0.5,Null,  0);
 		pragma Assert (0.5 = Composante (VC1, 111));
 		pragma Assert (5 = Nombre_Composantes_Non_Nulles (VC1));
 
 		-- Mettre à 0.0 une composante existante
 		-- * Au milieu
-		Modifier (VC1, 10, 0.0);
+		Modifier (VC1, 10, 0.0, Null, 0);
 		pragma Assert (0.0 = composante (VC1, 10));
 		pragma Assert (4 = Nombre_Composantes_Non_Nulles (VC1));
 
 		-- * À la fin
-		Modifier (VC1, 111, 0.0);
+		Modifier (VC1, 111, 0.0, Null, 0);
 		pragma Assert (0.0 = composante (VC1, 111));
 		pragma Assert (3 = Nombre_Composantes_Non_Nulles (VC1));
 
 		-- * Au début
-		Modifier (VC1, 1, 0.0);
+		Modifier (VC1, 1, 0.0, Null, 0);
 		pragma Assert (0.0 = composante (VC1, 1));
 		pragma Assert (2 = Nombre_Composantes_Non_Nulles (VC1));
 
 
 		-- Mettre à 0.0 une composante déjà nulle
-		Modifier (VC1, 6, 0.0);
+		Modifier (VC1, 6, 0.0, Null, 0);
 		pragma Assert (2 = Nombre_Composantes_Non_Nulles (VC1));
-		Modifier (VC1, 2, 0.0);
+		Modifier (VC1, 2, 0.0,Null,  0);
 		pragma Assert (2 = Nombre_Composantes_Non_Nulles (VC1));
-		Modifier (VC1, 56, 0.0);
+		Modifier (VC1, 56, 0.0, Null, 0);
 		pragma Assert (2 = Nombre_Composantes_Non_Nulles (VC1));
 
 		-- Supprimer toutes les composantes
-		Modifier (VC1, 7, 0.0);
+		Modifier (VC1, 7, 0.0, Null, 0);
 		pragma Assert (1 = Nombre_Composantes_Non_Nulles (VC1));
-		Modifier (VC1, 3, 0.0);
+		Modifier (VC1, 3, 0.0, Null, 0);
 		pragma Assert (0 = Nombre_Composantes_Non_Nulles (VC1));
 		pragma Assert (Est_Nul (VC1));
 
@@ -185,8 +185,8 @@ procedure Test_Vecteurs_Creux is
 
 		-- VC3 avec les mêmes composantes que VC1
 		Initialiser (VC3);
-		Modifier (VC3, 10,  4.0);
-		Modifier (VC3,  3, -3.0);
+		Modifier (VC3, 10,  4.0, Null, 0);
+		Modifier (VC3,  3, -3.0, Null, 0);
 
 		pragma Assert (Egaux (VC1, VC3));
 		pragma Assert (Egaux (VC3, VC1));
@@ -221,11 +221,11 @@ procedure Test_Vecteurs_Creux is
 		pragma Assert (25.0 = Produit_Scalaire (VC1, VC1));
 
 		Initialiser (VC3);
-		Modifier (VC3, 150, 5.0);
-		Modifier (VC3,  10, 4.0);
-		Modifier (VC3,   3, 3.0);
-		Modifier (VC3,   2, 2.0);
-		Modifier (VC3,   1, 1.0);
+		Modifier (VC3, 150, 5.0, Null, 0);
+		Modifier (VC3,  10, 4.0, Null, 0);
+		Modifier (VC3,   3, 3.0, Null, 0);
+		Modifier (VC3,   2, 2.0, Null, 0);
+		Modifier (VC3,   1, 1.0, Null, 0);
 
 		pragma Assert (11.0 = Produit_Scalaire (VC2, VC3));
 		pragma Assert (11.0 = Produit_Scalaire (VC3, VC2));
@@ -244,20 +244,20 @@ procedure Test_Vecteurs_Creux is
 		-- Construire VC0
 		Initialiser (VC0);
 		for I in 1..5 loop
-			Modifier (VC0, I, Float(I));
+			Modifier (VC0, I, Long_Float(I),Null,  0);
 		end loop;
 
 		-- Construire VC1
 		Initialiser (VC1);
 		for I in 4..15 loop
-			Modifier (VC1, I, Float(I));
+			Modifier (VC1, I, Long_Float(I), Null, 0);
 		end loop;
 
 		-- Additionner
 		Additionner (VC0, VC1);
 
 		-- Vérifier qu'il n'y a pas de partage entre cellules de VC0 et VC1
-		Modifier (VC1, 10, 111.0);
+		Modifier (VC1, 10, 111.0, Null, 0);
 		pragma Assert (111.0 = Composante (VC1, 10));
 		pragma Assert (10.0 = Composante (VC0, 10));
 

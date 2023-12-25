@@ -12,11 +12,6 @@ begin
 end Initialiser;
 
 procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float) is
-    procedure Update_Dessus(M : in out T_Matrice; I : Integer; J : Integer; Ancien : T_Vecteur_Creux; Nouveau : T_Vecteur_Creux) is
-    begin
-        null;
-    end Update_Dessus;
-
     procedure Interne(Tmp : in out T_Matrice; I : Integer; J : Integer;  Nouveau : Long_Float; Totale : T_Matrice) is
     Tmp_Cell : T_Matrice;
     Tmp_Vec : T_Vecteur_Creux;
@@ -26,15 +21,14 @@ procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau
             Tmp.Indice := I;
             Tmp.Suivant := Null;
             Vecteurs_Creux.Initialiser(Tmp.Valeur);
-            Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Null);
+            Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Null, I);
         elsif
             Tmp.Indice = I then
                 Tmp_Vec := Plus_Bas_Maillon(Totale,  I, J);
-
                 if Tmp_Vec = Null then
-                    Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Plus_Haut_Maillon(Tmp, I, J));
+                    Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Plus_Haut_Maillon(Tmp, I, J), I);
                 else
-                    Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Tmp_Vec.Dessous);
+                    Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Tmp_Vec.Dessous, I);
                    Tmp_Vec.Dessous := Maillon(Tmp.Valeur, J);
                 end if;
         elsif I < Tmp.Indice then
@@ -46,7 +40,7 @@ procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau
             Vecteurs_Creux.Initialiser(Tmp.Valeur);
 
             Tmp.Suivant := Tmp_Cell;
-            Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Plus_Haut_Maillon(Totale, I, J));
+            Vecteurs_Creux.Modifier(Tmp.Valeur, J, Nouveau, Plus_Haut_Maillon(Totale, I, J), I);
 
             Tmp_Vec := Plus_Bas_Maillon(Totale, I, J);
             if Tmp_Vec=Null then
@@ -60,7 +54,7 @@ procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau
             Tmp.Suivant.Indice := I;
             Tmp.Suivant.Suivant := Null;
             Vecteurs_Creux.Initialiser(Tmp.Suivant.Valeur);
-            Vecteurs_Creux.Modifier(Tmp.Suivant.Valeur, J, Nouveau);
+            Vecteurs_Creux.Modifier(Tmp.Suivant.Valeur, J, Nouveau, Null, I);
 
             Tmp_Vec := Plus_Bas_Maillon(Totale, I, J);
             if Tmp_Vec=Null then
@@ -78,6 +72,8 @@ begin
 end Modifier;
 
 function Plus_Bas_Maillon(M : T_Matrice; I : Integer; J : Integer) return T_Vecteur_Creux is
+-- le J le plus bas qui soit plus haut que la ligne I
+
 Tmp : T_Matrice;
 Tmp_Colonne : T_Vecteur_Creux;
 begin
@@ -108,6 +104,7 @@ Tmp := M;
 end Plus_Bas_Maillon;
 
 function Plus_Haut_Maillon(M : T_Matrice; I : Integer; J : Integer) return T_Vecteur_Creux is
+-- le J le plus haut qui soit plus bas que la ligne I
 Tmp : T_Matrice;
 Tmp_Colonne : T_Vecteur_Creux;
 begin
