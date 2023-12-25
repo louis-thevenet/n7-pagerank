@@ -6,16 +6,20 @@ package body Lire_Graphe is
         Entier_1, Entier_2 : Integer;
         Total : Long_Float;
 
+        Changes : T_Vecteur_Creux;
         Tmp : Matrices_Creuses.T_Matrice;
         Tmp2 : Long_Float;
-
-
+        I : Integer;
         begin
     	begin
         Tmp := H;
+
+    Changes := Null;
     while not End_Of_file (File) loop
         Get (File, Entier_1);
         Get (File, Entier_2);
+
+        Vecteurs_Creux.Modifier(Changes, Entier_1+1, Vecteurs_Creux.Composante_Iteratif(Changes, Entier_1+1)+1.0);
 
         while Tmp /= Null and then Tmp.Precedent /= Null and then Tmp.Indice > Entier_2+1 loop
             Tmp := Tmp.Precedent;
@@ -25,14 +29,12 @@ package body Lire_Graphe is
             Tmp := Tmp.Suivant;
         end loop;
         if Tmp /= Null then
-            Tmp2 := Vecteurs_Creux.Composante_Iteratif(Tmp.Valeur, Entier_1+1);
-            Matrices_Creuses.Modifier(Tmp, Entier_1+1, Entier_2+1, Tmp2 +1.0);
+            --Tmp2 := Vecteurs_Creux.Composante_Iteratif(Tmp.Valeur, Entier_1+1); -- ici une fonction incrémenter diviserait par 2 le temps d'exécution
+            Matrices_Creuses.Modifier(Tmp, Entier_1+1, Entier_2+1, 1.0);
         else
             Matrices_Creuses.Modifier(H, Entier_1+1, Entier_2+1, 1.0);
             Tmp := H;
         end if;
-
-
 		end loop;
 	exception
 		when End_Error =>
@@ -40,20 +42,46 @@ package body Lire_Graphe is
 	end;
 
 	Close (File);
+    Matrices_Creuses.Afficher(H);
+    new_line;
 
+    while Changes/=Null loop
+        Tmp := H;
+        while Tmp /= Null loop
+            Matrices_Creuses.Modifier(Tmp, Changes.Indice, Tmp.Indice, Vecteurs_Creux.Composante_Iteratif(Tmp.Valeur, Changes.Indice)/Changes.Valeur);
+            Tmp := Tmp.Suivant;
 
+        end loop;
 
+        Changes := Changes.Suivant;
+    end loop;
+    Matrices_Creuses.Afficher(H);
 
     --  -- Pondération
+    --  Tmp := H;
     --  for I in 1.. Taille loop
     --      Total :=0.0;
     --      for J in 1.. Taille loop
-    --          Total := Total + Matrices_Creuses.Element(H,I,J);
+    --          while Tmp /= Null and then Tmp.Precedent /= Null and then Tmp.Indice > J loop
+    --              Tmp := Tmp.Precedent;
+    --          end loop;
+
+    --          while Tmp /= Null and then Tmp.Suivant /= Null and then Tmp.Indice < J loop
+    --              Tmp := Tmp.Suivant;
+    --          end loop;
+    --          Total := Total + Matrices_Creuses.Element(Tmp,I,J);
     --      end loop;
 
     --      if Total >= 0.000001 then
     --          for J in 1.. Taille loop
-    --              Matrices_Creuses.Modifier(H,I,J,Matrices_Creuses.Element(H,I,J)/total);
+    --              while Tmp /= Null and then Tmp.Precedent /= Null and then Tmp.Indice > J loop
+    --                  Tmp := Tmp.Precedent;
+    --              end loop;
+
+    --              while Tmp /= Null and then Tmp.Suivant /= Null and then Tmp.Indice < J loop
+    --                  Tmp := Tmp.Suivant;
+    --              end loop;
+    --              Matrices_Creuses.Modifier(Tmp,I,J,Matrices_Creuses.Element(Tmp,I,J)/total);
     --          end loop;
     --      else
     --          null;
