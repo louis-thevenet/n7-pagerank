@@ -1,5 +1,6 @@
 with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
+with Ada.Long_Float_Text_IO;		use Ada.Long_Float_Text_IO;
 with Ada.Unchecked_Deallocation;
 package body Matrices_Creuses is
 
@@ -58,16 +59,24 @@ end Element;
 
 procedure Afficher(M : T_Matrice) is
 begin
-    if M = Null then
-        Put("--end matrice--");
-    else
-        Put("Colonne : ");
-        Put(M.Indice);
-        Put(" : ");
-        Vecteurs_Creux.Afficher(M.Valeur);
-        Put_Line("");
-        Afficher(M.Suivant);
-    end if;
+    for i in 1..6 loop
+        for j in 1..6 loop
+            Put(Element(M, i, j), 1,3,0);
+            Put(" | ");
+        end loop;
+        new_line;
+    end loop;
+    --  if M = Null then
+    --      Put("--end matrice--");
+    --  else
+    --      new_line;
+    --      Put("Colonne : ");
+    --      Put(M.Indice, 1);
+    --      Put(" : ");
+    --      Vecteurs_Creux.Afficher(M.Valeur);
+    --      Put_Line("");
+    --      Afficher(M.Suivant);
+    --  end if;
 end Afficher;
 
 --  procedure Pour_Chaque(M : in out T_Matrice) is

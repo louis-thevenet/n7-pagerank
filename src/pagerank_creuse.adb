@@ -2,6 +2,7 @@
 with PageRank_Result;
 with Vecteurs_Creux; use Vecteurs_Creux;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Long_Float_Text_IO; use Ada.Long_Float_Text_IO;
 
 -- with PageRank_Result;
@@ -65,14 +66,20 @@ package body PageRank_Creuse is
         end loop;
     end Calculer_Pi_Transpose;
 
-function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids; G : in T_Matrice; Alpha : Long_Float; Taille : Integer) return PageRank_Result_Inst.T_Tab_Poids is
+function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids;
+                                G : in T_Matrice;
+                                Lignes_Non_Nulles : in T_Vecteur_Creux;
+                                Alpha : Long_Float;
+                                Taille : Integer
+                                ) return PageRank_Result_Inst.T_Tab_Poids is
 Tmp : Long_Float;
 Resultat : PageRank_Result_Inst.T_Tab_Poids;
 Taille_Float : Long_Float := Long_Float(Taille);
 
-Tete : T_Vecteur_Creux;
+Tete, Tete_Lignes_Non_Nulles  : T_Vecteur_Creux;
 Ligne  : T_Matrice;
 beta : Long_Float;
+Nombre_Cellules : Long_Float;
 begin
 Ligne := G;
 beta := (1.0 - Alpha) / Taille_Float;
@@ -80,23 +87,31 @@ beta := (1.0 - Alpha) / Taille_Float;
 
 while Ligne /= Null and then Ligne.Indice <= Taille loop
     Resultat(Ligne.Indice) := 0.0;
+    Tete := Ligne.Valeur;
+    Tete_Lignes_Non_Nulles := Lignes_Non_Nulles;
 
-    if Ligne = Null then
-        return Resultat;
-    else
-        Tete := Ligne.Valeur;
-    end if;
-    --if Tete = Null then put("Tete nulle"); new_line; else put(Tete.Numero_Ligne, 1); new_line; end if;
     for I in 1..Taille loop
-        --  Put("G(");
-        --  Put(I, 1);
-        --  Put(",");
-        --  Put(Ligne.Indice, 1);
-        --  Put(") = ");
         if Tete = Null then
             Tmp := 0.0;
         elsif Tete.Indice = I then
-            Tmp := Tete.Valeur;
+            if Tete_Lignes_Non_Nulles = Null then
+
+                Nombre_Cellules := 1.0;
+            elsif Tete_Lignes_Non_Nulles.Indice = I then
+                    Nombre_Cellules := Tete_Lignes_Non_Nulles.Valeur;
+                    Tete_Lignes_Non_Nulles := Tete_Lignes_Non_Nulles.Suivant;
+            else
+                while Tete_Lignes_Non_Nulles /= Null and then Tete_Lignes_Non_Nulles.Indice < I loop
+                    Tete_Lignes_Non_Nulles := Tete_Lignes_Non_Nulles.Suivant;
+                end loop;
+                if Tete_Lignes_Non_Nulles /= Null and then Tete_Lignes_Non_Nulles.Indice = I then
+                    Nombre_Cellules := Tete_Lignes_Non_Nulles.Valeur;
+                else
+                    Nombre_Cellules := 1.0;
+                end if;
+            end if;
+
+            Tmp := Tete.Valeur / Nombre_Cellules;
             Tete := Tete.Suivant;
         else
             while Tete /= Null and then Tete.Indice < I loop
@@ -105,12 +120,10 @@ while Ligne /= Null and then Ligne.Indice <= Taille loop
             Tmp := 0.0;
         end if;
 
-        --Put(Tmp, 1, 0, 0);
-        --Put_Line("");
+
         Resultat(Ligne.Indice) := Resultat(Ligne.Indice) + (Alpha * Tmp+ beta) * Poids(I);
 
     end loop;
-    --new_line;
     Ligne := Ligne.Suivant;
 end loop;
 
@@ -119,12 +132,13 @@ end Prochaine_Iteration;
 
 
 
-procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in T_Matrice; K : Integer; Epsilon : Long_Float;Alpha : Long_Float; Taille : Integer) is
+procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in T_Matrice; Lignes_Non_Nulles : T_Vecteur_Creux; K : Integer; Epsilon : Long_Float;Alpha : Long_Float; Taille : Integer) is
 I : Integer := 0;
 old : PageRank_Result_Inst.T_Tab_Poids := Poids;
 begin
     while I < K and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old))>=Epsilon*Epsilon loop
-        Poids := Prochaine_Iteration(Poids, G, Alpha, Poids'Length);
+        Old := Poids;
+        Poids := Prochaine_Iteration(Poids, G, Lignes_Non_Nulles, Alpha, Poids'Length);
         I := I + 1;
     end loop;
 end Iterer;

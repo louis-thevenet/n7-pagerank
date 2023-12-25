@@ -24,6 +24,11 @@ package Vecteurs_Creux is
 	function Composante_Recursif (V : in T_Vecteur_Creux ; Indice : in Integer) return Long_Float
 		with Pre => Indice >= 1;
 
+    procedure Incremente(V : in out T_Vecteur_Creux; Indice : in Integer ) with
+     Pre => Indice >= 1;
+
+    procedure Divise(V : in out T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float ) with
+     Pre => Indice >= 1;
 
 	-- Récupérer la composante (valeur) du vecteur V à l'indice Indice.
 	function Composante_Iteratif (V : in T_Vecteur_Creux ; Indice : in Integer) return Long_Float

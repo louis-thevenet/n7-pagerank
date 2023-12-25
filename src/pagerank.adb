@@ -4,6 +4,7 @@ with Ada.IO_Exceptions;
 with Lire_Graphe;
 with Matrices_Pleines;
 with Matrices_Creuses; use Matrices_Creuses;
+with Vecteurs_Creux; use Vecteurs_Creux;
 with PageRank_Pleine;
 with PageRank_Creuse;
 with PageRank_Result;
@@ -58,17 +59,19 @@ package body PageRank is
                     package PageRank_Creuse_Inst is new PageRank_Creuse(PageRank_Result_Inst);
 
                     S : Matrices_Creuses.T_Matrice;
+                    Lignes_Non_Nulles : T_Vecteur_Creux;
                     Resultat : T_Resultat;
 
                 begin
                     Matrices_Creuses.Initialiser(S);
-                    Completer_Graphe_Creuse(File,S, Taille);
-                    PageRank_Creuse_Inst.Calculer_S(S, Taille);
+                    Vecteurs_Creux  .Initialiser(Lignes_Non_Nulles);
+
+                    Completer_Graphe_Creuse(File,S, Lignes_Non_Nulles, Taille);
 
                     PageRank_Result_Inst.Initialiser(Resultat);
                     PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
 
-                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, K, Epsilon, Alpha, Taille);
+                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, Lignes_Non_Nulles, K, Epsilon, Alpha, Taille);
                     PageRank_Result_Inst.Trier(Resultat);
                     PageRank_Result_Inst.Enregistrer(Resultat, Prefixe, Alpha, K);
                 end;

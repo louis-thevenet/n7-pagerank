@@ -69,27 +69,42 @@ package body Vecteurs_Creux is
 tmp : T_Vecteur_Creux;
 	begin
         if Est_Nul(V) then
-            V := new T_Cellule;
-            V.All.Indice := Indice;
-            V.All.Valeur :=Valeur;
-            V.All.Suivant:=Null;
+            if Valeur > 0.00001 then
+                V := new T_Cellule;
+                V.All.Indice := Indice;
+                V.All.Valeur :=Valeur;
+                V.All.Suivant:=Null;
+            else
+                null;
+            end if;
 
         elsif (Indice = V.All.Indice) then
-            V.All.Valeur := Valeur;
+            if Valeur > 0.000001 then
+                V.All.Valeur := Valeur;
+            else
+                V := V.Suivant;
+            end if;
 
         elsif (Indice < V.All.Indice ) then
-            tmp := new T_Cellule;
-            tmp.All := V.All;
+            if Valeur > 0.000001 then
+                tmp := new T_Cellule;
+                tmp.All := V.All;
 
-            V.All.Indice := Indice;
-            V.All.Valeur := Valeur;
-            V.All.Suivant := tmp;
+                V.All.Indice := Indice;
+                V.All.Valeur := Valeur;
+                V.All.Suivant := tmp;
+            else
+                null;
+            end if;
         elsif Est_Nul(V.All.Suivant) then
-
-            V.All.Suivant := new T_Cellule;
-            V.All.Suivant.All.Indice := Indice;
-            V.All.Suivant.All.Valeur :=Valeur;
-            V.All.Suivant.All.Suivant:=Null;
+            if Valeur > 0.000001 then
+                V.All.Suivant := new T_Cellule;
+                V.All.Suivant.All.Indice := Indice;
+                V.All.Suivant.All.Valeur :=Valeur;
+                V.All.Suivant.All.Suivant:=Null;
+            else
+                null;
+            end if;
         else
             Modifier(V.All.Suivant, Indice, Valeur);
         end if;
@@ -110,6 +125,60 @@ tmp : T_Vecteur_Creux;
             and then Sont_Egaux_Recursif(V1.All.Suivant, V2.All.Suivant);
 	end Sont_Egaux_Recursif;
 
+procedure Incremente(V : in out T_Vecteur_Creux; Indice : in Integer ) is
+tmp : T_Vecteur_Creux;
+begin
+        if Est_Nul(V) then
+            V := new T_Cellule;
+            V.All.Indice := Indice;
+            V.All.Valeur :=1.0;
+            V.All.Suivant:=Null;
+
+
+        elsif (Indice = V.All.Indice) then
+            V.All.Valeur := V.All.Valeur+1.0;
+
+        elsif (Indice < V.All.Indice ) then
+
+            tmp := new T_Cellule;
+            tmp.All := V.All;
+
+            V.All.Indice := Indice;
+            V.All.Valeur := 1.0;
+            V.All.Suivant := tmp;
+
+        elsif Est_Nul(V.All.Suivant) then
+            V.All.Suivant := new T_Cellule;
+            V.All.Suivant.All.Indice := Indice;
+            V.All.Suivant.All.Valeur :=1.0;
+            V.All.Suivant.All.Suivant:=Null;
+
+        else
+            Incremente(V.All.Suivant, Indice);
+        end if;
+end Incremente;
+
+procedure Divise(V : in out T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float ) is
+tmp : T_Vecteur_Creux;
+begin
+        if Est_Nul(V) then
+            null;
+
+
+        elsif (Indice = V.All.Indice) then
+            V.All.Valeur := V.All.Valeur/Diviseur;
+
+        elsif (Indice < V.All.Indice ) then
+
+            null;
+
+        elsif Est_Nul(V.All.Suivant) then
+            null;
+
+        else
+            Divise(V.All.Suivant, Indice, Diviseur);
+        end if;
+end Divise;
 
 	function Sont_Egaux_Iteratif (V1, V2 : in T_Vecteur_Creux) return Boolean is
 
