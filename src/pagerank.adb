@@ -66,10 +66,14 @@ package body PageRank is
                     Matrices_Creuses.Initialiser(S);
                     Vecteurs_Creux  .Initialiser(Lignes_Non_Nulles);
 
+                    put("lecture");
+                    new_line;
                     Completer_Graphe_Creuse(File,S, Lignes_Non_Nulles, Taille);
+
 
                     PageRank_Result_Inst.Initialiser(Resultat);
                     PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
+
 
                     PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, Lignes_Non_Nulles, K, Epsilon, Alpha, Taille);
                     PageRank_Result_Inst.Trier(Resultat);
