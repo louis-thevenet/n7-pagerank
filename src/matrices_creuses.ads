@@ -24,7 +24,7 @@ package Matrices_Creuses is
 		record
 			Indice : Integer;
 			Valeur : T_Vecteur_Creux;
-			Suivant : T_Matrice;
+			Precedent, Suivant : T_Matrice;
 		end record;
 
 

@@ -7,16 +7,31 @@ package body Lire_Graphe is
         Total : Long_Float;
 
         Tmp : Matrices_Creuses.T_Matrice;
-        Tmp2 : T_Vecteur_Creux;
+        Tmp2 : Long_Float;
 
 
         begin
     	begin
-		while not End_Of_file (File) loop
-			Get (File, Entier_1);
-            Get (File, Entier_2);
+        Tmp := H;
+    while not End_Of_file (File) loop
+        Get (File, Entier_1);
+        Get (File, Entier_2);
 
-            Matrices_Creuses.Modifier(H, Entier_1+1, Entier_2+1, Matrices_Creuses.Element(H, Entier_1+1, Entier_2+1)+1.0);
+        while Tmp /= Null and then Tmp.Precedent /= Null and then Tmp.Indice > Entier_2+1 loop
+            Tmp := Tmp.Precedent;
+        end loop;
+
+        while Tmp /= Null and then Tmp.Suivant /= Null and then Tmp.Indice < Entier_2+1 loop
+            Tmp := Tmp.Suivant;
+        end loop;
+        if Tmp /= Null then
+            Tmp2 := Vecteurs_Creux.Composante_Iteratif(Tmp.Valeur, Entier_1+1);
+            Matrices_Creuses.Modifier(Tmp, Entier_1+1, Entier_2+1, Tmp2 +1.0);
+        else
+            Matrices_Creuses.Modifier(H, Entier_1+1, Entier_2+1, 1.0);
+            Tmp := H;
+        end if;
+
 
 		end loop;
 	exception
@@ -26,28 +41,45 @@ package body Lire_Graphe is
 
 	Close (File);
 
-    Tmp := H;
 
-    while Tmp /= Null loop
 
-        Total :=0.0;
-        Tmp2 := Tmp.Valeur;
-        while Tmp2 /= Null loop
-            Total := Total + Tmp2.Valeur;
-            Tmp2 := Tmp2.Suivant;
-        end loop;
 
-        if Total >= 0.000001 then
-            Tmp2 := Tmp.Valeur;
-            while Tmp2 /= Null loop
-                Tmp2.Valeur := Tmp2.Valeur/total;
-                Tmp2:=Tmp2.Suivant;
-            end loop;
-        else
-            null;
-        end if;
-        Tmp := Tmp.Suivant;
-    end loop;
+    --  -- Pondération
+    --  for I in 1.. Taille loop
+    --      Total :=0.0;
+    --      for J in 1.. Taille loop
+    --          Total := Total + Matrices_Creuses.Element(H,I,J);
+    --      end loop;
+
+    --      if Total >= 0.000001 then
+    --          for J in 1.. Taille loop
+    --              Matrices_Creuses.Modifier(H,I,J,Matrices_Creuses.Element(H,I,J)/total);
+    --          end loop;
+    --      else
+    --          null;
+    --      end if;
+    --  end loop;
+
+    --  Tmp := H;
+    --  while Tmp /= Null loop
+    --      Total :=0.0;
+    --      Tmp2 := Tmp.Valeur;
+    --      while Tmp2 /= Null loop
+    --          Total := Total + Tmp2.Valeur;
+    --          Tmp2 := Tmp2.Suivant;
+    --      end loop;
+
+    --      if Total >= 0.000001 then
+    --          Tmp2 := Tmp.Valeur;
+    --          while Tmp2 /= Null loop
+    --              Tmp2.Valeur := Tmp2.Valeur/total;
+    --              Tmp2:=Tmp2.Suivant;
+    --          end loop;
+    --      else
+    --          null;
+    --      end if;
+    --      Tmp := Tmp.Suivant;
+    --  end loop;
     end Completer_Graphe_Creuse;
 
         procedure Completer_Graphe_Pleine (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Pleines_Inst.T_Matrice) is
