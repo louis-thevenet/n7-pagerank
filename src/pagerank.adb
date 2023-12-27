@@ -72,7 +72,7 @@ package body PageRank is
 
 
                     PageRank_Result_Inst.Initialiser(Resultat);
-                    PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat, Taille);
+                    PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat);
 
 
                     PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, Lignes_Non_Nulles, K, Epsilon, Alpha, Taille);

@@ -1,10 +1,8 @@
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
-with Vecteurs_Creux;			use Vecteurs_Creux;
 
 package body Lire_Graphe is
     procedure Completer_Graphe_Creuse (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Creuses.T_Matrice; Lignes_Non_Nulles : in out T_Vecteur_Creux; Taille:Integer) is
         Entier_1, Entier_2 : Integer;
-        Total : Long_Float;
         Tmp : Matrices_Creuses.T_Matrice;
         Tete_Lignes_Non_Nulles : T_Vecteur_Creux;
         Tmp2 : Long_Float;

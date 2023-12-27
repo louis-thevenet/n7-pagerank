@@ -59,7 +59,6 @@ procedure Programme_Principal is
         Alpha : Long_Float := 0.85;
         K : Integer := 150;
         Epsilon : Long_Float := 0.0;
-        Creuse : Boolean := True;
         Pleine : Boolean := False;
         Prefixe : Unbounded_String := To_Unbounded_String ("output");
         Fichier_graphe : Unbounded_String := To_Unbounded_String ("");
@@ -106,7 +105,6 @@ begin
                         raise Argument_Error;
                     end if;
                 when 'C' =>
-                    Creuse := True;
                     if Pleine then
                         Put_Line ("Attention, vous ne pouvez pas activer à la fois le mode Creuse et à la fois le mode Pleine");
                         New_Line;

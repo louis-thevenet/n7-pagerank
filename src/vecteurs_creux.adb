@@ -158,7 +158,7 @@ begin
         end if;
 end Incremente;
 
-procedure Divise(V : in out T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float ) is
+procedure Divise(V : in T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float ) is
 tmp : T_Vecteur_Creux;
 begin
         if Est_Nul(V) then

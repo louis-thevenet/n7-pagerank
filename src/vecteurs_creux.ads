@@ -27,7 +27,7 @@ package Vecteurs_Creux is
     procedure Incremente(V : in out T_Vecteur_Creux; Indice : in Integer ) with
      Pre => Indice >= 1;
 
-    procedure Divise(V : in out T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float ) with
+    procedure Divise(V : in T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float ) with
      Pre => Indice >= 1;
 
 	-- Récupérer la composante (valeur) du vecteur V à l'indice Indice.
