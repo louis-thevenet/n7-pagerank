@@ -2,32 +2,6 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 package body PageRank_Creuse is
-    procedure Calculer_S(H : in out T_Matrice; Taille : Integer) is
-    Est_nul : Boolean;
-    begin
-
-        for I in 1..Taille loop
-            Est_nul := true;
-            for J in 1..Taille loop
-                Est_Nul := Est_Nul and then (Element(H,I,J) < 0.00001);
-            end loop;
-            if Est_nul then
-                for J in 1..Taille loop
-                    Modifier(H,I,J,1.0/Long_Float(Taille));
-                end loop;
-            end if;
-        end loop;
-    end Calculer_S;
-
-    procedure Calculer_G(S : in out T_Matrice; alpha : Long_Float; Taille : Integer) is
-    begin
-     for I in 1..Taille loop
-            for J in 1..Taille loop
-                Modifier(S, I, J, alpha * Element(S, I, J) + (1.0 - alpha) / Long_Float(Taille));
-            end loop;
-        end loop;
-    end Calculer_G;
-
     procedure Calculer_Pi_Transpose (Resultat : in out PageRank_Result_Inst.T_Resultat) is
     begin
         for J in 1..Resultat.Taille loop
@@ -127,7 +101,7 @@ begin
         Ligne := Ligne.Suivant;
     end loop;
 
-
+    -- Itérations de PageRank
     while I < K and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old))>=Epsilon*Epsilon loop
         Old := Poids;
         Poids := Prochaine_Iteration(Poids, G, Alpha, Poids'Length);

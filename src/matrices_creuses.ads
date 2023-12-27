@@ -4,17 +4,22 @@ package Matrices_Creuses is
 
     type T_Matrice;
 
+    -- Initialiser une matrice creuse
     procedure Initialiser(M : out T_Matrice);
+
+    -- Modifier un élément de la matrice creuse
     procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float);
+
+    -- Récupérer un élément de la matrice creuse
     function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float;
+
+    -- Afficher la matrice creuse
     procedure Afficher(M : T_Matrice);
 
     -- Le code suivant provoque un crash de GNAT
     --  generic
     --      with function Traitement(V : Long_Float) return Long_Float;
     --  procedure Pour_Chaque(M : in out T_Matrice);
-
-
 
 	type T_Cellule_Matrice;
 
@@ -26,6 +31,5 @@ package Matrices_Creuses is
 			Valeur : T_Vecteur_Creux;
 			Precedent, Suivant : T_Matrice;
 		end record;
-
 
 end Matrices_Creuses;
