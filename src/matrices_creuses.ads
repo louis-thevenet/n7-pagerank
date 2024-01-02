@@ -1,5 +1,8 @@
 with Vecteurs_Creux; use Vecteurs_Creux;
 
+generic
+    Taille: Integer;
+
 package Matrices_Creuses is
 
     type T_Matrice;
@@ -21,15 +24,6 @@ package Matrices_Creuses is
     --      with function Traitement(V : Long_Float) return Long_Float;
     --  procedure Pour_Chaque(M : in out T_Matrice);
 
-	type T_Cellule_Matrice;
-
-	type T_Matrice is access T_Cellule_Matrice;
-
-	type T_Cellule_Matrice is
-		record
-			Indice : Integer;
-			Valeur : T_Vecteur_Creux;
-			Precedent, Suivant : T_Matrice;
-		end record;
+	type T_Matrice is array(1..Taille) of T_Vecteur_Creux;
 
 end Matrices_Creuses;

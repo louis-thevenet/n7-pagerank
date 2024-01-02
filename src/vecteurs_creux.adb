@@ -30,22 +30,10 @@ package body Vecteurs_Creux is
 	function Est_Nul (V : in T_Vecteur_Creux) return Boolean is
 	begin
 		return V=Null;
-	end Est_Nul;
+    end Est_Nul;
 
 
-	function Composante_Recursif (V : in T_Vecteur_Creux ; Indice : in Integer) return Long_Float is
-	begin
-        if Est_Nul(V) then
-            return 0.0;
-        elsif Indice = V.All.Indice then
-            return V.All.Valeur;
-        else
-            return Composante_Recursif(V.All.Suivant, Indice);
-        end if;
-	end Composante_Recursif;
-
-
-	function Composante_Iteratif (V : in T_Vecteur_Creux ; Indice : in Integer) return Long_Float is
+	function Composante (V : in T_Vecteur_Creux ; Indice : in Integer) return Long_Float is
     tmp : T_Vecteur_Creux;
 	begin
         tmp := V;
@@ -60,7 +48,7 @@ package body Vecteurs_Creux is
             tmp:=tmp.All.Suivant;
         end loop;
         return 0.0;
-	end Composante_Iteratif;
+	end Composante;
 
 
 	procedure Modifier (V : in out T_Vecteur_Creux ;
@@ -110,24 +98,9 @@ tmp : T_Vecteur_Creux;
         end if;
 	end Modifier;
 
-
-	function Sont_Egaux_Recursif (V1, V2 : in T_Vecteur_Creux) return Boolean is
+    procedure Incremente(V : in out T_Vecteur_Creux; Indice : in Integer ) is
+        tmp : T_Vecteur_Creux;
     begin
-        if Est_Nul(V1) xor Est_Nul(V2) then
-            return false;
-        end if;
-        if Est_Nul(V1) and then Est_Nul(V2) then
-            return true;
-        end if;
-
-        return V1.All.Valeur = V2.All.Valeur
-            and then V1.All.Indice = V2.All.Indice
-            and then Sont_Egaux_Recursif(V1.All.Suivant, V2.All.Suivant);
-	end Sont_Egaux_Recursif;
-
-procedure Incremente(V : in out T_Vecteur_Creux; Indice : in Integer ) is
-tmp : T_Vecteur_Creux;
-begin
         if Est_Nul(V) then
             V := new T_Cellule;
             V.All.Indice := Indice;
@@ -156,31 +129,11 @@ begin
         else
             Incremente(V.All.Suivant, Indice);
         end if;
-end Incremente;
-
-procedure Divise(V : in T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float ) is
-tmp : T_Vecteur_Creux;
-begin
-        if Est_Nul(V) then
-            null;
+    end Incremente;
 
 
-        elsif (Indice = V.All.Indice) then
-            V.All.Valeur := V.All.Valeur/Diviseur;
 
-        elsif (Indice < V.All.Indice ) then
-
-            null;
-
-        elsif Est_Nul(V.All.Suivant) then
-            null;
-
-        else
-            Divise(V.All.Suivant, Indice, Diviseur);
-        end if;
-end Divise;
-
-	function Sont_Egaux_Iteratif (V1, V2 : in T_Vecteur_Creux) return Boolean is
+	function Sont_Egaux (V1, V2 : in T_Vecteur_Creux) return Boolean is
 
     tmp, tmp2 : T_Vecteur_Creux;
 	begin
@@ -200,7 +153,7 @@ end Divise;
             end if;
         end loop;
         return false; -- n'arrive jamais
-	end Sont_Egaux_Iteratif;
+	end Sont_Egaux;
 
 
 	procedure Additionner (V1 : in out T_Vecteur_Creux; V2 : in T_Vecteur_Creux) is
@@ -230,48 +183,6 @@ end Divise;
 	end Additionner;
 
 
-	function Norme2 (V : in T_Vecteur_Creux) return Long_Float is
-    tmp : T_Vecteur_Creux;
-    Res : Long_Float;
-	begin
-        Res :=0.0;
-        tmp := V;
-        while (True) loop
-            if Est_Nul(tmp) then
-                return Res;
-            end if;
-            Res := Res + tmp.All.Valeur * tmp.All.Valeur;
-            tmp := tmp.All.Suivant;
-        end loop;
-        return 0.0; -- n'arrive jamais
-    end Norme2;
-
-
-	Function Produit_Scalaire (V1, V2: in T_Vecteur_Creux) return Long_Float is
-	tmp, tmp2 : T_Vecteur_Creux;
-    Somme : Long_Float;
-	begin
-        tmp := V1;
-        tmp2 := V2;
-        Somme := 0.0;
-        While (True) loop
-            if (Est_Nul(tmp) and Est_Nul(tmp2)) then
-                return Somme;
-            end if;
-            if Est_Nul(tmp) then
-                tmp2:=tmp2.All.Suivant;
-            elsif Est_Nul(tmp2) then
-                tmp:=tmp.All.Suivant;
-            else
-                Somme := Somme+tmp.All.Valeur*tmp2.All.Valeur;
-                tmp2:=tmp2.All.Suivant;
-                tmp:=tmp.All.Suivant;
-            end if;
-        end loop;
-        return 0.0; -- n'arrive jamais
-    end Produit_Scalaire;
-
-
 	procedure Afficher (V : T_Vecteur_Creux) is
 	begin
 		if V = Null then
@@ -290,7 +201,7 @@ end Divise;
 	end Afficher;
 
 
-	function Nombre_Composantes_Non_Nulles (V: in T_Vecteur_Creux) return Integer is
+    function Nombre_Composantes_Non_Nulles (V: in T_Vecteur_Creux) return Integer is
 	begin
 		if V = Null then
 			return 0;
@@ -298,6 +209,5 @@ end Divise;
 			return 1 + Nombre_Composantes_Non_Nulles (V.all.Suivant);
 		end if;
 	end Nombre_Composantes_Non_Nulles;
-
 
 end Vecteurs_Creux;
