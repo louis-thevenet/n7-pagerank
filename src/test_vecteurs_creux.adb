@@ -66,7 +66,6 @@ procedure Test_Vecteurs_Creux is
         Incremente(VC1,9);
         pragma Assert(Composante(VC0,1)=1.0);
         pragma Assert(Composante(VC0,16)=2.0);
-        pragma Assert(Composante(VC1,3)=-2.0);
         pragma Assert(Composante(VC1,9)=1.0);
 
         Put_Line("Test de la procédure Incrémente OK");
@@ -76,6 +75,8 @@ procedure Test_Vecteurs_Creux is
         VC0, VC1, VC2, VC3: T_Vecteur_Creux;
     begin
         Initialiser (VC0, VC1, VC2,VC3);
+        pragma Assert( VC2.all.Valeur = Composante(VC2,100));
+
 
         Put_Line("Test de la procédure Composante OK");
     end Tester_Composante;

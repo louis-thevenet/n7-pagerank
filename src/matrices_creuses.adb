@@ -5,7 +5,9 @@ package body Matrices_Creuses is
 
 procedure Initialiser(M : out T_Matrice) is
 begin
-    M:= Null;
+    for colonne in 1..Taille loop
+        M(colonne):=Null;
+    end loop;
 end Initialiser;
 
 procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float) is
