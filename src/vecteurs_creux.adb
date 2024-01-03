@@ -57,7 +57,7 @@ package body Vecteurs_Creux is
 tmp : T_Vecteur_Creux;
 	begin
         if Est_Nul(V) then
-            if Valeur > 0.00001 then
+            if abs(Valeur) > 0.00001 then
                 V := new T_Cellule;
                 V.All.Indice := Indice;
                 V.All.Valeur :=Valeur;
@@ -67,14 +67,14 @@ tmp : T_Vecteur_Creux;
             end if;
 
         elsif (Indice = V.All.Indice) then
-            if Valeur > 0.000001 then
+            if abs(Valeur) > 0.000001 then
                 V.All.Valeur := Valeur;
             else
                 V := V.Suivant;
             end if;
 
         elsif (Indice < V.All.Indice ) then
-            if Valeur > 0.000001 then
+            if abs(Valeur) > 0.000001 then
                 tmp := new T_Cellule;
                 tmp.All := V.All;
 
@@ -85,7 +85,7 @@ tmp : T_Vecteur_Creux;
                 null;
             end if;
         elsif Est_Nul(V.All.Suivant) then
-            if Valeur > 0.000001 then
+            if abs(Valeur) > 0.000001 then
                 V.All.Suivant := new T_Cellule;
                 V.All.Suivant.All.Indice := Indice;
                 V.All.Suivant.All.Valeur :=Valeur;

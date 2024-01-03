@@ -75,6 +75,7 @@ procedure Test_Vecteurs_Creux is
     begin
         Initialiser (VC0, VC1, VC2,VC3);
         pragma Assert( VC2.all.Valeur = Composante(VC2,100));
+        pragma Assert( -3.0 = Composante(VC1,3));
 
 
         Put_Line("Test de la procédure Composante OK");
