@@ -4,7 +4,7 @@ with Vecteurs_Creux; use Vecteurs_Creux;
 with PageRank_Result;
 generic
     with package Matrices_Creuses_Inst is new Matrices_Creuses (<>);
-   with package PageRank_Result_Inst is new PageRank_Result (<>);
+    with package PageRank_Result_Inst is new PageRank_Result (<>);
 
 package PageRank_Creuse is
 
