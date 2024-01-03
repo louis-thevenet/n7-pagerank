@@ -40,12 +40,6 @@ package Vecteurs_Creux is
 	-- Est-ce que deux vecteurs creux sont égaux ?
 	function Sont_Egaux (V1, V2 : in T_Vecteur_Creux) return Boolean;
 
-
-	-- Additionner V1 avec V2. Ce sous-programme réalise l'opération suivante :
-	--  V1 := V1 + V2
-	procedure Additionner (V1 : in out T_Vecteur_Creux; V2 : in T_Vecteur_Creux);
-
-
 	-- Afficher le vecteur creux à des fins de mise au point.
 	procedure Afficher (V : T_Vecteur_Creux);
 

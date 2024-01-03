@@ -156,33 +156,6 @@ tmp : T_Vecteur_Creux;
 	end Sont_Egaux;
 
 
-	procedure Additionner (V1 : in out T_Vecteur_Creux; V2 : in T_Vecteur_Creux) is
-	Res, tmp, tmp2 : T_Vecteur_Creux;
-
-	begin
-        tmp := V1;
-        tmp2 := V2;
-        Initialiser(Res);
-        While (True) loop
-            if (Est_Nul(tmp) and Est_Nul(tmp2)) then
-                return;
-            end if;
-            if Est_Nul(tmp) or else tmp.All.Indice > tmp2.All.indice then
-                Modifier(V1, tmp2.All.Indice, tmp2.All.Valeur);
-                tmp2:=tmp2.All.Suivant;
-            elsif Est_Nul(tmp2) or else tmp.All.Indice < tmp2.All.indice then
-                Modifier(V1, tmp.All.Indice, tmp.All.Valeur);
-                tmp:=tmp.All.Suivant;
-            else
-                Modifier(V1, tmp2.Indice, tmp.All.Valeur + tmp2.All.Valeur);
-                tmp2:=tmp2.All.Suivant;
-                tmp:=tmp.All.Suivant;
-            end if;
-        end loop;
-
-	end Additionner;
-
-
 	procedure Afficher (V : T_Vecteur_Creux) is
 	begin
 		if V = Null then

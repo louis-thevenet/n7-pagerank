@@ -9,7 +9,6 @@ procedure Test_Vecteurs_Creux is
     procedure Tester_Composante;
     procedure Tester_Est_Nul;
     procedure Tester_Sont_Egaux;
-    procedure Tester_Aditionner;
 
     procedure Initialiser (VC0, VC1, VC2, VC3 : out T_Vecteur_Creux);
     procedure Detruire (VC0, VC1, VC2, VC3 : in out T_Vecteur_Creux);
@@ -127,26 +126,6 @@ procedure Test_Vecteurs_Creux is
 	end Tester_Sont_Egaux;
 
 
-    procedure Tester_Aditionner is
-        VC0, VC1, VC2, VC3: T_Vecteur_Creux;
-    begin
-
-        Initialiser(VC0, VC1, VC2, VC3);
-
-        Additionner(VC1,VC0);
-        pragma Assert(Sont_Egaux(VC0,VC1));
-        Additionner(VC2,VC3);
-        pragma Assert (Nombre_Composantes_Non_Nulles(VC2) /= Nombre_Composantes_Non_Nulles(VC3));
-        pragma Assert (Composante(VC2,3)=6.0);
-        pragma Assert (Composante(VC2,1)=3.0);
-        pragma Assert (Composante(VC2,100)=2.0);
-        pragma Assert (Composante(VC3,3)=3.0);
-        pragma Assert (Composante(VC3,1)=1.0);
-
-        Detruire(VC0, VC1, VC2, VC3);
-        Put_Line("Test de la procédure Aditionner OK");
-
-    end Tester_Aditionner;
 
 begin
 
@@ -154,6 +133,5 @@ begin
     Tester_Incremente;
 	Tester_Est_Nul;
 	Tester_Sont_Egaux;
-    Tester_Aditionner;
 
 end Test_Vecteurs_Creux;
