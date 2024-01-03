@@ -3,90 +3,73 @@ with Ada.Integer_Text_IO;		use Ada.Integer_Text_IO;
 
 package body Matrices_Creuses is
 
-procedure Initialiser(M : out T_Matrice) is
-begin
-    for colonne in 1..Taille loop
-        M(colonne):=Null;
-    end loop;
-end Initialiser;
+    procedure Initialiser(M : out T_Matrice) is
+    begin
+        for colonne in 1..Taille loop
+            M(colonne):=Null;
+        end loop;
+    end Initialiser;
 
-procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float) is
-tmp : T_Matrice;
-begin
-null;
-    --  if M=Null then
-    --      M := new T_Cellule_Matrice;
-    --      M.Indice := J;
-    --      M.Suivant := Null;
-    --      M.Precedent := Null;
-    --      Vecteurs_Creux.Initialiser(M.Valeur);
-    --      Vecteurs_Creux.Modifier(M.Valeur, I, Nouveau);
-    --  elsif
-    --      M.Indice = J then
-    --          Vecteurs_Creux.Modifier(M.Valeur, I, Nouveau);
-    --  elsif J < M.Indice then
-    --      tmp := new T_Cellule_Matrice;
-    --      tmp.All := M.All;
+    function Est_Nulle(M: T_Matrice) return Boolean is
+        vide: Boolean;
+        colonne: Integer;
+    begin
+        vide := True;
+        colonne := 1;
+        while vide and colonne <= Taille loop
+            vide := Vecteurs_Creux.Est_Nul(M(colonne));
+            colonne:= colonne +1;
+        end loop;
+        return vide;
+    end Est_Nulle;
 
-    --      M.Indice := J;
 
-    --      Vecteurs_Creux.Initialiser(M.Valeur);
-    --      Vecteurs_Creux.Modifier(M.Valeur, I, Nouveau);
-    --      M.Suivant := tmp;
-    --      tmp.Precedent := M;
-    --  elsif M.Suivant = Null then
-    --      M.Suivant := new T_Cellule_Matrice;
-    --      M.Suivant.Indice := J;
-    --      M.Suivant.Suivant := Null;
-    --      M.Suivant.Precedent := M;
-    --      Vecteurs_Creux.Initialiser(M.Suivant.Valeur);
-    --      Vecteurs_Creux.Modifier(M.Suivant.Valeur, I, Nouveau);
-    --  else
-    --      Modifier(M.Suivant, I, J, Nouveau);
-    --  end if;
-end Modifier;
 
-function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float is
-begin
-return 0.0;
-    --  if M = Null or else M.Indice > J then
-    --      return 0.0;
-    --  elsif M.Indice = J then
-    --      return Vecteurs_Creux.Composante_Iteratif(M.Valeur, I);
-    --  else
-    --      return Element(M.Suivant, I, J);
-    --  end if;
-end Element;
+    procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float) is
+    begin
+        if Est_Nulle(M) then
+            Initialiser(M);
+            Vecteurs_Creux.Modifier(M(J), I, Nouveau);
+        else
+            Vecteurs_Creux.Modifier(M(J), I, Nouveau);
+        end if;
+    end Modifier;
 
-procedure Afficher(M : T_Matrice) is
-begin
-null;
-    --  if M = Null then
-    --      Put("--end matrice--");
-    --  else
-    --      new_line;
-    --      Put("Colonne : ");
-    --      Put(M.Indice, 1);
-    --      Put(" : ");
-    --      Vecteurs_Creux.Afficher(M.Valeur);
-    --      Put_Line("");
-    --      Afficher(M.Suivant);
-    --  end if;
-end Afficher;
+    function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float is
+    begin
+        if Est_Nulle(M) then
+            return 0.0;
+        else
+            return Vecteurs_Creux.Composante(M(J),I);
+        end if;
+    end Element;
 
---  procedure Pour_Chaque(M : in out T_Matrice) is
---  Tmp : T_Matrice;
---  Tmp2 : T_Vecteur_Creux;
---  begin
---      Tmp := M;
---      while tmp /= Null loop
---          Tmp2 := M.Valeur;
---          while Tmp2 /= Null loop
---              --Tmp2.Valeur := Traitement(Tmp2.Valeur);
---              Tmp2 := Tmp2.Suivant;
---          end loop;
---          Tmp := Tmp.Suivant;
---      end loop;
---  end Pour_Chaque;
+    procedure Afficher(M : T_Matrice) is
+    begin
+        for colonne in 1..Taille loop
+			Put("Colonne : ");
+            Put(colonne,1);
+			Afficher(M(colonne));
+			New_Line;
+        end loop;
+        Put("--end matrice--");
+    end Afficher;
+
+    --procedure Pour_Chaque(M : in out T_Matrice) is
+    --    Tmp : T_Matrice;
+    --    Tmp2 : T_Vecteur_Creux;
+    --    colonne: Integer;
+    --begin
+    --    Tmp := M;
+    --    colonne := 1;
+    --    while Est_Nulle(tmp) and colonne<=Taille loop
+    --        Tmp2 := M(colonne);
+    --        while Tmp2 /= Null loop
+    --           -- Tmp2.Valeur := Traitement(Tmp2.Valeur);
+    --           Tmp2 := Tmp2.Suivant;
+    --        end loop;
+    --        colonne:=colonne+1;
+    --    end loop;
+    --end Pour_Chaque;
 
 end Matrices_Creuses;

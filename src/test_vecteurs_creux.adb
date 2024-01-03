@@ -13,6 +13,8 @@ procedure Test_Vecteurs_Creux is
     procedure Initialiser (VC0, VC1, VC2, VC3 : out T_Vecteur_Creux);
     procedure Detruire (VC0, VC1, VC2, VC3 : in out T_Vecteur_Creux);
 
+    -- Implémentation des fonctions de test
+
     -- Procedure initialisant les vecteurs creux utilisés pour les tests
     procedure Initialiser (VC0, VC1, VC2, VC3 : out T_Vecteur_Creux) is
 	begin

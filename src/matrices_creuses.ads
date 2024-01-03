@@ -19,10 +19,13 @@ package Matrices_Creuses is
     -- Afficher la matrice creuse
     procedure Afficher(M : T_Matrice);
 
+    -- Vérifier si tous les vecteurs creux composant la matrice sont nuls
+    function Est_Nulle(M: T_Matrice) return Boolean;
+
     -- Le code suivant provoque un crash de GNAT
-    --  generic
-    --      with function Traitement(V : Long_Float) return Long_Float;
-    --  procedure Pour_Chaque(M : in out T_Matrice);
+    --generic
+    --    with function Traitement(V : Long_Float) return Long_Float;
+    --procedure Pour_Chaque(M : in out T_Matrice);
 
 	type T_Matrice is array(1..Taille) of T_Vecteur_Creux;
 
