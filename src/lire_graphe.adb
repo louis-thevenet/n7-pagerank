@@ -18,7 +18,6 @@ package body Lire_Graphe is
                 Get (File, Entier_2);
                 Vecteurs_Creux.Incremente(Lignes_Non_Nulles, Entier_1+1);
                 Vecteurs_Creux.Incremente(H(Entier_2+1), Entier_1+1);
-                --Matrices_Creuses_Inst.Modifier(H, Entier_1+1, Entier_2+1, 1.0);
 
             end loop;
         exception
@@ -27,36 +26,16 @@ package body Lire_Graphe is
         end;
 	Close (File);
 
-    -- lignes nulles => 1/Taille
-    I := 1;
-    Tete_Lignes_Non_Nulles := Lignes_Non_Nulles;
-    while Tete_Lignes_Non_Nulles /= Null loop
-        if Tete_Lignes_Non_Nulles.Indice /= I then
-            for J in 1.. Taille loop
-                Vecteurs_Creux.Modifier(H(J), I, 1.0/Long_Float(Taille));
-
-            end loop;
-        else
-            Tete_Lignes_Non_Nulles := Tete_Lignes_Non_Nulles.Suivant;
-        end if;
-        I := I+1;
-    end loop;
-
-
-
-
 
       for colonne in 1..Taille loop
           Tete := H(colonne);
           Tete_Lignes_Non_Nulles := Lignes_Non_Nulles;
 
-          -- on pondère les lignes non nulles
           for I in 1..Taille loop
-              if Tete = Null then
+              if Tete = Null then -- colonne vide
                   null;
               elsif Tete.Indice = I then
-                  if Tete_Lignes_Non_Nulles = Null then
-
+                  if Tete_Lignes_Non_Nulles = Null then -- Plus de lignes non nulles
                       Nombre_Cellules := 1.0;
                   elsif Tete_Lignes_Non_Nulles.Indice = I then
                           Nombre_Cellules := Tete_Lignes_Non_Nulles.Valeur;
