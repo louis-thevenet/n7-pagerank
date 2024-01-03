@@ -3,6 +3,8 @@ with Ada.Integer_Text_IO;		use Ada.Integer_Text_IO;
 
 package body Matrices_Creuses is
 
+
+
     procedure Initialiser(M : out T_Matrice) is
     begin
         for colonne in 1..Taille loop
@@ -26,13 +28,19 @@ package body Matrices_Creuses is
 
 
     procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float) is
+    Indice_Error : exception;
     begin
-        if Est_Nulle(M) then
+        if J>Taille then
+            raise Indice_Error;
+        elsif Est_Nulle(M) then
             Initialiser(M);
             Vecteurs_Creux.Modifier(M(J), I, Nouveau);
         else
             Vecteurs_Creux.Modifier(M(J), I, Nouveau);
         end if;
+    exception
+    when Indice_Error =>
+        Put_Line("L'indice de la colonne J doit être inférieur à aux nombres de colonnes de votre matrice (Taille)");
     end Modifier;
 
     function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float is
@@ -71,5 +79,6 @@ package body Matrices_Creuses is
     --        colonne:=colonne+1;
     --    end loop;
     --end Pour_Chaque;
+
 
 end Matrices_Creuses;

@@ -1,201 +1,10 @@
 <?xml version="1.0"?>
 <Locations >
-  <Project >
+  <Project>
+    <vfs_file>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_file>
     <file_marker column=" 1" line=" 1" >
       <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 10" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_pleines.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 18" line=" 24" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 14" line=" 4" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 18" line=" 24" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 73" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 12" line=" 30" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 41" line=" 32" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 29" line=" 30" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 33" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 5" line=" 45" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 12" line=" 40" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 54" line=" 43" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 49" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 11" line=" 72" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 18" line=" 54" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_vecteurs_creux.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 18" line=" 54" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/vecteurs_creux.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 18" line=" 54" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 28" line=" 51" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 34" line=" 52" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 28" line=" 51" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 31" line=" 50" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 17" line=" 65" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 5" line=" 28" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_pleines.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 18" line=" 68" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 17" line=" 65" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 34" line=" 66" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 24" line=" 70" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 34" line=" 21" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 36" line=" 65" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 102" line=" 28" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 18" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_vecteurs_creux.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 33" line=" 33" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 23" line=" 2" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 5" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_pleines.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 6" line=" 7" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 42" line=" 6" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 102" line=" 28" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 36" line=" 68" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 25" line=" 73" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 22" line=" 23" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 9" line=" 29" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.adb</vfs_file>
     </file_marker>
     <file_marker column=" 1" line=" 1" >
       <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
@@ -207,23 +16,47 @@
     </file_marker>
     <file_marker column=" 1" line=" 1" >
       <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_result.ads</vfs_file>
-    </file_marker>
-    <file_marker column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_pleine.adb</vfs_file>
-    </file_marker>
-    <file_marker column=" 5" line=" 7" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
-      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.ads</vfs_file>
-    </file_marker>
-    <file_marker current="true" column=" 1" line=" 1" >
-      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
       <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/test_matrices_creuses.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.ads</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/programme_principal.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 83" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 83" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 6" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 8" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 23" line=" 81" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 5" line=" 82" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 83" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/matrices_creuses.adb</vfs_file>
     </file_marker>
   </Project>
 </Locations>
