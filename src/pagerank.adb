@@ -73,14 +73,13 @@ package body PageRank is
                     -- Lecture du fichier d'entrée (Lignes_non_nulles contient le nombre d'éléments non nuls sur la ligne d'indice i)
                     Completer_Graphe_Creuse(File,S, Lignes_Non_Nulles, Taille);
 
-
                     -- Calcul de Pi Transpose contenu dans la structure Resultat
                     PageRank_Result_Inst.Initialiser(Resultat);
                     PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat);
 
                     -- Algorithme PageRank
-                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, Lignes_Non_Nulles, K, Epsilon, Alpha, Taille);
-
+                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, K, Epsilon, Alpha, Taille);
+                    PageRank_Result_Inst.Afficher(Resultat);
                     -- Tri des sommets par ordre décroissant de poids
                     PageRank_Result_Inst.Trier(Resultat);
 
