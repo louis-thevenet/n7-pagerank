@@ -26,6 +26,20 @@ package body Lire_Graphe is
         end;
 	Close (File);
 
+    -- lignes nulles => 1/Taille
+    I := 1;
+    Tete_Lignes_Non_Nulles := Lignes_Non_Nulles;
+    while Tete_Lignes_Non_Nulles /= Null loop
+        if Tete_Lignes_Non_Nulles.Indice /= I then
+            for J in 1.. Taille loop
+                Vecteurs_Creux.Modifier(H(J), I, 1.0/Long_Float(Taille));
+
+            end loop;
+        else
+            Tete_Lignes_Non_Nulles := Tete_Lignes_Non_Nulles.Suivant;
+        end if;
+        I := I+1;
+    end loop;
 
       for colonne in 1..Taille loop
           Tete := H(colonne);
