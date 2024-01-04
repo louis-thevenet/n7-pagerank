@@ -13,24 +13,6 @@ package body PageRank_Result is
         end loop;
     end Initialiser;
 
-function Norme_Au_Carre(Poids : T_Tab_Poids) return Long_Float is
-    Resultat : Long_Float := 0.0;
-begin
-    for I in 1..Taille loop
-        Resultat := Resultat + Poids(I) * Poids(I);
-    end loop;
-    return Resultat;
-end Norme_Au_Carre;
-
-function Combi_Lineaire(lambda : Long_Float; Poids : T_Tab_Poids; mu : Long_Float; Poids2 : T_Tab_Poids) return  T_Tab_Poids is
-    Resultat : T_Tab_Poids;
-begin
-    for I in 1..Taille loop
-        Resultat(I) := lambda*Poids(I) + mu*Poids2(I);
-    end loop;
-    return Resultat;
-end Combi_Lineaire;
-
 procedure Afficher(Resultat : T_Resultat) is
 begin
     for I in 1..Resultat.Taille loop

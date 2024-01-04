@@ -49,12 +49,22 @@ package body PageRank_Pleine is
     procedure Iterer(Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer; Epsilon : Long_Float) is
         I : Integer;
         Old : PageRank_Result_Inst.T_Tab_Poids;
+        Norme : Long_Float;
     begin
         I := 0;
         Old := Poids;
-        while I <= K + 1 and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old)) >= Epsilon * Epsilon loop
+        while I <= K + 1 loop
             Old := Poids;
             Poids := Prochaine_Iteration(Poids, G);
+            for J in 1..Poids'Length loop
+                Norme := Norme+(Poids(J)-Old(J))*(Poids(J)-Old(J));
+            end loop;
+            if Norme <= Epsilon*Epsilon then
+                exit;
+            else
+                null;
+            end if;
+
             I := I + 1;
         end loop;
     end Iterer;

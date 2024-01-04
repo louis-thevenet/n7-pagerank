@@ -55,16 +55,23 @@ procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; S : in Matric
 
   I : Integer := 0;
   old : PageRank_Result_Inst.T_Tab_Poids := Poids;
-
-
-  begin
-      -- Itérations de PageRank
-      while I < K and then PageRank_Result_Inst.Norme_Au_Carre(PageRank_Result_Inst.Combi_Lineaire(1.0, Poids, -1.0, Old))>=Epsilon*Epsilon loop
-          Old := Poids;
-          Poids := Prochaine_Iteration(Poids, S, Alpha, Poids'Length);
-          I := I + 1;
-      end loop;
-  end Iterer;
+  Norme : Long_Float;
+begin
+-- Itérations de PageRank
+    while I < K  loop
+        Old := Poids;
+        Poids := Prochaine_Iteration(Poids, S, Alpha, Poids'Length);
+        for J in 1..Poids'Length loop
+            Norme := Norme+(Poids(J)-Old(J))*(Poids(J)-Old(J));
+        end loop;
+        if Norme <= Epsilon*Epsilon then
+            exit;
+        else
+            null;
+        end if;
+        I := I + 1;
+    end loop;
+end Iterer;
 
 
 end PageRank_Creuse;

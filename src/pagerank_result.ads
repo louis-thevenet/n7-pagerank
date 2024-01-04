@@ -14,12 +14,6 @@ package PageRank_Result is
     -- Initialiser le résultat de PageRank
     procedure Initialiser(Resultat : in out T_Resultat);
 
-    -- Calculer la norme au carré d'un vecteur de poids
-    function Norme_Au_Carre(Poids : T_Tab_Poids) return Long_Float;
-
-    -- Calculer une combinaison linéaire de deux vecteurs de poids
-    function Combi_Lineaire(lambda : Long_Float; Poids : T_Tab_Poids; mu : Long_Float; Poids2 : T_Tab_Poids) return T_Tab_Poids;
-
     -- Afficher le résultat de PageRank
     procedure Afficher(Resultat : T_Resultat);
 
