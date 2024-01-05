@@ -1,80 +1,33 @@
 with Ada.Integer_Text_IO;	use Ada.Integer_Text_IO;
 
 package body Lire_Graphe is
-    procedure Completer_Graphe_Creuse (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Creuses_Inst.T_Matrice; Lignes_Non_Nulles : in out T_Vecteur_Creux; Taille:Integer) is
+    procedure Completer_Graphe_Creuse (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Creuses_Inst.T_Matrice; Facteurs : in out Matrices_Creuses_Inst.T_Facteurs; Taille:Integer) is
         Entier_1, Entier_2 : Integer;
+
         Tmp : Matrices_Creuses_Inst.T_Matrice;
         Tmp2 : Long_Float;
-        I : Integer;
-
           Tete, Tete_Lignes_Non_Nulles  : T_Vecteur_Creux;
-  Nombre_Cellules : Long_Float;
+            Nombre_Cellules : Long_Float;
+            Taille_Float : Long_Float := Long_Float(Taille);
           begin
+
+        for I in 1..N loop
+            Facteurs(I):=0.0;
+        end loop;
+
         begin
             Tmp := H;
-            I:=0;
             while not End_Of_file (File) loop
                 Get (File, Entier_1);
                 Get (File, Entier_2);
-                Vecteurs_Creux.Incremente(Lignes_Non_Nulles, Entier_1+1);
+                Facteurs(Entier_1+1) := Facteurs(Entier_1+1)+1.0;
                 Vecteurs_Creux.Incremente(H(Entier_2+1), Entier_1+1);
-
             end loop;
         exception
             when End_Error =>
                 null;
         end;
 	Close (File);
-
-    -- lignes nulles => 1/Taille
-    I := 1;
-    Tete_Lignes_Non_Nulles := Lignes_Non_Nulles;
-    while Tete_Lignes_Non_Nulles /= Null loop
-        if Tete_Lignes_Non_Nulles.Indice /= I then
-            for J in 1.. Taille loop
-                Vecteurs_Creux.Modifier(H(J), I, 1.0/Long_Float(Taille));
-
-            end loop;
-        else
-            Tete_Lignes_Non_Nulles := Tete_Lignes_Non_Nulles.Suivant;
-        end if;
-        I := I+1;
-    end loop;
-
-      for colonne in 1..Taille loop
-          Tete := H(colonne);
-          Tete_Lignes_Non_Nulles := Lignes_Non_Nulles;
-
-          for I in 1..Taille loop
-              if Tete = Null then -- colonne vide
-                  null;
-              elsif Tete.Indice = I then
-                  if Tete_Lignes_Non_Nulles = Null then -- Plus de lignes non nulles
-                      Nombre_Cellules := 1.0;
-                  elsif Tete_Lignes_Non_Nulles.Indice = I then
-                          Nombre_Cellules := Tete_Lignes_Non_Nulles.Valeur;
-                          Tete_Lignes_Non_Nulles := Tete_Lignes_Non_Nulles.Suivant;
-                  else
-                      while Tete_Lignes_Non_Nulles /= Null and then Tete_Lignes_Non_Nulles.Indice < I loop
-                          Tete_Lignes_Non_Nulles := Tete_Lignes_Non_Nulles.Suivant;
-                      end loop;
-                      if Tete_Lignes_Non_Nulles /= Null and then Tete_Lignes_Non_Nulles.Indice = I then
-                          Nombre_Cellules := Tete_Lignes_Non_Nulles.Valeur;
-                      else
-                          Nombre_Cellules := 1.0;
-                      end if;
-                  end if;
-
-
-                  Tete.Valeur := Tete.Valeur / Nombre_Cellules;
-                  Tete := Tete.Suivant;
-              else
-                  while Tete /= Null and then Tete.Indice < I loop
-                      Tete := Tete.Suivant;
-                  end loop;
-              end if;
-          end loop;
-      end loop;
 
 
 end Completer_Graphe_Creuse;

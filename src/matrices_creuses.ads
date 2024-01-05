@@ -28,5 +28,5 @@ package Matrices_Creuses is
     --procedure Pour_Chaque(M : in out T_Matrice);
 
 	type T_Matrice is array(1..Taille) of T_Vecteur_Creux;
-
+    type T_Facteurs is array(1..Taille) of Long_Float;
 end Matrices_Creuses;

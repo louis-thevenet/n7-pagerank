@@ -48,6 +48,7 @@ package Vecteurs_Creux is
     function Nombre_Composantes_Non_Nulles (V: in T_Vecteur_Creux) return Integer with
       Post => Nombre_Composantes_Non_Nulles'Result >= 0;
 
+procedure Divise(V : in T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float );
 
 	type T_Cellule;
 

@@ -24,7 +24,7 @@ package body PageRank is
         declare
             package Matrices_Pleines_Float is new Matrices_Pleines(Taille, Taille); use Matrices_Pleines_Float;
             package Matrices_Creuses_Float is new Matrices_Creuses(Taille); use Matrices_Creuses_Float;
-            package Lire_Graphe_Inst is new Lire_Graphe(Matrices_Pleines_Float, Matrices_Creuses_Float); use Lire_Graphe_Inst;
+            package Lire_Graphe_Inst is new Lire_Graphe(Taille, Matrices_Pleines_Float, Matrices_Creuses_Float); use Lire_Graphe_Inst;
             package PageRank_Result_Inst is new PageRank_Result(Taille); use PageRank_Result_Inst;
         begin
             if Pleine then
@@ -63,22 +63,21 @@ package body PageRank is
                     package PageRank_Creuse_Inst is new PageRank_Creuse(Matrices_Creuses_Float, PageRank_Result_Inst);
 
                     S : Matrices_Creuses_Float.T_Matrice;
-                    Lignes_Non_Nulles : T_Vecteur_Creux;
+                    Facteurs : Matrices_Creuses_Float.T_Facteurs;
                     Resultat : T_Resultat;
 
                 begin
                     Matrices_Creuses_Float.Initialiser(S);
-                    Vecteurs_Creux.Initialiser(Lignes_Non_Nulles);
 
                     -- Lecture du fichier d'entrée (Lignes_non_nulles contient le nombre d'éléments non nuls sur la ligne d'indice i)
-                    Completer_Graphe_Creuse(File,S, Lignes_Non_Nulles, Taille);
+                    Completer_Graphe_Creuse(File,S, Facteurs, Taille);
 
                     --Calcul de Pi Transpose contenu dans la structure Resultat
                     PageRank_Result_Inst.Initialiser(Resultat);
                     PageRank_Creuse_Inst.Calculer_Pi_Transpose(Resultat);
 
                     -- Algorithme PageRank
-                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, S, K, Epsilon, Alpha, Taille);
+                    PageRank_Creuse_Inst.Iterer(Resultat.Poids, S,Facteurs,  K, Epsilon, Alpha, Taille);
                     -- Tri des sommets par ordre décroissant de poids
                     PageRank_Result_Inst.Trier(Resultat);
 
