@@ -1,5 +1,4 @@
 with Matrices_Creuses;
-with Vecteurs_Creux; use Vecteurs_Creux;
 
 with PageRank_Result;
 generic

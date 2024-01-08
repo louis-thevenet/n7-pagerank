@@ -131,27 +131,7 @@ tmp : T_Vecteur_Creux;
         end if;
     end Incremente;
 
-procedure Divise(V : in T_Vecteur_Creux; Indice : in Integer; Diviseur : in Long_Float ) is
-tmp : T_Vecteur_Creux;
-begin
-        if Est_Nul(V) then
-            null;
 
-
-        elsif (Indice = V.All.Indice) then
-            V.All.Valeur := V.All.Valeur/Diviseur;
-
-        elsif (Indice < V.All.Indice ) then
-
-            null;
-
-        elsif Est_Nul(V.All.Suivant) then
-            null;
-
-        else
-            Divise(V.All.Suivant, Indice, Diviseur);
-        end if;
-end Divise;
 
 	function Sont_Egaux (V1, V2 : in T_Vecteur_Creux) return Boolean is
 

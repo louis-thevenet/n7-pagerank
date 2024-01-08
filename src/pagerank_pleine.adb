@@ -49,7 +49,7 @@ package body PageRank_Pleine is
     procedure Iterer(Poids : in out PageRank_Result_Inst.T_Tab_Poids; G : in Matrices_Pleines_Inst.T_Matrice; K : Integer; Epsilon : Long_Float) is
         I : Integer;
         Old : PageRank_Result_Inst.T_Tab_Poids;
-        Norme : Long_Float;
+        Norme : Long_Float :=0.0;
     begin
         I := 0;
         Old := Poids;

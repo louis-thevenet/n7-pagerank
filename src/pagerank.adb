@@ -4,7 +4,6 @@ with Ada.IO_Exceptions;
 with Lire_Graphe;
 with Matrices_Pleines;
 with Matrices_Creuses;
-with Vecteurs_Creux; use Vecteurs_Creux;
 with PageRank_Pleine;
 with PageRank_Creuse;
 with PageRank_Result;
@@ -70,7 +69,7 @@ package body PageRank is
                     Matrices_Creuses_Float.Initialiser(S);
 
                     -- Lecture du fichier d'entrée (Lignes_non_nulles contient le nombre d'éléments non nuls sur la ligne d'indice i)
-                    Completer_Graphe_Creuse(File,S, Facteurs, Taille);
+                    Completer_Graphe_Creuse(File,S, Facteurs);
 
                     --Calcul de Pi Transpose contenu dans la structure Resultat
                     PageRank_Result_Inst.Initialiser(Resultat);

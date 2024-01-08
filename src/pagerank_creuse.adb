@@ -1,6 +1,5 @@
-with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
-with Ada.Long_Float_Text_IO; use Ada.Long_Float_Text_IO;
+
+with Vecteurs_Creux; use Vecteurs_Creux;
 
 package body PageRank_Creuse is
 
@@ -22,7 +21,7 @@ function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids;
 Tmp : Long_Float;
 Resultat : PageRank_Result_Inst.T_Tab_Poids;
 Tete : T_Vecteur_Creux;
-beta : Long_Float := (1.0 - Alpha) / Long_Float(Taille);
+beta : constant Long_Float := (1.0 - Alpha) / Long_Float(Taille);
 
 begin
     for J in 1..Taille loop
@@ -58,7 +57,7 @@ begin
 -- Itérations de PageRank
     while I < K  loop
         Old := Poids;
-        Poids := Prochaine_Iteration(Poids, S, Facteurs, Alpha, Poids'Length);
+        Poids := Prochaine_Iteration(Poids, S, Facteurs, Alpha, Taille);
         for J in 1..Poids'Length loop
             Norme := Norme+(Poids(J)-Old(J))*(Poids(J)-Old(J));
         end loop;
