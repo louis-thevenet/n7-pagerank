@@ -3,9 +3,6 @@ with Vecteurs_Creux;
 package body Lire_Graphe is
     procedure Completer_Graphe_Creuse (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Creuses_Inst.T_Matrice; Facteurs : in out Matrices_Creuses_Inst.T_Facteurs) is
         Entier_1, Entier_2 : Integer;
-        Tmp : Matrices_Creuses_Inst.T_Matrice;
-        Tmp2 : Long_Float;
-        I : Integer;
         Taille_Float : Long_Float;
           begin
 
@@ -14,7 +11,6 @@ package body Lire_Graphe is
         end loop;
 
         begin
-            Tmp := H;
             while not End_Of_file (File) loop
                 Get (File, Entier_1);
                 Get (File, Entier_2);
