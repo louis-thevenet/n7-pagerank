@@ -10,6 +10,8 @@ package Matrices_Creuses is
     -- Initialiser une matrice creuse
     procedure Initialiser(M : out T_Matrice);
 
+    -- Libération de la méoire allouée
+	procedure Detruire (M: in out T_Matrice);
     -- Modifier un élément de la matrice creuse
     procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float);
 
