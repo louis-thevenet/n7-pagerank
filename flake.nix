@@ -14,8 +14,6 @@
     in {
       devShells = {
         default = pkgs.mkShell {
-
-
           packages = with pkgs; [
             # Nix
             nil
@@ -27,6 +25,11 @@
             valgrind
             gdb
             hyperfine
+
+            # Typst
+            typst
+            typst-lsp
+            typst-fmt
           ];
         };
       };

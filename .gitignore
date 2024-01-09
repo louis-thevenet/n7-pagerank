@@ -4,5 +4,8 @@
 # Ada Library Information
 *.ali
 
+# Nix
 .direnv
+
+# Typst auto-compiled output
 template.pdf
