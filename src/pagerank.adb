@@ -82,6 +82,11 @@ package body PageRank is
 
                     -- Enregistrement des résultats dans un fichier
                     PageRank_Result_Inst.Enregistrer(Resultat, Prefixe, Alpha, K);
+
+                    -- Libération de la mémoire allouée
+                    Matrices_Creuses_Float.Detruire(S);
+
+
                 end;
             end if;
         end;

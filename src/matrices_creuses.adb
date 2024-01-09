@@ -2,8 +2,13 @@ with Ada.Text_IO;			use Ada.Text_IO;
 with Ada.Integer_Text_IO;		use Ada.Integer_Text_IO;
 
 package body Matrices_Creuses is
+	procedure Detruire (M: in out T_Matrice) is
+	begin
+        for J in 1..Taille loop
+            Detruire(M(J));
+        end loop;
 
-
+	end Detruire;
 
     procedure Initialiser(M : out T_Matrice) is
     begin
