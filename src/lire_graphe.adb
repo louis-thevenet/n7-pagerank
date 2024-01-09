@@ -5,6 +5,8 @@ package body Lire_Graphe is
         Entier_1, Entier_2 : Integer;
         Tmp : Matrices_Creuses_Inst.T_Matrice;
         Tmp2 : Long_Float;
+        I : Integer;
+        Taille_Float : Long_Float;
           begin
 
         for I in 1..N loop
@@ -24,7 +26,17 @@ package body Lire_Graphe is
                 null;
         end;
 	Close (File);
-
+    Taille_Float := Long_Float(Facteurs'Length);
+    for I in 1..Facteurs'Length loop
+            if abs(Facteurs(I))<=0.00001 then
+                for J in 1..Facteurs'Length loop
+                    Vecteurs_Creux.Modifier(H(J), I, 1.0/Taille_Float);
+                    Facteurs(I):=1.0;
+                end loop;
+            else
+            null;
+            end if;
+    end loop;
 
 end Completer_Graphe_Creuse;
 
