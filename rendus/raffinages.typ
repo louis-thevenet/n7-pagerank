@@ -1,4 +1,3 @@
-
 #import "template.typ": *
 #import "@preview/codelst:1.0.0": sourcecode
 
@@ -14,17 +13,13 @@
   if it.element == none {
     return
   }
-
+  
   if it.element.func() == heading {
     link(it.target, it.element.body)
   } else {
     it
   }
 }
-= to do
-- vérifier si combi linéaire matrices est utile
-- raffinages matrices
-- refaire pagerank
 
 = Introduction
 
@@ -34,9 +29,10 @@
 - @modul_result
 - @module_pagerank
   - @module_pleine
-
-= Raffinages
-== Programme_Principal <module_main>
+  - @module_creuse
+  
+= Raffinages 
+== `Programme_Principal` <module_main>
 === Description
 Le point d'entrée du programme, il traite les arguments et les transmet ensuite au @module_pagerank.
 Il initialise les différentes variables à leurs valeurs par défaut :
@@ -57,7 +53,7 @@ epsilon &>=0 \
 
 #sourcecode[
 ```ada
-R0 : Répondre à l’appel au programme
+R0 : Répondre à l’appel au programme par l'utilisateur
 
 R1 : Comment "Répondre à l’appel au programme" ?
   Traiter les arguments
@@ -69,7 +65,7 @@ R1 : Comment "Répondre à l’appel au programme" ?
             pleine : out,
             prefixe : out,
             fichier_graphe : out
-
+  
   Appeler le module PageRank
             alpha : in,
             k : in,
@@ -90,9 +86,11 @@ R2 : Comment "Traiter les arguments" ?
             pleine : out,
             prefixe : out,
             fichier_graphe : out
-
-	Pour tout couples (Nom_Argument, Argument) Faire
-		Traiter argument
+   
+   Récupérer le nom du fichier
+	
+   Pour Argument allant de 1 à Nombre_Argument _ 1 Faire
+	  Traiter argument	
             Nom_Argument : in out,
             Argument : in out,
             alpha : in out,
@@ -102,15 +100,9 @@ R2 : Comment "Traiter les arguments" ?
             pleine : in out,
             prefixe : in out,
             fichier_graphe : in out
-	Fin Pour tout
-	Tester validité des arguments
-            alpha : in,
-            k : in,
-            epsilon : in,
-            creuse : in,
-            pleine : in
-            fichier_graphe : in
+	Fin Pour 
 
+	
 R3 : Comment "Initialiser les variables"
   alpha := 0.85
   k := 150
@@ -120,48 +112,54 @@ R3 : Comment "Initialiser les variables"
   prefixe := "output"
   fichier_graphe := ""
 
-R3 : Comment "Traiter argument" ?
-  Selon Nom_Argument Dans
-    "-A" => alpha := argument
-    "-K" => k := argument
-    "-E" => epsilon  := argument
-    "-P" => creuse := true
-    "-C" => pleine := false
-    "-R" => prefixe := argument
-    Autres => Si fichier_graphe = "" Alors
-                fichier_graphe := argument
+  R3: Comment " Récupérer le nom du fichier " ?
+  Si Nombre_argument <1 Faire
+    Lever Exception
+  Sinon 
+    fichier_graphe := Argument(Nombre_argument)
+  Fin Si
+  
+R3 : Comment "Traiter argument" ?	
+  Si Taille(Argument) = 2 et Argument(1) = '-' Alors
+    Nom_Argument = Argument(2) -- deuxième caractère
+    Selon Nom_Argument Dans
+      "A" => Si Argument_suivant >0 et Argument_suivant < 1 Alors
+                alpha := argument
               Sinon
-                Afficher "Cet argument n’existe pas"
-                Afficher Aide
-                Lever Erreur_Argument
-
-R4 : Comment "Tester validité des arguments"
-  Si creuse = pleine Alors
-    Afficher "Mode matrice pleine et mode matrice creuse activés"
-    Lever Erreur_Argument
+                Afficher("Vous devez respecter les conditions   sur Alpha")
+                Lever l'exception Argument_error
+              Fin Si
+      "K" => Si Argument_suivant>0  Alors
+                k := argument
+              Sinon
+               Afficher("Vous devez respecter les conditions sur k")
+                Lever l'exception Argument_error
+             Fin Si
+     "E" => Si Argument_suivant>0  Alors
+                epsilon := argument
+             Sinon
+                Afficher("Vous devez respecter les conditions sur Epsilon")
+                 Lever l'exception Argument_error
+              Fin Si
+     "P" => pleine := true
+     "C" => Si pleine=true Alors
+                 Afficher ("Attention, vous ne pouvez pas activer   à la fois le mode Creuse et à la fois le mode Pleine");
+                Lever l'exception Argument_error
+              Fin Si
+     "R" => prefixe := argument
+      Autres =>  Lever l'exception Mauvais_Argument_Error
+    Fin Selon
   Fin Si
 
-	Si alpha <0 OU ALORS alpha >1 Alors
-		Afficher "Alpha doit être compris entre 0 et 1 au sens large"
-    Lever Erreur_Argument
-Si epsilon < 0 Alors
-    Afficher "epsilon  doit être positif"
-    Lever Erreur_Argument
-	Fin Si
-
-Si k < 0 Alors
-			Afficher “k doit être positif”
- Lever Erreur_Argument
-	Fin Si
-
- Si fichier_graphe = "" Alors
-  Afficher "Il faut spécifier un fichier d'entrée"
-   Lever Erreur_Argument
-Fin Si
+R4 : Comment "Lever l'exception Argument_error"
+  Afficher la procédure d'aide
+R4 : Comment "Lever l'exception Mauvais_Argument_Error"
+  Afficher(" Vous devez renseigner uniqument les arguments pris en charge par le programme ")
+  Afficher la procédure d'aide
 ```
 ]
 
-== Module Lire Fichier Graphe <module_read>
+== Module `Lire Graphe` <module_read>
 === Description
 === Raffinages
 #sourcecode[
@@ -173,7 +171,7 @@ R1 : Comment "Lire le fichier_graphe" ?
   H := Initialiser_Matrice();
 
   Remplir la matrice H
-        h : in out
+        H : in out
   Pondérer la matrice H
         H : in out
 
@@ -183,24 +181,26 @@ R2 : Comment "Remplir la matrice H" ?
     B := Lire Entier dans fichier_graphe
     H(A,B) := 1
   Fin Pour
-
+  
 R2 : Comment "Pondérer la matrice H" ?
   Pour i de 1 à taille_graphe Faire
     total := 0
     Pour j de 1 à taille_graphe Faire
       total := total + H(i,j)
     Fin Pour
-
+    
     Si total != 0 Alors
       Pour j de 1 à taille_graphe Faire
         H(i,j) := H(i,j) / total
-      Fin Pour
+      Fin Pour 
     Sinon
       Rien
   Fin Pour
   ```
 ]
-== Module Résultat <modul_result>
+
+#pagebreak()
+== Module `PageRank_Result` <modul_result>
 === Description
 Ce module permet d'interagir avec le résultat. Notamment le tri des pages selon leur poids.
 
@@ -208,7 +208,7 @@ Ce module permet d'interagir avec le résultat. Notamment le tri des pages selon
   ```adb
 N : Entier est générique
 
-Type T_Resultat EST enregistrement
+Type T_Resultat EST enregistrement 
   Taille : Entier;
   Poids : tableau de flottants de taille N
   Indices : tableau d'indices de taille N
@@ -240,7 +240,7 @@ R1 : Comment "Initialiser le résultat" ?
 ```adb
 R0 : Calculer la norme au carré
           Res : in T_Resultat
-
+          
 R1 : Comment "Calculer la norme au carré" ?
   Resultat := 0.0;
   Pour i allant de 1 à Result.Taille Faire
@@ -255,13 +255,13 @@ R1 : Comment "Calculer la norme au carré" ?
 R0 : Calculer la combinaison linéaire
           A,B : in tableau de flottants de taille N
           lambda, mu : Flottants
-
+          
 R1 : Comment "Calculer la combinaison linéaire" ?
   Resultat : tableau de flottants de taille N
-
+  
   Initialiser(Resultat);
   Pour i allant de 1 à Result.Taille Faire
-    Resultat. :=
+    Resultat. := 
   fin Pour
   retour Resultat;
 ```
@@ -276,7 +276,7 @@ R1 : Comment "Enregistrer le résultat" ?
   Produire le fichier PageRank
     indices : in,
     prefixe : in
-
+    
   Produire le fichier Poids
     resultat : in,
     prefixe : in,
@@ -321,19 +321,13 @@ R1 : Comment "Obtenir un Élément de la Matrice" ?
   ```
 ]
 
-
+#pagebreak()
 == Module PageRank <module_pagerank>
 === Description
-Implémente l'algorithme `PageRank` en utilisant le @module_pleine ou Matrice Creuse (non raffiné pour le moment). Ce module renvoie un vecteur de Poids des différentes pages web appelé PI obtenu par récurrence du produit par la matrice de Google G.
+Implémente l'algorithme `PageRank` en utilisant le @module_pleine ou @module_creuse. Ce module renvoie un vecteur de Poids des différentes pages web.
 
 === Raffinage
-#sourcecode[
-```ada
-type T_Resultat EST ENGREGISTREMENT
-  Poids est tableau (1..taille_graphe) DE Double
-  Indices est tableau (1..taille_graphe) DE Entier
-Fin ENREGISTREMENT
-```]
+
 #sourcecode[
 ```ada
 R0 : Répondre à l'appel du programme principal
@@ -347,29 +341,45 @@ R1 : Comment "Répondre à l'appel du programme principal" ?
     pleine : in,
     prefixe : in,
 
-    Lire fichier_graphe (via module Fichier Graphe)
+
+
+  Si Pleine Alors
+      Lire fichier_graphe_plein (via module Fichier Graphe)
             fichier_graphe : in,
             H : out,
             taille_graphe : out
+            
+    Calculer la matrice de Google G
+            creuse : in,
+            pleine : in,
+            alpha : in,
+            H : in,
+            taille_graphe : in
 
-
-  Calculer la matrice de Google G (ICI DANS LE CAS MATRICE PLEINE)
-          creuse : in,
-          pleine : in,
-          alpha : in,
-          H : in,
-          taille_graphe : in,
-
-
+  Sinon
+    Lire fichier_graphe_plein (via module Fichier Graphe)
+            fichier_graphe : in,
+            H : out,
+            facteurs : out,  -- représente le nombre de composantes non nulles de chaque ligne
+            taille_graphe : out
+  Fin Si
+  
   Initialiser Pi_transpose
         taille_graphe : in,
         Pi_transpose : out
 
-  Appliquer la relation de récurrence
-        Pi_transpose : in,
-        G : in,
-        taille_graphe : in
-
+  Si Pleine
+    Appliquer la relation de récurrence
+          Pi_transpose : in,
+          G : in,
+          taille_graphe : in
+  Sinon 
+    Appliquer la relation de récurrence
+          Pi_transpose : in,
+          H : in,
+          Facteurs : in 
+          taille_graphe : in
+        
   trier Pi_transpose
       Pi_transpose : in,
       resultat : out
@@ -381,40 +391,11 @@ R1 : Comment "Répondre à l'appel du programme principal" ?
     indices : in,
     resultat : in,
     prefixe : in
-
-
-
-R2 : Comment "Calculer la matrice de Google G" ?
-  Si pleine Alors
-    Appeler le module PageRank_Matrice_Pleine
-        alpha : in,
-        H : in,
-        taille_graphe : in,
-  Sinon
-    Appeler le module PageRank_Matrice_Creuse -- A faire plus tard
-  Fin Si
-
-
+  
 R2 : Comment "Initialiser Pi_transpose" ?
   Pi_transpose = new tableau (1..taille_graphe) DE Double
   Pour i allant de 1..taille_graphe Faire
     Pi_transpose(i) := 1/taille_graphe
-  Fin Pour
-
-R2 : Comment "Appliquer la relation de récurrence" ?
-  Pour i allant de 1..k Faire
-    Calculer Pi_transpose
-          Pi_transpose : in out
-          G : in
-  Fin Pour
-
-R3 : Comment "Calculer Pi_transpose" ?
-  Pour j allant de 1..taille_graphe Faire
-    tmp :=0
-    Pour i allant de 1..taille_graphe Faire
-      tmp := tmp + Pi_transpose(i) * G(i, j)
-    Fin Pour
-    Pi_transpose(j) := tmp
   Fin Pour
 
 R2 : Comment "Trier Pi_transpose"
@@ -438,7 +419,7 @@ R1 : Comment "Calculer la matrice de Google G" ?
           H : in,
           S : out
 
-
+          
   Calculer la matrice G
           alpha : in,
           taille_graphe : in,
@@ -453,30 +434,76 @@ R2 : Comment "Calculer la matrice S" ?
     Tant que est_nul Faire
       est_nul := est_nul ET (S(i,j)=0)
     Fin Tant que
-
+    
     Si est_nul Alors
       Pour j de 1 à taille_graphe Faire
         S(i,j) := 1/taille_graphe
       Fin Pour
     Fin Si
-
+    
   Fin Pour
-
+  
 R2 : Comment "Calculer la matrice G" ?
   G = alpha * S
   Pour i de 1 à taille_graphe Faire
     Pour j de 1 à taille_graphe Faire
       G(i,j) := G(i,j) + (1-alpha)/taille_graphe
-    Fin Pour
+    Fin Pour  
   Fin Pour
   ```
 ]
 
+#sourcecode[```adb 
+R0 : Appliquer la relation de récurrence
+
+R1 : Comment "Appliquer la relation de récurrence" ?
+  Pour i allant de 1..k Faire
+    Calculer Pi_transpose
+          Pi_transpose : in out
+          G : in
+  Fin Pour
+  
+R3 : Comment "Calculer Pi_transpose" ?
+  Pour j allant de 1..taille_graphe Faire
+    tmp :=0
+    Pour i allant de 1..taille_graphe Faire
+      tmp := tmp + Pi_transpose(i) * G(i, j)
+    Fin Pour
+    Pi_transpose(j) := tmp
+  Fin Pour  
+  ```]
+
+== Module PageRank_Creuse <module_creuse>
+=== Description
+Ce module est appelé par le module `PageRank` et , étant donné que la matrice de Google est très creuse, ne calcule pas explicitment celle ci. On calcule les poids directement sans passer par un calcul matriciel.
+=== Raffinage
+
+#sourcecode[```adb 
+R0 : Appliquer la relation de récurrence
+
+R1 : Comment "Appliquer la relation de récurrence" ?
+  Pour i allant de 1..k Faire
+    Calculer Pi_transpose
+          Pi_transpose : in out
+          G : in
+  Fin Pour
+  
+R3 : Comment "Calculer Pi_transpose" ?
+  beta := (1.0 - Alpha) / Taille
+  Pour j allant de 1..taille_graphe Faire
+    tmp :=0
+    Pour i allant de 1..taille_graphe Faire
+      tmp := tmp + Pi_transpose(i) * (G(i, j) * Facteurs(I) * Alpha + beta)
+    Fin Pour
+    Pi_transpose(j) := tmp
+  Fin Pour  
+  ```]
+  
 = Grille d'évaluation des raffinages
 #table(
-  columns: 5,
+  columns: 5, 
   [],[],[Eval. étudiant], [Justif./Comm.],[Eval. enseignant],
-
+  
   [Forme], [Respect de la syntaxe
 
 Ri : Comment "... une action complexe ..." ?
@@ -517,20 +544,20 @@ On utilise le fichier `exemple-fichier.txt`.
 - $alpha <0$
 
     `./programme_principal -P -A -0.90 -K 20 ./exemple-fichier.txt`
-
+    
 - $alpha >1$
 
   `./programme_principal -P -A 1.90 -K 20 ./exemple-fichier.txt`
-
+  
 - $K<0$
-
+  
   `./programme_principal -P -K -20 ./exemple-fichier.txt`
-
+  
 
 - $epsilon <0$
 
   `./programme_principal -P -E -20.0 ./exemple-fichier.txt`
-
+  
 - $"Creuse" = "Pleine"$
 
   `./programme_principal -P -C ./exemple-fichier.txt`
@@ -544,4 +571,10 @@ On utilise le fichier `exemple-fichier.txt`.
 
 
 
-Le programme affiche bien des erreurs dans tous ces cas.
+Le programme affiche bien des erreurs dans tous ces cas. 
+
+== Modules
+On crée trois fichiers de tests unitaires :
+- `test_vecteurs_creux.adb`
+- `test_matrices_pleines.adb`
+- `test_matrices_creuse.adb`
