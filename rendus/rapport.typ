@@ -218,13 +218,13 @@ Nous avons choisi de trier notre vecteur résultat avec un tri par insertion. Ce
 = Performances des implantations
 
 #table(columns: 3, [Fichier graphe Test], [Implant. Pleine (s)], [Implant. Creuse (s)],
-[`sujet.net`], [0.009],[0.005],
-[`worms.net`],[0.100],[0.103],
-[`brainlinks.net`], [#eval("5*60+8.970")], [#eval("1*60+24.833")],
-[`linux26.net`], [Stack overflow], [Stack overflow]
+[`sujet.net`], [0.0006219],[0.0006138],
+[`worms.net`],[0.0308927],[0.0020846],
+[`brainlinks.net`], [109.855867000], [5.2631],
+[`linux26.net`], [Stack overflow], [54.170379000]
 )
 
-On observe que l'implantation en matrice creuse est plus eficcace en terme de complexité de calcul que celle en matrice pleine et ce d'autant plus si le graphe possède de nombreux sommets comme cela est le cas en conditions réelles. En effet, en prenant en compte l'aspect creuse de la matrice, on se dédouane de calculs inutiles.
+On observe que l'implantation en matrice creuse est plus efficcace en terme de complexité de calcul que celle en matrice pleine et ce d'autant plus si le graphe possède de nombreux sommets comme cela est le cas en conditions réelles. En effet, en prenant en compte l'aspect creuse de la matrice, on se dédouane de calculs inutiles.
 
 = Difficultés rencontrées et solutions apportées
 == Représentation par matrices creuses
@@ -232,6 +232,7 @@ On observe que l'implantation en matrice creuse est plus eficcace en terme de co
 Nous avons initialement choisi de réaliser un vecteurs creux de vecteurs creux mais les performances n'étaient pas très bonnes alors que l'implémentation était compliquée.
 
 Nous avons ensuite choisi d'utiliser un tableau de vecteurs creux afin que l'opération d'accès aux têtes de colonnes se fasse en temps constant (les vecteurs représentent les colonnes).
+
 
 = Répartition des tâches
  #table(columns: 5,
@@ -254,8 +255,17 @@ Nous avons réussi à implanter de manière robuste les deux versions de l'algor
 
 Nous avons pour perspective d’améliorer la précision de nos calculs de poids en introduisant un paramètre générique de précision dans nos différents programmes.
 
-Nous aurions également voulu tester une autre idée si le temps nous l'avait permis. Dans la version matrices creuses, avec l'utilisation du vecteur `Facteurs`, nous avons remarqué qu'il devenait inutile de stocker des valeurs dans la matrice : il suffit de _marquer_ les cases. Ainsi, il serait possible d'utiliser une matrice de booléens. On stockerait alors seulement des bits au lieu de `Long_Float` dont la taille est #link("https://sites.radford.edu/~nokie/classes/320/fundamentals/fundTypes.html", "64 bits")
+Nous aurions également voulu tester une autre idée si le temps nous l'avait permis. Dans la version matrices creuses, avec l'utilisation du vecteur `Facteurs`, nous avons remarqué qu'il devenait inutile de stocker des valeurs dans la matrice : il suffit de _marquer_ les cases. Ainsi, il serait possible d'utiliser une matrice de booléens. On stockerait alors seulement 8 bits (taille d'un entier) au lieu de #link("https://sites.radford.edu/~nokie/classes/320/fundamentals/fundTypes.html", "64 bits") pour des `Long_Float`. Cela permettrait de réduire la taille de la matrice de $8$ fois.
+On pourrait également utiliser des vecteurs de bits et diviser la taille utilisée en mémoire vive par $64$
 
+== Mise à jour le mercredi 17 Janvier
+Nous avons finalement implémenté notre idée.
+
+Nous avons ainsi défini $tilde(H) in cal(M)_n ({0,1})$ et $F in RR^n$ tels que
+    $ forall (i,j) in [|1,n|]^2, tilde(H)_(i,j) in {0,1} $
+    $ forall i in [|1,n|], F_i = max(sum_(k = 1)^n  bb(1)_(tilde(H)_(i,k) = 1), 1/n) $
+
+    Lors des itérations, il suffira de vérifier que le maillon $tilde(H)_(i,j)$ existe (valeur $!= 0$) pour savoir que la valeur à utiliser est $1 / F(i)$.
 = Annexes :
 
 Raffinages complets, Grilles d’auto évaluation : #link("https://typst.app/project/r6w1dcIWXsWDh_Cxu31_fl", "Raffinages projet Pagerank groupe EF03")
@@ -265,5 +275,5 @@ Raffinages complets, Grilles d’auto évaluation : #link("https://typst.app/pro
 Ce projet, m’a permis de mieux appréhender la mise en place d'un projet plus conséquent, notamment l'importance de l'architecture des différents modules lors de sa conception. J'ai aussi appris à travailler en groupe et à coopérer malgré les méthodes et outils de travail différents. Ce projet a été enrichisant car j'ai beaucoup appris en travaillant avec Louis.
 
 / Louis Thevenet :
-Dans ce projet, j'ai pu apprendre la gestion de différents modules (génériques) et leurs liens.
+Dans ce projet, j'ai pu m'améliorer sur la gestion de différents modules et leurs liens. Il m'a aussi permis de travailler en équipe et de mieux comprendre les enjeux de la communication et de la répartition des tâches.
 

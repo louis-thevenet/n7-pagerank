@@ -92,7 +92,7 @@
   - Traite les données
     - Cas Matrices Creuses
       - Crée la matrice $M$ telle que $forall (i,j) in [|1,n|]^2, M_(i,j) in {0,1}$
-      - Crée la vecteur $F$ tel que $forall i in [|1, n|], F_i = sum_(k =1)^n M_(i,k)$
+      - Crée le vecteur $F$ tel que $forall i in [|1, n|], F_i = sum_(k =1)^n M_(i,k)$
 ]
 
 #slide(title: [Vecteurs Creux])[
@@ -148,7 +148,7 @@ type T_Cellule is
 ]
 
 #slide(title: [PageRank Pleine : détails])[
-Itération de l'algorithme : produit vectoriel de $pi_k$ (`Poids`) et $G$.
+Itération de l'algorithme : produit matriciel de $pi_k$ (`Poids`) et $G$.
 // typstfmt::off
   #sourcecode[
     ```adb
@@ -226,6 +226,30 @@ end loop;
     ```)
 // typstfmt::on
   On recrée la matrice $G$ directement dans les itérations dans la ligne 16.
+]
+
+
+#slide(title: [PageRank Result])[
+#fletcher.diagram(
+  node-fill: rgb("aafa"),
+  node-outset: 2pt,
+  node((0, 0), `Programme Principal`),
+  node((1, 0), `pagerank`, shape: "circle"),
+  node((2, -1), `pagerank_creuse`),
+  node((2, 1), `pagerank_pleine`),
+  node((0, -1), `pagerank_result`),
+  node((3, 1), `matrices_pleines`),
+  node((3, -1), `matrices_creuses`),
+  node((3, -2), `vecteurs_creux`),
+  edge((-1, 0), (0, 0), $"Début"$, "=>"),
+  edge((0, 0), (1, 0), "->"),
+  edge((1, 0), (0, -1), "->"),
+  edge((2.5, 0), (3, 1), "-->"),
+  edge((1, 0), (2, -1), $"Creuse"$, "->", bend: -20deg),
+  edge((1, 0), (2, 1), $#overline("Creuse")$, "->", bend: +20deg),
+)
+- Tri par insertion du vecteur $pi_f$
+
 ]
 
 #slide(title: [Idées d'amélioration])[
