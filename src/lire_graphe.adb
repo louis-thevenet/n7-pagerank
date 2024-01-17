@@ -4,7 +4,9 @@ package body Lire_Graphe is
     procedure Completer_Graphe_Creuse (File : in out Ada.Text_IO.File_Type; H : in out Matrices_Creuses_Inst.T_Matrice; Facteurs : in out Matrices_Creuses_Inst.T_Facteurs) is
         Entier_1, Entier_2 : Integer;
         Taille_Float : Long_Float;
-          begin
+        Donnee_Error_negative : exception;
+        Donnee_Error_taille : exception;
+    begin
 
         for I in 1..N loop
             Facteurs(I):=0.0;
@@ -14,6 +16,13 @@ package body Lire_Graphe is
             while not End_Of_file (File) loop
                 Get (File, Entier_1);
                 Get (File, Entier_2);
+                if Entier_1 <0 or Entier_2 <0 then
+                    raise Donnee_Error_negative;
+                elsif Entier_1  > Facteurs'Length  or  Entier_2 > Facteurs'Length then
+                    raise Donnee_Error_taille;
+                else
+                    null;
+                end if;
                 Facteurs(Entier_1+1) := Facteurs(Entier_1+1)+1.0;
                 Matrices_Creuses_Inst.Modifier(H, Entier_1+1, Entier_2+1);
                 --Vecteurs_Creux.Incremente(H(Entier_2+1), Entier_1+1);
@@ -21,6 +30,10 @@ package body Lire_Graphe is
         exception
             when End_Error =>
                 null;
+            when Donnee_Error_taille =>
+                Put_Line("Veuillez veiller à fournir un fichier avec des numéros de sommet inférieur à la taille du graphe");
+            when Donnee_Error_negative =>
+                Put_Line("Veuillez veiller à fournir un fichier avec des numéros de sommet positifs");
         end;
 	Close (File);
     Taille_Float := Long_Float(Facteurs'Length);

@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <Locations >
-  <Project>
-    <vfs_file>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_file>
-    <file_marker column=" 78" line=" 15" >
+  <Project >
+    <file_marker column=" 1" line=" 15" >
       <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
       <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.ads</vfs_file>
     </file_marker>
@@ -14,7 +13,7 @@
       <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
       <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.adb</vfs_file>
     </file_marker>
-    <file_marker column=" 22" line=" 47" >
+    <file_marker column=" 6" line=" 47" >
       <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
       <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.adb</vfs_file>
     </file_marker>
@@ -26,9 +25,33 @@
       <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
       <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.adb</vfs_file>
     </file_marker>
-    <file_marker current="true" column=" 1" line=" 124" >
+    <file_marker column=" 1" line=" 1" >
       <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
       <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 24" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/pagerank_creuse.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 1" line=" 1" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/programme_principal.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 36" line=" 117" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/programme_principal.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 21" line=" 112" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/programme_principal.adb</vfs_file>
+    </file_marker>
+    <file_marker column=" 28" line=" 116" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/programme_principal.adb</vfs_file>
+    </file_marker>
+    <file_marker current="true" column=" 1" line=" 1" >
+      <vfs_project>/home/amu2244/Bureau/Projet/PageRank/pagerank.gpr</vfs_project>
+      <vfs_file>/home/amu2244/Bureau/Projet/PageRank/src/lire_graphe.adb</vfs_file>
     </file_marker>
   </Project>
 </Locations>
