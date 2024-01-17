@@ -25,10 +25,11 @@ package body Lire_Graphe is
     Taille_Float := Long_Float(Facteurs'Length);
     for I in 1..Facteurs'Length loop
             if abs(Facteurs(I))<=0.00001 then
-                for J in 1..Facteurs'Length loop
-                    Vecteurs_Creux.Modifier(H(J), I, 1.0/Taille_Float);
-                    Facteurs(I):=1.0;
-                end loop;
+                Facteurs(I):=Taille_Float;
+                --  for J in 1..Facteurs'Length loop
+                --      Vecteurs_Creux.Modifier(H(J), I, 1.0/Taille_Float);
+                --      Facteurs(I):=1.0;
+                --  end loop;
             else
             null;
             end if;

@@ -16,31 +16,19 @@ function Prochaine_Iteration (Poids : PageRank_Result_Inst.T_Tab_Poids;
                                 S : in Matrices_Creuses_Inst.T_Matrice;
                                 Facteurs : Matrices_Creuses_Inst.T_Facteurs;
                                 Alpha : Long_Float;
-                                Taille : Integer
+                                Taille : Integer;
+                                Somme : Long_Float
                                 ) return PageRank_Result_Inst.T_Tab_Poids is
-Tmp : Long_Float;
 Resultat : PageRank_Result_Inst.T_Tab_Poids;
 Tete : T_Vecteur_Creux;
-beta : constant Long_Float := (1.0 - Alpha) / Long_Float(Taille);
 
 begin
     for J in 1..Taille loop
-        Resultat(J) := 0.0;
+        Resultat(J) := Somme;
         Tete := S(J);
-        for I in 1..Taille loop
-            if Tete = Null then
-                Tmp := 0.0;
-            elsif Tete.Indice = I then
-                Tmp := Tete.Valeur/Facteurs(I);
-                Tete := Tete.Suivant;
-            else
-                while Tete /= Null and then Tete.Indice < I loop
-                    Tete := Tete.Suivant;
-                end loop;
-                Tmp := 0.0;
-            end if;
-            Resultat(J) := Resultat(J) + (Alpha * Tmp+ beta) * Poids(I);
-
+        while Tete /= Null loop
+            Resultat(J) := Resultat(J) + Alpha * Poids(Tete.Indice) * 1.0/Facteurs(Tete.Indice);
+            Tete := Tete.Suivant;
         end loop;
     end loop;
     return Resultat;
@@ -52,12 +40,19 @@ procedure Iterer (Poids : in out PageRank_Result_Inst.T_Tab_Poids; S : in Matric
 
   I : Integer := 0;
   old : PageRank_Result_Inst.T_Tab_Poids := Poids;
+Somme : Long_Float := 0.0;
   Norme : Long_Float := 0.0;
+beta : constant Long_Float := (1.0 - Alpha) / Long_Float(Taille);
+
 begin
+    for I in 1..Taille loop
+        Somme := Somme +  beta * Poids(I);
+    end loop;
+
 -- Itérations de PageRank
     while I < K  loop
         Old := Poids;
-        Poids := Prochaine_Iteration(Poids, S, Facteurs, Alpha, Taille);
+        Poids := Prochaine_Iteration(Poids, S, Facteurs, Alpha, Taille, Somme);
         for J in 1..Poids'Length loop
             Norme := Norme+(Poids(J)-Old(J))*(Poids(J)-Old(J));
         end loop;
