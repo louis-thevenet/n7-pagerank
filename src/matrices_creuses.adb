@@ -32,26 +32,26 @@ package body Matrices_Creuses is
 
 
 
-    procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer; Nouveau : Long_Float) is
+    procedure Modifier(M : in out T_Matrice; I : in Integer; J : in Integer) is
     Indice_Error : exception;
     begin
         if J>Taille then
             raise Indice_Error;
         elsif Est_Nulle(M) then
             Initialiser(M);
-            Vecteurs_Creux.Modifier(M(J), I, Nouveau);
+            Vecteurs_Creux.Modifier(M(J), I);
         else
-            Vecteurs_Creux.Modifier(M(J), I, Nouveau);
+            Vecteurs_Creux.Modifier(M(J), I);
         end if;
     exception
     when Indice_Error =>
         Put_Line("L'indice de la colonne J doit être inférieur à aux nombres de colonnes de votre matrice (Taille)");
     end Modifier;
 
-    function Element(M: T_Matrice; I : Integer; J : Integer) return Long_Float is
+    function Element(M: T_Matrice; I : Integer; J : Integer) return Boolean is
     begin
         if Est_Nulle(M) then
-            return 0.0;
+            return False;
         else
             return Vecteurs_Creux.Composante(M(J),I);
         end if;

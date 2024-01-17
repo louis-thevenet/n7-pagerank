@@ -15,7 +15,8 @@ package body Lire_Graphe is
                 Get (File, Entier_1);
                 Get (File, Entier_2);
                 Facteurs(Entier_1+1) := Facteurs(Entier_1+1)+1.0;
-                Vecteurs_Creux.Incremente(H(Entier_2+1), Entier_1+1);
+                Matrices_Creuses_Inst.Modifier(H, Entier_1+1, Entier_2+1);
+                --Vecteurs_Creux.Incremente(H(Entier_2+1), Entier_1+1);
             end loop;
         exception
             when End_Error =>

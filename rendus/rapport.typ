@@ -255,7 +255,7 @@ Nous avons réussi à implanter de manière robuste les deux versions de l'algor
 
 Nous avons pour perspective d’améliorer la précision de nos calculs de poids en introduisant un paramètre générique de précision dans nos différents programmes.
 
-Nous aurions également voulu tester une autre idée si le temps nous l'avait permis. Dans la version matrices creuses, avec l'utilisation du vecteur `Facteurs`, nous avons remarqué qu'il devenait inutile de stocker des valeurs dans la matrice : il suffit de _marquer_ les cases. Ainsi, il serait possible d'utiliser une matrice de booléens. On stockerait alors seulement 8 bits (taille d'un entier) au lieu de #link("https://sites.radford.edu/~nokie/classes/320/fundamentals/fundTypes.html", "64 bits") pour des `Long_Float`. Cela permettrait de réduire la taille de la matrice de $8$ fois.
+Nous aurions également voulu tester une autre idée si le temps nous l'avait permis. Dans la version matrices creuses, avec l'utilisation du vecteur `Facteurs`, nous avons remarqué qu'il devenait inutile de stocker des valeurs dans la matrice : il suffit de _marquer_ les cases. Ainsi, il serait possible d'utiliser une matrice de booléens. On stockerait alors seulement le maillon et son indice ($8$ bits) au lieu de #link("https://sites.radford.edu/~nokie/classes/320/fundamentals/fundTypes.html", "64 bits") pour des `Long_Float`. Cela permettrait de réduire la taille de la matrice de $8$ fois.
 On pourrait également utiliser des vecteurs de bits et diviser la taille utilisée en mémoire vive par $64$
 
 == Mise à jour le mercredi 17 Janvier
