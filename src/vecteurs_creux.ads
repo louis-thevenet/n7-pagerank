@@ -20,19 +20,14 @@ package Vecteurs_Creux is
     function Est_Nul (V : in T_Vecteur_Creux) return Boolean;
 
 
-    procedure Incremente(V : in out T_Vecteur_Creux; Indice : in Integer )
-       with Pre => Indice >= 1;
-
-
 	-- Récupérer la composante (valeur) du vecteur V à l'indice Indice.
-	function Composante(V : in T_Vecteur_Creux ; Indice : in Integer) return Long_Float
+	function Composante(V : in T_Vecteur_Creux ; Indice : in Integer) return Boolean
 		with Pre => Indice >= 1;
 
 
 	-- Modifier une composante (Indice, Valeur) d'un vecteur creux.
 	procedure Modifier (V : in out T_Vecteur_Creux ;
-				       Indice : in Integer ;
-					   Valeur : in Long_Float ) with
+				       Indice : in Integer  ) with
 		pre => Indice >= 1;
         --post => Composante (V, Indice) = Valeur;
 
@@ -56,7 +51,6 @@ package Vecteurs_Creux is
 	type T_Cellule is
 		record
 			Indice : Integer;
-			Valeur : Long_Float;
 			Suivant : T_Vecteur_Creux;
 			-- Invariant :
 			--   Indice >= 1;

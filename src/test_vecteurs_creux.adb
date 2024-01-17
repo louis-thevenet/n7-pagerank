@@ -5,7 +5,6 @@ with Vecteurs_Creux;    use Vecteurs_Creux;
 procedure Test_Vecteurs_Creux is
 
     -- Spécification des fonctions de test
-    procedure Tester_Incremente;
     procedure Tester_Composante;
     procedure Tester_Est_Nul;
     procedure Tester_Sont_Egaux;
@@ -23,24 +22,24 @@ procedure Test_Vecteurs_Creux is
 
 		-- VC1 est un vecteur à deux composante
 		Initialiser (VC1);
-		Modifier (VC1,  3, -3.0);
-        Modifier (VC1, 10,  4.0);
+		Modifier (VC1,  3);
+        Modifier (VC1, 10);
 
 
           -- VC2 est un vecteur à trois composantes
 		Initialiser (VC2);
-        Modifier (VC2,    1, 2.0);
-		Modifier (VC2,    3, 3.0);
-        Modifier (VC2,  100, 2.0);
+        Modifier (VC2,    1);
+		Modifier (VC2,    3);
+        Modifier (VC2,  100);
 
 
          -- VC3 est un vecteur à 5 composantes
         Initialiser (VC3);
-        Modifier (VC3,   1, 1.0);
-        Modifier (VC3,   2, 2.0);
-        Modifier (VC3,   3, 3.0);
-        Modifier (VC3,  10, 4.0);
-		Modifier (VC3, 150, 5.0);
+        Modifier (VC3,   1);
+        Modifier (VC3,   2);
+        Modifier (VC3,   3);
+        Modifier (VC3,  10);
+		Modifier (VC3, 150);
 
 
 	end;
@@ -55,29 +54,12 @@ procedure Test_Vecteurs_Creux is
 	end;
 
 
-    procedure Tester_Incremente is
+  procedure Tester_Composante is
         VC0, VC1, VC2, VC3: T_Vecteur_Creux;
     begin
         Initialiser (VC0, VC1, VC2,VC3);
-
-        Incremente(VC0,1);
-        Incremente(VC0,16);
-        Incremente(VC0,16);
-        Incremente(VC1,3);
-        Incremente(VC1,9);
-        pragma Assert(Composante(VC0,1)=1.0);
-        pragma Assert(Composante(VC0,16)=2.0);
-        pragma Assert(Composante(VC1,9)=1.0);
-
-        Put_Line("Test de la procédure Incrémente OK");
-    end Tester_Incremente;
-
-    procedure Tester_Composante is
-        VC0, VC1, VC2, VC3: T_Vecteur_Creux;
-    begin
-        Initialiser (VC0, VC1, VC2,VC3);
-        pragma Assert( VC2.all.Valeur = Composante(VC2,100));
-        pragma Assert( -3.0 = Composante(VC1,3));
+        pragma Assert( True = Composante(VC2,100));
+        pragma Assert( True = Composante(VC1,3));
 
 
         Put_Line("Test de la procédure Composante OK");
@@ -116,8 +98,8 @@ procedure Test_Vecteurs_Creux is
 
 		--On créé un vecteur VC4 avec les mêmes composantes que VC1
 		Initialiser (VC4);
-		Modifier (VC4, 10,  4.0);
-		Modifier (VC4,  3, -3.0);
+		Modifier (VC4, 10);
+		Modifier (VC4,  3);
 
          -- On vérifie la symétrie de la fonction
         pragma Assert (Sont_Egaux (VC1, VC4));
@@ -133,7 +115,6 @@ procedure Test_Vecteurs_Creux is
 begin
 
     Tester_Composante;
-    Tester_Incremente;
 	Tester_Est_Nul;
 	Tester_Sont_Egaux;
 

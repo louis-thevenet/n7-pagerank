@@ -1,6 +1,5 @@
 with Ada.Text_IO;                 use Ada.Text_IO;
 with Ada.Integer_Text_IO;         use Ada.Integer_Text_IO;
-with Ada.Long_Float_Text_IO;           use Ada.Long_Float_Text_IO;
 with Ada.Unchecked_Deallocation;
 
 package body Vecteurs_Creux is
@@ -33,104 +32,50 @@ package body Vecteurs_Creux is
     end Est_Nul;
 
 
-	function Composante (V : in T_Vecteur_Creux ; Indice : in Integer) return Long_Float is
+	function Composante (V : in T_Vecteur_Creux ; Indice : in Integer) return Boolean is
     tmp : T_Vecteur_Creux;
 	begin
         tmp := V;
         While (True) loop
             if (Est_Nul(tmp)) then
-                return 0.0;
+                return False;
             elsif (tmp.All.Indice = Indice) then
-                return tmp.All.Valeur;
+                return True;
             elsif tmp.All.Indice > Indice then
-                return 0.0;
+                return False;
             end if;
             tmp:=tmp.All.Suivant;
         end loop;
-        return 0.0;
+        return False;
 	end Composante;
 
 
 	procedure Modifier (V : in out T_Vecteur_Creux ;
-				       Indice : in Integer ;
-					   Valeur : in Long_Float ) is
+				       Indice : in Integer) is
 tmp : T_Vecteur_Creux;
 	begin
         if Est_Nul(V) then
-            if abs(Valeur) > 0.00001 then
                 V := new T_Cellule;
                 V.All.Indice := Indice;
-                V.All.Valeur :=Valeur;
                 V.All.Suivant:=Null;
-            else
-                null;
-            end if;
 
         elsif (Indice = V.All.Indice) then
-            if abs(Valeur) > 0.000001 then
-                V.All.Valeur := Valeur;
-            else
                 V := V.Suivant;
-            end if;
 
         elsif (Indice < V.All.Indice ) then
-            if abs(Valeur) > 0.000001 then
                 tmp := new T_Cellule;
                 tmp.All := V.All;
 
                 V.All.Indice := Indice;
-                V.All.Valeur := Valeur;
                 V.All.Suivant := tmp;
-            else
-                null;
-            end if;
         elsif Est_Nul(V.All.Suivant) then
-            if abs(Valeur) > 0.000001 then
                 V.All.Suivant := new T_Cellule;
                 V.All.Suivant.All.Indice := Indice;
-                V.All.Suivant.All.Valeur :=Valeur;
                 V.All.Suivant.All.Suivant:=Null;
-            else
-                null;
-            end if;
         else
-            Modifier(V.All.Suivant, Indice, Valeur);
+            Modifier(V.All.Suivant, Indice);
         end if;
 	end Modifier;
-
-    procedure Incremente(V : in out T_Vecteur_Creux; Indice : in Integer ) is
-        tmp : T_Vecteur_Creux;
-    begin
-        if Est_Nul(V) then
-            V := new T_Cellule;
-            V.All.Indice := Indice;
-            V.All.Valeur :=1.0;
-            V.All.Suivant:=Null;
-
-
-        elsif (Indice = V.All.Indice) then
-            V.All.Valeur := V.All.Valeur+1.0;
-
-        elsif (Indice < V.All.Indice ) then
-
-            tmp := new T_Cellule;
-            tmp.All := V.All;
-
-            V.All.Indice := Indice;
-            V.All.Valeur := 1.0;
-            V.All.Suivant := tmp;
-
-        elsif Est_Nul(V.All.Suivant) then
-            V.All.Suivant := new T_Cellule;
-            V.All.Suivant.All.Indice := Indice;
-            V.All.Suivant.All.Valeur :=1.0;
-            V.All.Suivant.All.Suivant:=Null;
-
-        else
-            Incremente(V.All.Suivant, Indice);
-        end if;
-    end Incremente;
-
 
 
 	function Sont_Egaux (V1, V2 : in T_Vecteur_Creux) return Boolean is
@@ -145,7 +90,7 @@ tmp : T_Vecteur_Creux;
             elsif (Est_Nul(tmp) and Est_Nul(tmp2)) then
                 return true;
             end if;
-            if (tmp.All.Indice = tmp2.All.Indice  and then tmp.All.Valeur=tmp2.All.Valeur) then
+            if (tmp.All.Indice = tmp2.All.Indice ) then
                 tmp := tmp.All.Suivant;
                 tmp2:=tmp2.All.Suivant;
             else
@@ -164,8 +109,6 @@ tmp : T_Vecteur_Creux;
 			-- Afficher la composante V.all
 			Put ("-->[ ");
 			Put (V.all.Indice, 0);
-			Put (" | ");
-			Put (V.all.Valeur, Fore => 0, Aft => 1, Exp => 0);
 			Put (" ]");
 
 			-- Afficher les autres composantes
